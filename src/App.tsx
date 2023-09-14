@@ -8,6 +8,7 @@ import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
+import { auth } from "./firebase";
 
 const router = createBrowserRouter([
   {
@@ -48,9 +49,11 @@ body{
 
 const App = () => {
   const [isLoading, setLoading] = useState(true);
+
+  // 앱이 로드될 때 Firebase의 인증 상태가 준비됐는지 확인하는 함수
   const init = async () => {
-    // 파이어베이스 초기화
-    setLoading(false);
+    await auth.authStateReady(); // Firebase의 인증 시스템이 앱에서 사용할 준비가 완료되면
+    setLoading(false); // 로딩 상태를 false로 변경
   };
   useEffect(() => {
     init();
