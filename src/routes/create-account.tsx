@@ -11,6 +11,7 @@ import {
   Wrapper,
   Error,
 } from "../components/auth-components";
+import { TbBrandPeanut } from "react-icons/tb";
 
 const errors = {
   "auth/email-already-in-use": "이미 사용중인 이메일입니다.",
@@ -60,7 +61,9 @@ const CreateAccount = () => {
   };
   return (
     <Wrapper>
-      <Title>Join 𝕏</Title>
+      <Title>
+        Join <TbBrandPeanut />
+      </Title>
       <Form onSubmit={onSubmit}>
         <Input
           onChange={onChange}
