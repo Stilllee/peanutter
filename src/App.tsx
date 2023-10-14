@@ -4,7 +4,7 @@ import Home from "./routes/home";
 import Profile from "./routes/profile";
 import Login from "./routes/login";
 import CreateAccount from "./routes/create-account";
-import { createGlobalStyle, styled } from "styled-components";
+import { createGlobalStyle, styled, ThemeProvider } from "styled-components";
 import reset from "styled-reset";
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
@@ -40,15 +40,38 @@ const router = createBrowserRouter([
   },
 ]);
 
+const theme = {
+  yellow: "#f9d142",
+  brown: "#292826",
+  lightGray: "#f7f7f7",
+  lineGray: "#cfd9de",
+  darkGray: "#2e363e",
+};
+
 const GlobalStyle = createGlobalStyle`
 ${reset};
 *{
   box-sizing: border-box;
 }
 body{
-  background-color: black;
-  color: white;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: white;
+  color: black;
+  font-family:
+    'Pretendard Variable',
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
 }
 `;
 const Wrapper = styled.div`
@@ -69,10 +92,12 @@ const App = () => {
     init();
   }, []);
   return (
-    <Wrapper>
-      <GlobalStyle />
-      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
-    </Wrapper>
+    <ThemeProvider theme={theme}>
+      <Wrapper>
+        <GlobalStyle />
+        {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+      </Wrapper>
+    </ThemeProvider>
   );
 };
 
