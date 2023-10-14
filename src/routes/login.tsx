@@ -40,7 +40,7 @@ const LogIn = () => {
     try {
       setLoading(true);
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/");
+      navigate("/home");
     } catch (e) {
       if (e instanceof FirebaseError) {
         setError(e.message);

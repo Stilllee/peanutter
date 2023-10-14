@@ -10,8 +10,13 @@ import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
 import { auth } from "./firebase";
 import ProtectedRoute from "./components/protected-route";
+import LandingPage from "./routes/LandingPage";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LandingPage />,
+  },
   {
     path: "/",
     element: (
@@ -21,7 +26,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "",
+        path: "home",
         element: <Home />,
       },
       {
