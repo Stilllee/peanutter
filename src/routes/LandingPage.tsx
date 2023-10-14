@@ -1,6 +1,6 @@
 import styled from "styled-components";
-
 import { TbBrandPeanut } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 
 const Main = styled.main`
   width: 100%;
@@ -168,6 +168,7 @@ const NavItems = [
 ];
 
 const LandingPage = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Main>
@@ -187,7 +188,9 @@ const LandingPage = () => {
             </OrBox>
             <div>
               <CreateAccountBox>
-                <CreateAccountBtn>Create account</CreateAccountBtn>
+                <CreateAccountBtn onClick={() => navigate("/create-account")}>
+                  Create account
+                </CreateAccountBtn>
                 <Notice>
                   가입하시려면 <Highlighted>쿠키사용</Highlighted>을 포함해{" "}
                   <Highlighted>이용약관</Highlighted>과{" "}
@@ -198,7 +201,7 @@ const LandingPage = () => {
               <AlreadyHaveAccount>
                 이미 피너터에 가입하셨나요?
               </AlreadyHaveAccount>
-              <LoginBtn>로그인</LoginBtn>
+              <LoginBtn onClick={() => navigate("/login")}>로그인</LoginBtn>
             </div>
           </AuthBox>
         </div>
