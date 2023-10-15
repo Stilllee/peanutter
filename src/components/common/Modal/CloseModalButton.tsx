@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
-import useGoto from "../../../hooks/useGoto";
+import { useCustomNavigate } from "../../../hooks/useCustomNavigate";
 
 export const CloseBtn = styled(MdClose)`
   cursor: pointer;
@@ -20,9 +20,9 @@ export const CloseBtn = styled(MdClose)`
 `;
 
 const CloseModalButton = () => {
-  const goto = useGoto();
+  const { goBack } = useCustomNavigate();
   const onCloseModal = () => {
-    goto(-1);
+    goBack();
   };
   return <CloseBtn onClick={onCloseModal} />;
 };

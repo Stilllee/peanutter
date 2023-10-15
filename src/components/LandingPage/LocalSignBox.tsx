@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Button from "./Button";
 import { device } from "../../constants/breakpoints";
-import useGoto from "../../hooks/useGoto";
+import { useCustomNavigate } from "../../hooks/useCustomNavigate";
 
 const CreateAccountBox = styled.div`
   margin-bottom: 60px;
@@ -48,12 +48,12 @@ const LoginBtn = styled(Button)`
 `;
 
 const LocalSignBox = () => {
-  const goto = useGoto();
+  const { navigateTo } = useCustomNavigate();
   return (
     <>
       <CreateAccountBox>
         <CreateAccountBtn
-          onClick={() => goto("/create-account")}
+          onClick={() => navigateTo("/create-account")}
           aria-label="새 계정 만들기"
         >
           계정 만들기
@@ -67,7 +67,7 @@ const LocalSignBox = () => {
       <AlreadyHaveAccount aria-label="이미 계정을 가지고 계신 경우">
         이미 피너터에 가입하셨나요?
       </AlreadyHaveAccount>
-      <LoginBtn onClick={() => goto("/login")} aria-label="로그인">
+      <LoginBtn onClick={() => navigateTo("/login")} aria-label="로그인">
         로그인
       </LoginBtn>
     </>

@@ -8,7 +8,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../../firebase";
-import useGoto from "../../hooks/useGoto";
+import { useCustomNavigate } from "../../hooks/useCustomNavigate";
 
 const Container = styled.div`
   display: flex;
@@ -25,13 +25,13 @@ const SocialLoginBtn = styled(Button)`
 `;
 
 const SocialLoginBox = () => {
-  const goto = useGoto();
+  const { navigateTo } = useCustomNavigate();
 
   const onGithubLogin = async () => {
     try {
       const provider = new GithubAuthProvider();
       await signInWithPopup(auth, provider);
-      goto("/home");
+      navigateTo("/home", true);
     } catch (error) {
       console.log(error);
     }
@@ -41,7 +41,7 @@ const SocialLoginBox = () => {
     try {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
-      goto("/home");
+      navigateTo("/home", true);
     } catch (error) {
       console.log(error);
     }

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import {
   Form,
@@ -14,22 +14,28 @@ import {
 } from "../components/auth-components";
 import { TbBrandPeanut } from "react-icons/tb";
 import CloseModalButton from "../components/common/Modal/CloseModalButton";
+import { useCustomNavigate } from "../hooks/useCustomNavigate";
+
+/* 
+// 에러핸들링 예정
 
 const errors = {
   "auth/email-already-in-use": "이미 사용중인 이메일입니다.",
-};
+}; 
+*/
 
 const Container = styled.div`
   position: relative;
 `;
 
 const CreateAccount = () => {
-  const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassowrd] = useState("");
   const [error, setError] = useState("");
+
+  const { navigateTo } = useCustomNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -57,7 +63,7 @@ const CreateAccount = () => {
       await updateProfile(credentials.user, {
         displayName: name,
       });
-      navigate("/");
+      navigateTo("/", true);
     } catch (e) {
       if (e instanceof FirebaseError) {
         setError(e.message);

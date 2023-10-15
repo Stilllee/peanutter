@@ -1,12 +1,12 @@
 import { auth } from "../firebase";
-import useGoto from "../hooks/useGoto";
+import { useCustomNavigate } from "../hooks/useCustomNavigate";
 
 const Home = () => {
-  const goto = useGoto();
+  const { navigateTo } = useCustomNavigate();
 
   const logOut = () => {
     auth.signOut();
-    goto("/");
+    navigateTo("/", true);
   };
   return (
     <h1>
