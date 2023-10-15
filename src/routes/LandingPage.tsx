@@ -150,8 +150,8 @@ const CreateAccountBtn = styled(Button)`
   border-color: ${({ theme }) => theme.yellow};
   margin: 8px 0;
   &:hover {
-    background-color: #f7c625;
-    border-color: #f7c625;
+    background-color: ${({ theme }) => theme.hoverYellow};
+    border-color: ${({ theme }) => theme.hoverYellow};
   }
 `;
 
@@ -162,7 +162,7 @@ const Notice = styled.p`
 `;
 
 const Highlighted = styled.span`
-  color: ${({ theme }) => theme.yellow};
+  color: ${({ theme }) => theme.hoverYellow};
   &:hover {
     cursor: pointer;
     text-decoration: underline;

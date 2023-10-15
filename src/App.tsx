@@ -51,6 +51,7 @@ const theme = {
   lightGray: "#f7f7f7",
   lineGray: "#cfd9de",
   darkGray: "#2e363e",
+  hoverYellow: "#f7c625",
 };
 
 const GlobalStyle = createGlobalStyle`
