@@ -2,35 +2,93 @@ import styled from "styled-components";
 import { TbBrandPeanut } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 
-const Main = styled.main`
+const Wrapper = styled.main`
   width: 100%;
-  height: 100vh;
+  min-width: 372px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media (max-width: 500px) {
+    justify-content: flex-start;
+  }
+`;
+
+const Main = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+
+  @media (max-width: 500px) {
+    align-items: flex-start;
+    height: auto;
+  }
+`;
+
+const Container = styled.div`
+  padding: 20px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 60px;
+  }
+
+  @media (max-width: 500px) {
+    margin: 0 30px 20px 30px;
+  }
 `;
 
 const Logo = styled(TbBrandPeanut)`
   color: ${({ theme }) => theme.brown};
-  font-size: 500px;
+  font-size: 420px;
+
+  @media (max-width: 1000px) {
+    font-size: 65px;
+  }
+`;
+
+const AuthForm = styled.div`
+  margin-right: 60px;
+
+  @media (max-width: 1000px) {
+    margin-right: 0;
+  }
 `;
 
 const Title = styled.h1`
   color: ${({ theme }) => theme.brown};
-  font-size: 64px;
+  font-size: 63px;
   font-weight: 700;
   line-height: 84px;
   letter-spacing: -1.2px;
   margin: 48px 0;
+
+  @media (max-width: 500px) {
+    font-size: 44px;
+    line-height: 54px;
+    margin: 40px 0;
+  }
 `;
 
 const SubTitle = styled.h2`
   color: ${({ theme }) => theme.brown};
   font-size: 31px;
   font-weight: 700;
-  line-height: 36px;
   margin-bottom: 32px;
+
+  @media (max-width: 500px) {
+    font-size: 23px;
+    margin-bottom: 20px;
+  }
 `;
 
 const AuthBox = styled.div`
@@ -116,6 +174,10 @@ const AlreadyHaveAccount = styled.h3`
   font-size: 17px;
   font-weight: 700;
   margin-bottom: 20px;
+
+  @media (max-width: 500px) {
+    margin-bottom: 16px;
+  }
 `;
 
 const LoginBtn = styled(Button)`
@@ -124,9 +186,7 @@ const LoginBtn = styled(Button)`
 
 const Nav = styled.nav`
   width: 100%;
-  position: fixed;
-  bottom: 0;
-  padding: 16px 0;
+  padding: 16px 20px;
 `;
 
 const NavList = styled.ul`
@@ -134,9 +194,11 @@ const NavList = styled.ul`
   flex-direction: row;
   justify-content: center;
   gap: 16px;
+  flex-wrap: wrap;
 `;
 
 const NavItem = styled.li`
+  white-space: nowrap;
   cursor: pointer;
   font-size: 13px;
   color: ${({ theme }) => theme.darkGray};
@@ -170,41 +232,43 @@ const NavItems = [
 const LandingPage = () => {
   const navigate = useNavigate();
   return (
-    <>
+    <Wrapper>
       <Main>
-        <Logo />
-        <div>
-          <Title>지금 일어나고 있는 일</Title>
-          <SubTitle>지금 가입하세요.</SubTitle>
-          <AuthBox>
-            <SocialLoginBox>
-              <SocialLoginBtn>Google에서 가입하기</SocialLoginBtn>
-              <SocialLoginBtn>Github에서 가입하기</SocialLoginBtn>
-            </SocialLoginBox>
-            <OrBox>
-              <Line />
-              <Or>또는</Or>
-              <Line />
-            </OrBox>
-            <div>
-              <CreateAccountBox>
-                <CreateAccountBtn onClick={() => navigate("/create-account")}>
-                  Create account
-                </CreateAccountBtn>
-                <Notice>
-                  가입하시려면 <Highlighted>쿠키사용</Highlighted>을 포함해{" "}
-                  <Highlighted>이용약관</Highlighted>과{" "}
-                  <Highlighted>개인정보 처리방침</Highlighted>에 동의해야
-                  합니다.
-                </Notice>
-              </CreateAccountBox>
-              <AlreadyHaveAccount>
-                이미 피너터에 가입하셨나요?
-              </AlreadyHaveAccount>
-              <LoginBtn onClick={() => navigate("/login")}>로그인</LoginBtn>
-            </div>
-          </AuthBox>
-        </div>
+        <Container>
+          <Logo />
+          <AuthForm>
+            <Title>지금 일어나고 있는 일</Title>
+            <SubTitle>지금 가입하세요.</SubTitle>
+            <AuthBox>
+              <SocialLoginBox>
+                <SocialLoginBtn>Google에서 가입하기</SocialLoginBtn>
+                <SocialLoginBtn>Github에서 가입하기</SocialLoginBtn>
+              </SocialLoginBox>
+              <OrBox>
+                <Line />
+                <Or>또는</Or>
+                <Line />
+              </OrBox>
+              <div>
+                <CreateAccountBox>
+                  <CreateAccountBtn onClick={() => navigate("/create-account")}>
+                    Create account
+                  </CreateAccountBtn>
+                  <Notice>
+                    가입하시려면 <Highlighted>쿠키사용</Highlighted>을 포함해{" "}
+                    <Highlighted>이용약관</Highlighted>과{" "}
+                    <Highlighted>개인정보 처리방침</Highlighted>에 동의해야
+                    합니다.
+                  </Notice>
+                </CreateAccountBox>
+                <AlreadyHaveAccount>
+                  이미 피너터에 가입하셨나요?
+                </AlreadyHaveAccount>
+                <LoginBtn onClick={() => navigate("/login")}>로그인</LoginBtn>
+              </div>
+            </AuthBox>
+          </AuthForm>
+        </Container>
       </Main>
       <Nav>
         <NavList>
@@ -213,7 +277,7 @@ const LandingPage = () => {
           ))}
         </NavList>
       </Nav>
-    </>
+    </Wrapper>
   );
 };
 
