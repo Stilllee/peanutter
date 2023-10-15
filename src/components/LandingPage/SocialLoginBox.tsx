@@ -20,11 +20,11 @@ const SocialLoginBtn = styled(Button)`
 const SocialLoginBox = () => {
   return (
     <Container>
-      <SocialLoginBtn>
+      <SocialLoginBtn aria-label="Google에서 가입하기">
         <FcGoogle />
         Google에서 가입하기
       </SocialLoginBtn>
-      <SocialLoginBtn>
+      <SocialLoginBtn aria-label="Github에서 가입하기">
         <FaGithub />
         Github에서 가입하기
       </SocialLoginBtn>

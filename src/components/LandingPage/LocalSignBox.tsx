@@ -52,7 +52,10 @@ const LocalSignBox = () => {
   return (
     <>
       <CreateAccountBox>
-        <CreateAccountBtn onClick={() => goto("/create-account")}>
+        <CreateAccountBtn
+          onClick={() => goto("/create-account")}
+          aria-label="새 계정 만들기"
+        >
           Create account
         </CreateAccountBtn>
         <Notice>
@@ -61,8 +64,12 @@ const LocalSignBox = () => {
           <Highlighted>개인정보 처리방침</Highlighted>에 동의해야 합니다.
         </Notice>
       </CreateAccountBox>
-      <AlreadyHaveAccount>이미 피너터에 가입하셨나요?</AlreadyHaveAccount>
-      <LoginBtn onClick={() => goto("/login")}>로그인</LoginBtn>
+      <AlreadyHaveAccount aria-label="이미 계정을 가지고 계신 경우">
+        이미 피너터에 가입하셨나요?
+      </AlreadyHaveAccount>
+      <LoginBtn onClick={() => goto("/login")} aria-label="로그인">
+        로그인
+      </LoginBtn>
     </>
   );
 };
