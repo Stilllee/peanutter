@@ -3,6 +3,7 @@ import { TbBrandPeanut } from "react-icons/tb";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
+import useGoto from "../hooks/useGoto";
 
 const Wrapper = styled.main`
   width: 100%;
@@ -236,7 +237,7 @@ const NavItems = [
 ];
 
 const LandingPage = () => {
-  const navigate = useNavigate();
+  const goto = useGoto();
   return (
     <Wrapper>
       <Main>
@@ -263,7 +264,7 @@ const LandingPage = () => {
               </OrBox>
               <div>
                 <CreateAccountBox>
-                  <CreateAccountBtn onClick={() => navigate("/create-account")}>
+                  <CreateAccountBtn onClick={() => goto("/create-account")}>
                     Create account
                   </CreateAccountBtn>
                   <Notice>
@@ -276,7 +277,7 @@ const LandingPage = () => {
                 <AlreadyHaveAccount>
                   이미 피너터에 가입하셨나요?
                 </AlreadyHaveAccount>
-                <LoginBtn onClick={() => navigate("/login")}>로그인</LoginBtn>
+                <LoginBtn onClick={() => goto("/login")}>로그인</LoginBtn>
               </div>
             </AuthBox>
           </AuthForm>
