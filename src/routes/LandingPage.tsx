@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import { TbBrandPeanut } from "react-icons/tb";
-import useGoto from "../hooks/useGoto";
 import { device } from "../constants/breakpoints";
 import Nav from "../components/LandingPage/Nav";
 import SocialLoginBox from "../components/LandingPage/SocialLoginBox";
-import Button from "../components/LandingPage/Button";
+import LocalSignBox from "../components/LandingPage/LocalSignBox";
 
-const Wrapper = styled.main`
+const Container = styled.div`
   width: 100%;
   min-width: 372px;
   display: flex;
@@ -18,7 +17,7 @@ const Wrapper = styled.main`
   }
 `;
 
-const Main = styled.div`
+const Main = styled.main`
   height: 100%;
   display: flex;
   justify-content: center;
@@ -31,7 +30,7 @@ const Main = styled.div`
   }
 `;
 
-const Container = styled.div`
+const Section = styled.section`
   padding: 20px;
   width: 100%;
   display: flex;
@@ -98,7 +97,7 @@ const SubTitle = styled.h2`
   }
 `;
 
-const AuthBox = styled.div`
+const SignBox = styled.div`
   width: 300px;
 `;
 
@@ -121,90 +120,29 @@ const Line = styled.div`
   background-color: ${({ theme }) => theme.lineGray};
 `;
 
-const CreateAccountBox = styled.div`
-  margin-bottom: 60px;
-`;
-
-const CreateAccountBtn = styled(Button)`
-  color: ${({ theme }) => theme.brown};
-  background-color: ${({ theme }) => theme.yellow};
-  border-color: ${({ theme }) => theme.yellow};
-  margin: 8px 0;
-  &:hover {
-    background-color: ${({ theme }) => theme.hoverYellow};
-    border-color: ${({ theme }) => theme.hoverYellow};
-  }
-`;
-
-const Notice = styled.p`
-  color: ${({ theme }) => theme.darkGray};
-  font-size: 12px;
-  line-height: 13px;
-`;
-
-const Highlighted = styled.span`
-  color: ${({ theme }) => theme.hoverYellow};
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
-`;
-
-const AlreadyHaveAccount = styled.h3`
-  color: ${({ theme }) => theme.brown};
-  font-size: 17px;
-  font-weight: 700;
-  margin-bottom: 20px;
-
-  @media ${device.mobile} {
-    margin-bottom: 16px;
-  }
-`;
-
-const LoginBtn = styled(Button)`
-  color: ${({ theme }) => theme.brown};
-`;
-
 const LandingPage = () => {
-  const goto = useGoto();
   return (
-    <Wrapper>
+    <Container>
       <Main>
-        <Container>
+        <Section>
           <Logo />
           <AuthForm>
             <Title>지금 일어나고 있는 일</Title>
             <SubTitle>지금 가입하세요.</SubTitle>
-            <AuthBox>
+            <SignBox>
               <SocialLoginBox />
               <OrBox>
                 <Line />
                 <Or>또는</Or>
                 <Line />
               </OrBox>
-              <div>
-                <CreateAccountBox>
-                  <CreateAccountBtn onClick={() => goto("/create-account")}>
-                    Create account
-                  </CreateAccountBtn>
-                  <Notice>
-                    가입하시려면 <Highlighted>쿠키사용</Highlighted>을 포함해{" "}
-                    <Highlighted>이용약관</Highlighted>과{" "}
-                    <Highlighted>개인정보 처리방침</Highlighted>에 동의해야
-                    합니다.
-                  </Notice>
-                </CreateAccountBox>
-                <AlreadyHaveAccount>
-                  이미 피너터에 가입하셨나요?
-                </AlreadyHaveAccount>
-                <LoginBtn onClick={() => goto("/login")}>로그인</LoginBtn>
-              </div>
-            </AuthBox>
+              <LocalSignBox />
+            </SignBox>
           </AuthForm>
-        </Container>
+        </Section>
       </Main>
       <Nav />
-    </Wrapper>
+    </Container>
   );
 };
 
