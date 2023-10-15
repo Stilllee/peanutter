@@ -1,15 +1,15 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Layout from "./components/layout";
-import Home from "./routes/home";
-import Profile from "./routes/profile";
-import Login from "./routes/login";
-import CreateAccount from "./routes/create-account";
+import Layout from "./components/Layout";
+import Home from "./routes/Home";
+import Profile from "./routes/Profile";
+import Login from "./routes/LogIn";
+import CreateAccount from "./routes/CreateAccount";
 import { createGlobalStyle, styled, ThemeProvider } from "styled-components";
 import reset from "styled-reset";
 import { useEffect, useState } from "react";
-import LoadingScreen from "./components/loading-screen";
+import LoadingScreen from "./components/LoadingScreen";
 import { auth } from "./firebase";
-import ProtectedRoute from "./components/protected-route";
+import ProtectedRoute from "./components/ProtectedRoute";
 import LandingPage from "./routes/LandingPage";
 import Modal from "./components/common/Modal/Modal";
 
