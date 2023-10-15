@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { TbBrandPeanut } from "react-icons/tb";
+import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
+import { FaGithub } from "react-icons/fa";
 
 const Wrapper = styled.main`
   width: 100%;
@@ -119,6 +121,10 @@ const Button = styled.button`
 
 const SocialLoginBtn = styled(Button)`
   color: ${({ theme }) => theme.darkGray};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
 `;
 
 const OrBox = styled.div`
@@ -241,8 +247,14 @@ const LandingPage = () => {
             <SubTitle>지금 가입하세요.</SubTitle>
             <AuthBox>
               <SocialLoginBox>
-                <SocialLoginBtn>Google에서 가입하기</SocialLoginBtn>
-                <SocialLoginBtn>Github에서 가입하기</SocialLoginBtn>
+                <SocialLoginBtn>
+                  <FcGoogle />
+                  Google에서 가입하기
+                </SocialLoginBtn>
+                <SocialLoginBtn>
+                  <FaGithub />
+                  Github에서 가입하기
+                </SocialLoginBtn>
               </SocialLoginBox>
               <OrBox>
                 <Line />
