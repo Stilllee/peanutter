@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../../constants/breakpoints";
 
 const Overlay = styled.div`
   z-index: 999;
@@ -15,9 +16,19 @@ const Overlay = styled.div`
 const Container = styled.div`
   background-color: white;
   padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
+  border-radius: 16px;
+  width: 600px;
+  height: 650px;
+
+  @media ${device.tablet} {
+    width: 500px;
+    height: 550px;
+  }
+  @media ${device.mobile} {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
 `;
 
 interface ModalProps {
