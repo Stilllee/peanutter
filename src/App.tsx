@@ -11,7 +11,7 @@ import LoadingScreen from "./components/loading-screen";
 import { auth } from "./firebase";
 import ProtectedRoute from "./components/protected-route";
 import LandingPage from "./routes/LandingPage";
-import Modal from "./components/Modal";
+import Modal from "./components/common/Modal/Modal";
 
 const router = createBrowserRouter([
   {
