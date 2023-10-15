@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { TbBrandPeanut } from "react-icons/tb";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 import useGoto from "../hooks/useGoto";
+import { device } from "../constants/breakpoints";
 
 const Wrapper = styled.main`
   width: 100%;
@@ -12,7 +12,7 @@ const Wrapper = styled.main`
   flex-direction: column;
   justify-content: space-between;
 
-  @media (max-width: 500px) {
+  @media ${device.mobile} {
     justify-content: flex-start;
   }
 `;
@@ -24,7 +24,7 @@ const Main = styled.div`
   align-items: center;
   overflow-y: auto;
 
-  @media (max-width: 500px) {
+  @media ${device.mobile} {
     align-items: flex-start;
     height: auto;
   }
@@ -38,14 +38,17 @@ const Container = styled.div`
   justify-content: space-around;
   align-items: center;
 
-  @media (max-width: 1000px) {
+  @media ${device.mobile}, ${device.tablet} {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+  }
+
+  @media ${device.tablet} {
     margin: 0 60px;
   }
 
-  @media (max-width: 500px) {
+  @media ${device.mobile} {
     margin: 0 30px 20px 30px;
   }
 `;
@@ -54,7 +57,7 @@ const Logo = styled(TbBrandPeanut)`
   color: ${({ theme }) => theme.brown};
   font-size: 420px;
 
-  @media (max-width: 1000px) {
+  @media ${device.mobile}, ${device.tablet} {
     font-size: 65px;
   }
 `;
@@ -62,7 +65,7 @@ const Logo = styled(TbBrandPeanut)`
 const AuthForm = styled.div`
   margin-right: 60px;
 
-  @media (max-width: 1000px) {
+  @media ${device.mobile}, ${device.tablet} {
     margin-right: 0;
   }
 `;
@@ -75,7 +78,7 @@ const Title = styled.h1`
   letter-spacing: -1.2px;
   margin: 48px 0;
 
-  @media (max-width: 500px) {
+  @media ${device.mobile} {
     font-size: 44px;
     line-height: 54px;
     margin: 40px 0;
@@ -88,7 +91,7 @@ const SubTitle = styled.h2`
   font-weight: 700;
   margin-bottom: 32px;
 
-  @media (max-width: 500px) {
+  @media ${device.mobile} {
     font-size: 23px;
     margin-bottom: 20px;
   }
@@ -182,7 +185,7 @@ const AlreadyHaveAccount = styled.h3`
   font-weight: 700;
   margin-bottom: 20px;
 
-  @media (max-width: 500px) {
+  @media ${device.mobile} {
     margin-bottom: 16px;
   }
 `;
