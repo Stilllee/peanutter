@@ -1,8 +1,12 @@
 import { auth } from "../firebase";
+import useGoto from "../hooks/useGoto";
 
 const Home = () => {
+  const goto = useGoto();
+
   const logOut = () => {
     auth.signOut();
+    goto("/");
   };
   return (
     <h1>
