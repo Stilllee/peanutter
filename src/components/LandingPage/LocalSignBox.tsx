@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import styled from "styled-components";
 import Button from "./Button";
 import { device } from "../../constants/breakpoints";
 import useGoto from "../../hooks/useGoto";
