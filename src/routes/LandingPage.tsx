@@ -284,8 +284,8 @@ const LandingPage = () => {
       </Main>
       <Nav>
         <NavList>
-          {NavItems.map((item, index) => (
-            <NavItem key={index}>{item}</NavItem>
+          {NavItems.map((item) => (
+            <NavItem key={item}>{item}</NavItem>
           ))}
         </NavList>
       </Nav>
