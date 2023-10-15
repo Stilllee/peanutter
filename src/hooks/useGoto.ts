@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
 
-const useGoto = () => {
+type Goto = (route: string | -1) => void;
+
+const useGoto = (): Goto => {
   const navigate = useNavigate();
 
-  return (route: string) => {
-    navigate(route);
+  return (route) => {
+    if (typeof route === "string") {
+      navigate(route);
+    } else if (route === -1) {
+      navigate(-1);
+    }
   };
 };
 
