@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import Button from "./Button";
-import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../../firebase";
 import useGoto from "../../hooks/useGoto";
 
@@ -22,6 +26,7 @@ const SocialLoginBtn = styled(Button)`
 
 const SocialLoginBox = () => {
   const goto = useGoto();
+
   const onGithubLogin = async () => {
     try {
       const provider = new GithubAuthProvider();
@@ -31,9 +36,20 @@ const SocialLoginBox = () => {
       console.log(error);
     }
   };
+
+  const onGoogleLogin = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      goto("/home");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
-      <SocialLoginBtn aria-label="Google에서 가입하기">
+      <SocialLoginBtn onClick={onGoogleLogin} aria-label="Google에서 가입하기">
         <FcGoogle />
         Google에서 가입하기
       </SocialLoginBtn>
