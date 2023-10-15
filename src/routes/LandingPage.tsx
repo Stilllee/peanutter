@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { TbBrandPeanut } from "react-icons/tb";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
 import useGoto from "../hooks/useGoto";
 import { device } from "../constants/breakpoints";
 import Nav from "../components/LandingPage/Nav";
+import SocialLoginBox from "../components/LandingPage/SocialLoginBox";
+import Button from "../components/LandingPage/Button";
 
 const Wrapper = styled.main`
   width: 100%;
@@ -102,36 +102,6 @@ const AuthBox = styled.div`
   width: 300px;
 `;
 
-const SocialLoginBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-const Button = styled.button`
-  cursor: pointer;
-  width: 300px;
-  height: 40px;
-  border-radius: 20px;
-  border: 1px solid ${({ theme }) => theme.lineGray};
-  background-color: white;
-  font-size: 15px;
-  font-weight: 700;
-  transition: all 0.3s ease;
-  &:hover {
-    background-color: ${({ theme }) => theme.lightGray};
-    border-color: ${({ theme }) => theme.lightGray};
-  }
-`;
-
-const SocialLoginBtn = styled(Button)`
-  color: ${({ theme }) => theme.darkGray};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-`;
-
 const OrBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -206,16 +176,7 @@ const LandingPage = () => {
             <Title>지금 일어나고 있는 일</Title>
             <SubTitle>지금 가입하세요.</SubTitle>
             <AuthBox>
-              <SocialLoginBox>
-                <SocialLoginBtn>
-                  <FcGoogle />
-                  Google에서 가입하기
-                </SocialLoginBtn>
-                <SocialLoginBtn>
-                  <FaGithub />
-                  Github에서 가입하기
-                </SocialLoginBtn>
-              </SocialLoginBox>
+              <SocialLoginBox />
               <OrBox>
                 <Line />
                 <Or>또는</Or>
