@@ -23,6 +23,7 @@ const Main = styled.main`
   justify-content: center;
   align-items: center;
   overflow-y: auto;
+  overflow-x: hidden;
 
   @media ${device.mobile} {
     align-items: flex-start;

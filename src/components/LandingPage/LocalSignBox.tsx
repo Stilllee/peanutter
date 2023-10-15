@@ -56,7 +56,7 @@ const LocalSignBox = () => {
           onClick={() => goto("/create-account")}
           aria-label="새 계정 만들기"
         >
-          Create account
+          계정 만들기
         </CreateAccountBtn>
         <Notice>
           가입하시려면 <Highlighted>쿠키사용</Highlighted>을 포함해{" "}
