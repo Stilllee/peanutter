@@ -49,11 +49,17 @@ const SocialLoginBox = () => {
 
   return (
     <Container>
-      <SocialLoginBtn onClick={onGoogleLogin} aria-label="Google 로그인">
+      <SocialLoginBtn
+        onClick={onGoogleLogin}
+        aria-label="Google 계정으로 로그인"
+      >
         <FcGoogle />
         Google 로그인
       </SocialLoginBtn>
-      <SocialLoginBtn onClick={onGithubLogin} aria-label="Github 로그인">
+      <SocialLoginBtn
+        onClick={onGithubLogin}
+        aria-label="Github 계정으로 로그인"
+      >
         <FaGithub />
         Github 로그인
       </SocialLoginBtn>
