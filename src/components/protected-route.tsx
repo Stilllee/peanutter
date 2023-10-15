@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/" />;
   }
 
-  return children;
+  return <>{children}</>;
 };
 
 export default ProtectedRoute;
