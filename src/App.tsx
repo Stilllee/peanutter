@@ -2,8 +2,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./routes/Home";
 import Profile from "./routes/Profile";
-import Login from "./routes/LogIn";
-import CreateAccount from "./routes/CreateAccount";
 import { createGlobalStyle, styled, ThemeProvider } from "styled-components";
 import reset from "styled-reset";
 import { useEffect, useState } from "react";
@@ -11,8 +9,7 @@ import LoadingScreen from "./components/LoadingScreen";
 import { auth } from "./firebase";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LandingPage from "./routes/LandingPage";
-import Modal from "./components/common/Modal/Modal";
-import PasswordReset from "./routes/PasswordReset";
+import { RecoilRoot } from "recoil";
 
 const router = createBrowserRouter([
   {
@@ -92,12 +89,14 @@ const App = () => {
     init();
   }, []);
   return (
-    <ThemeProvider theme={theme}>
-      <Wrapper>
-        <GlobalStyle />
-        {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
-      </Wrapper>
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <Wrapper>
+          <GlobalStyle />
+          {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+        </Wrapper>
+      </ThemeProvider>
+    </RecoilRoot>
   );
 };
 
