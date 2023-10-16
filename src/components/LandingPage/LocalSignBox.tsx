@@ -55,19 +55,18 @@ const LoginBtn = styled(Button)`
   color: ${({ theme }) => theme.brown};
 `;
 
-const useModal = (initialModal = null) => {
-  const [currentModal, setCurrentModal] = useState(initialModal);
+type ModalType = "createAccount" | "logIn" | null;
 
-  const openModal = (modalType) => setCurrentModal(modalType);
+const useModal = () => {
+  const [currentModal, setCurrentModal] = useState<ModalType>(null);
+
+  const openModal = (modalType: ModalType) => setCurrentModal(modalType);
   const closeModal = () => setCurrentModal(null);
 
   return { currentModal, openModal, closeModal };
 };
 
 const LocalSignBox = () => {
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
-
   const { currentModal, openModal, closeModal } = useModal();
 
   return (
