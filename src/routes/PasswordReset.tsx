@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { TbBrandPeanut } from "react-icons/tb";
 import { Input, Title } from "../components/auth-components";
-import { useState } from "react";
+import React, { useState } from "react";
 import CloseModalButton from "../components/common/Modal/CloseModalButton";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../firebase";
+import { useCustomNavigate } from "../hooks/useCustomNavigate";
 
 const Container = styled.div`
   width: 100%;
@@ -28,8 +31,6 @@ const Text = styled.p`
   color: ${({ theme }) => theme.darkGray};
 `;
 
-const ResetPwForm = styled.form``;
-
 const EmailInput = styled(Input)`
   width: 100%;
 `;
@@ -44,8 +45,15 @@ const ResetPwSubmit = styled(Input)`
   margin: 0 60px;
 `;
 
+interface FirebaseError {
+  code?: string;
+  message: string;
+}
+
 const PasswordReset = () => {
   const [email, setEmail] = useState("");
+
+  const { navigateTo } = useCustomNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -53,6 +61,18 @@ const PasswordReset = () => {
     } = e;
     if (name === "email") {
       setEmail(value);
+    }
+  };
+
+  const onResetPw = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      await sendPasswordResetEmail(auth, email);
+      alert("비밀번호 재설정 이메일을 보냈습니다. 이메일을 확인해주세요.");
+      navigateTo("/login", true);
+    } catch (error) {
+      const firebaseError = error as FirebaseError;
+      console.log(firebaseError.message);
     }
   };
 
@@ -64,7 +84,7 @@ const PasswordReset = () => {
           계정 찾기
         </Title>
         <Text>비밀번호를 변경하려면 계정에 연결된 이메일을 입력해 주세요.</Text>
-        <ResetPwForm>
+        <form onSubmit={onResetPw}>
           <EmailInput
             onChange={onChange}
             name="email"
@@ -77,7 +97,7 @@ const PasswordReset = () => {
             type="submit"
             value={"비밀번호 재설정 이메일 보내기"}
           />
-        </ResetPwForm>
+        </form>
         <CloseModalButton />
       </Wrapper>
     </Container>
