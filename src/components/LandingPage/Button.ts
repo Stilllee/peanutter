@@ -10,6 +10,10 @@ const Button = styled.button`
   font-size: 15px;
   font-weight: 700;
   transition: all 0.3s ease;
+  &:focus {
+    background-color: ${({ theme }) => theme.lightGray};
+    outline: 2px solid ${({ theme }) => theme.lineGray};
+  }
   &:hover {
     background-color: ${({ theme }) => theme.lightGray};
     border-color: ${({ theme }) => theme.lightGray};

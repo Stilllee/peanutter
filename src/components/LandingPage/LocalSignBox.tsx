@@ -16,6 +16,11 @@ const CreateAccountBtn = styled(Button)`
     background-color: ${({ theme }) => theme.hoverYellow};
     border-color: ${({ theme }) => theme.hoverYellow};
   }
+  &:focus {
+    outline: 2px solid ${({ theme }) => theme.brown};
+    border-color: ${({ theme }) => theme.brown};
+    background-color: ${({ theme }) => theme.hoverYellow};
+  }
 `;
 
 const Notice = styled.p`
@@ -53,7 +58,7 @@ const LocalSignBox = () => {
     <>
       <CreateAccountBox>
         <CreateAccountBtn
-          onClick={() => navigateTo("/create-account")}
+          onClick={() => navigateTo("/create_account")}
           aria-label="새 계정 만들기"
         >
           계정 만들기
