@@ -13,9 +13,10 @@ import {
   Error,
   Form,
 } from "../components/auth-components";
-import CloseModalButton from "../components/common/Modal/CloseModalButton";
+import CloseModalButton, {
+  CloseModalButtonProps,
+} from "../components/common/Modal/CloseModalButton";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
-import { device } from "../constants/breakpoints";
 
 /* 
 에러메세지 추후 구현예정
@@ -53,7 +54,7 @@ const LoginSubmit = styled(Input)`
   width: 100%;
 `;
 
-const LogIn = () => {
+const LogIn = ({ onClose }: CloseModalButtonProps) => {
   const [isLoading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -125,7 +126,7 @@ const LogIn = () => {
         <Switcher>
           계정이 없으신가요? <Link to="/create_account">가입하기</Link>
         </Switcher>
-        <CloseModalButton />
+        <CloseModalButton onClose={onClose} />
       </Wrapper>
     </Container>
   );

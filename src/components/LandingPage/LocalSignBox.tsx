@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import Button from "./Button";
 import { device } from "../../constants/breakpoints";
-import { useCustomNavigate } from "../../hooks/useCustomNavigate";
+import { useState } from "react";
+import Modal from "../common/Modal/Modal";
+import LogIn from "../../routes/LogIn";
+import CreateAccount from "../../routes/CreateAccount";
 
 const CreateAccountBox = styled.div`
   margin-bottom: 60px;
@@ -52,13 +55,26 @@ const LoginBtn = styled(Button)`
   color: ${({ theme }) => theme.brown};
 `;
 
+const useModal = (initialModal = null) => {
+  const [currentModal, setCurrentModal] = useState(initialModal);
+
+  const openModal = (modalType) => setCurrentModal(modalType);
+  const closeModal = () => setCurrentModal(null);
+
+  return { currentModal, openModal, closeModal };
+};
+
 const LocalSignBox = () => {
-  const { navigateTo } = useCustomNavigate();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
+
+  const { currentModal, openModal, closeModal } = useModal();
+
   return (
     <>
       <CreateAccountBox>
         <CreateAccountBtn
-          onClick={() => navigateTo("/create_account")}
+          onClick={() => openModal("createAccount")}
           aria-label="새 계정 만들기"
         >
           계정 만들기
@@ -69,12 +85,23 @@ const LocalSignBox = () => {
           <Highlighted>개인정보 처리방침</Highlighted>에 동의해야 합니다.
         </Notice>
       </CreateAccountBox>
+
       <AlreadyHaveAccount aria-label="이미 계정을 가지고 계신 경우">
         이미 피너터에 가입하셨나요?
       </AlreadyHaveAccount>
-      <LoginBtn onClick={() => navigateTo("/login")} aria-label="로그인">
+      <LoginBtn onClick={() => openModal("logIn")} aria-label="로그인">
         로그인
       </LoginBtn>
+      {currentModal === "createAccount" && (
+        <Modal>
+          <CreateAccount onClose={closeModal} />
+        </Modal>
+      )}
+      {currentModal === "logIn" && (
+        <Modal>
+          <LogIn onClose={closeModal} />
+        </Modal>
+      )}
     </>
   );
 };

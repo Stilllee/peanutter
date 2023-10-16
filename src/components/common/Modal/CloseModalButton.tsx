@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
-import { useCustomNavigate } from "../../../hooks/useCustomNavigate";
 
 export const CloseBtn = styled(MdClose)`
   cursor: pointer;
@@ -19,12 +18,12 @@ export const CloseBtn = styled(MdClose)`
   }
 `;
 
-const CloseModalButton = () => {
-  const { goBack } = useCustomNavigate();
-  const onCloseModal = () => {
-    goBack();
-  };
-  return <CloseBtn onClick={onCloseModal} />;
+export type CloseModalButtonProps = {
+  onClose: () => void;
+};
+
+const CloseModalButton = ({ onClose }: CloseModalButtonProps) => {
+  return <CloseBtn onClick={onClose} />;
 };
 
 export default CloseModalButton;

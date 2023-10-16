@@ -13,7 +13,9 @@ import {
   Logo,
   Form,
 } from "../components/auth-components";
-import CloseModalButton from "../components/common/Modal/CloseModalButton";
+import CloseModalButton, {
+  CloseModalButtonProps,
+} from "../components/common/Modal/CloseModalButton";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
 import { device } from "../constants/breakpoints";
 
@@ -44,7 +46,7 @@ const SignUpSubmit = styled(Input)`
   width: 100%;
 `;
 
-const CreateAccount = () => {
+const CreateAccount = ({ onClose }: CloseModalButtonProps) => {
   const [isLoading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -131,7 +133,7 @@ const CreateAccount = () => {
         <Switcher>
           이미 계정이 있으신가요? <Link to="/login">로그인</Link>
         </Switcher>
-        <CloseModalButton />
+        <CloseModalButton onClose={onClose} />
       </Wrapper>
     </Container>
   );
