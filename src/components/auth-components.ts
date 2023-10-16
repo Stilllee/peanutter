@@ -75,6 +75,7 @@ export const Switcher = styled.p`
   position: absolute;
   bottom: 0;
   a {
+    cursor: pointer;
     font-weight: 700;
     color: ${({ theme }) => theme.hoverYellow};
     text-decoration: none;
