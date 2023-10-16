@@ -37,30 +37,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "/login",
-    element: (
-      <Modal>
-        <Login />
-      </Modal>
-    ),
-  },
-  {
-    path: "/create_account",
-    element: (
-      <Modal>
-        <CreateAccount />
-      </Modal>
-    ),
-  },
-  {
-    path: "/password_reset",
-    element: (
-      <Modal>
-        <PasswordReset />
-      </Modal>
-    ),
-  },
 ]);
 
 const theme = {
