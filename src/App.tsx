@@ -12,6 +12,7 @@ import { auth } from "./firebase";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LandingPage from "./routes/LandingPage";
 import Modal from "./components/common/Modal/Modal";
+import PasswordReset from "./routes/PasswordReset";
 
 const router = createBrowserRouter([
   {
@@ -45,10 +46,18 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/create-account",
+    path: "/create_account",
     element: (
       <Modal>
         <CreateAccount />
+      </Modal>
+    ),
+  },
+  {
+    path: "/password_reset",
+    element: (
+      <Modal>
+        <PasswordReset />
       </Modal>
     ),
   },
