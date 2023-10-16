@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { auth } from "../firebase";
-import { Link } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import styled from "styled-components";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -13,10 +12,10 @@ import {
   Error,
   Form,
 } from "../components/auth-components";
-import CloseModalButton, {
-  CloseModalButtonProps,
-} from "../components/common/Modal/CloseModalButton";
+import CloseModalButton from "../components/common/Modal/CloseModalButton";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
+import { useModal } from "../hooks/useCustomModal";
+import { RiLoader4Fill } from "react-icons/ri";
 
 /* 
 에러메세지 추후 구현예정
@@ -34,6 +33,7 @@ const Container = styled.div`
 const LoginForm = styled(Form)`
   margin-top: 7px;
   a {
+    cursor: pointer;
     font-size: 13px;
     font-weight: 700;
     margin-left: 8px;
@@ -54,11 +54,13 @@ const LoginSubmit = styled(Input)`
   width: 100%;
 `;
 
-const LogIn = ({ onClose }: CloseModalButtonProps) => {
+const LogIn = () => {
   const [isLoading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const { openModal, closeModal } = useModal();
 
   const { navigateTo } = useCustomNavigate();
 
@@ -115,18 +117,19 @@ const LogIn = ({ onClose }: CloseModalButtonProps) => {
               type="password"
               required
             />
-            <Link to={"/password_reset"}>비밀번호찾기</Link>
+            <a onClick={() => openModal("passwordReset")}>비밀번호찾기</a>
           </div>
           <LoginSubmit
             type="submit"
-            value={isLoading ? "Loading..." : "로그인하기"}
+            value={isLoading ? "로그인 중..." : "로그인하기"}
           />
         </LoginForm>
         {error !== "" ? <Error>{error}</Error> : null}
         <Switcher>
-          계정이 없으신가요? <Link to="/create_account">가입하기</Link>
+          계정이 없으신가요?{" "}
+          <a onClick={() => openModal("createAccount")}>가입하기</a>
         </Switcher>
-        <CloseModalButton onClose={onClose} />
+        <CloseModalButton onClose={closeModal} />
       </Wrapper>
     </Container>
   );

@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import Button from "./Button";
 import { device } from "../../constants/breakpoints";
-import { useState } from "react";
 import Modal from "../common/Modal/Modal";
 import LogIn from "../../routes/LogIn";
 import CreateAccount from "../../routes/CreateAccount";
+import { useModal } from "../../hooks/useCustomModal";
+import PasswordReset from "../../routes/PasswordReset";
 
 const CreateAccountBox = styled.div`
   margin-bottom: 60px;
@@ -55,28 +56,14 @@ const LoginBtn = styled(Button)`
   color: ${({ theme }) => theme.brown};
 `;
 
-type ModalType = "createAccount" | "logIn" | null;
-
-const useModal = () => {
-  const [currentModal, setCurrentModal] = useState<ModalType>(null);
-
-  const openModal = (modalType: ModalType) => setCurrentModal(modalType);
-  const closeModal = () => setCurrentModal(null);
-
-  return { currentModal, openModal, closeModal };
-};
-
 const LocalSignBox = () => {
-  const { currentModal, openModal, closeModal } = useModal();
-
-  const handleLoginClick = () => openModal("logIn");
-  const handleCreateAccountClick = () => openModal("createAccount");
+  const { currentModal, openModal } = useModal();
 
   return (
     <>
       <CreateAccountBox>
         <CreateAccountBtn
-          onClick={handleCreateAccountClick}
+          onClick={() => openModal("createAccount")}
           aria-label="새 계정 만들기"
         >
           계정 만들기
@@ -91,17 +78,22 @@ const LocalSignBox = () => {
       <AlreadyHaveAccount aria-label="이미 계정을 가지고 계신 경우">
         이미 피너터에 가입하셨나요?
       </AlreadyHaveAccount>
-      <LoginBtn onClick={handleLoginClick} aria-label="로그인">
+      <LoginBtn onClick={() => openModal("logIn")} aria-label="로그인">
         로그인
       </LoginBtn>
       {currentModal === "createAccount" && (
         <Modal>
-          <CreateAccount onClose={closeModal} />
+          <CreateAccount />
         </Modal>
       )}
       {currentModal === "logIn" && (
         <Modal>
-          <LogIn onClose={closeModal} />
+          <LogIn />
+        </Modal>
+      )}
+      {currentModal === "passwordReset" && (
+        <Modal>
+          <PasswordReset />
         </Modal>
       )}
     </>

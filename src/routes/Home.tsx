@@ -1,16 +1,19 @@
 import { auth } from "../firebase";
+import { useModal } from "../hooks/useCustomModal";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
 
 const Home = () => {
+  const { openModal } = useModal();
   const { navigateTo } = useCustomNavigate();
 
-  const logOut = () => {
+  const handleLogout = () => {
+    openModal(null);
     auth.signOut();
     navigateTo("/", true);
   };
   return (
     <h1>
-      <button onClick={logOut}>Log Out</button>
+      <button onClick={handleLogout}>Log Out</button>
     </h1>
   );
 };

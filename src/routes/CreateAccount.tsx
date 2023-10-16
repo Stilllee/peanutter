@@ -2,7 +2,6 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
-import { Link } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import {
   Input,
@@ -13,11 +12,8 @@ import {
   Logo,
   Form,
 } from "../components/auth-components";
-import CloseModalButton, {
-  CloseModalButtonProps,
-} from "../components/common/Modal/CloseModalButton";
-import { useCustomNavigate } from "../hooks/useCustomNavigate";
-import { device } from "../constants/breakpoints";
+import CloseModalButton from "../components/common/Modal/CloseModalButton";
+import { useModal } from "../hooks/useCustomModal";
 
 /* 
 // 에러핸들링 예정
@@ -46,14 +42,14 @@ const SignUpSubmit = styled(Input)`
   width: 100%;
 `;
 
-const CreateAccount = ({ onClose }: CloseModalButtonProps) => {
+const CreateAccount = () => {
   const [isLoading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassowrd] = useState("");
   const [error, setError] = useState("");
 
-  const { navigateTo } = useCustomNavigate();
+  const { openModal, closeModal } = useModal();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -81,7 +77,7 @@ const CreateAccount = ({ onClose }: CloseModalButtonProps) => {
       await updateProfile(credentials.user, {
         displayName: name,
       });
-      navigateTo("/login", true);
+      openModal("logIn");
     } catch (e) {
       if (e instanceof FirebaseError) {
         setError(e.message);
@@ -126,14 +122,15 @@ const CreateAccount = ({ onClose }: CloseModalButtonProps) => {
           </div>
           <SignUpSubmit
             type="submit"
-            value={isLoading ? "Loading..." : "가입하기"}
+            value={isLoading ? "가입 중..." : "가입하기"}
           />
         </SignUpForm>
         {error !== "" ? <Error>{error}</Error> : null}
         <Switcher>
-          이미 계정이 있으신가요? <Link to="/login">로그인</Link>
+          이미 계정이 있으신가요?{" "}
+          <a onClick={() => openModal("logIn")}>로그인</a>
         </Switcher>
-        <CloseModalButton onClose={onClose} />
+        <CloseModalButton onClose={closeModal} />
       </Wrapper>
     </Container>
   );

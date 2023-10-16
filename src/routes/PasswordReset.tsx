@@ -10,8 +10,7 @@ import React, { useState } from "react";
 import CloseModalButton from "../components/common/Modal/CloseModalButton";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../firebase";
-import { useCustomNavigate } from "../hooks/useCustomNavigate";
-import { device } from "../constants/breakpoints";
+import { useModal } from "../hooks/useCustomModal";
 
 const Container = styled.div`
   width: 100%;
@@ -44,7 +43,7 @@ interface FirebaseError {
 const PasswordReset = () => {
   const [email, setEmail] = useState("");
 
-  const { navigateTo } = useCustomNavigate();
+  const { openModal, closeModal } = useModal();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -60,7 +59,7 @@ const PasswordReset = () => {
     try {
       await sendPasswordResetEmail(auth, email);
       alert("비밀번호 재설정 이메일을 보냈습니다. 이메일을 확인해주세요.");
-      navigateTo("/login", true);
+      openModal("logIn");
     } catch (error) {
       const firebaseError = error as FirebaseError;
       console.log(firebaseError.message);
@@ -89,7 +88,7 @@ const PasswordReset = () => {
             value={"비밀번호 재설정 이메일 보내기"}
           />
         </Form>
-        <CloseModalButton />
+        <CloseModalButton onClose={closeModal} />
       </Wrapper>
     </Container>
   );
