@@ -5,16 +5,16 @@ import { auth } from "../firebase";
 import { Link } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import {
-  Form,
   Input,
   Switcher,
   Title,
   Wrapper,
   Error,
+  Logo,
 } from "../components/auth-components";
-import { TbBrandPeanut } from "react-icons/tb";
 import CloseModalButton from "../components/common/Modal/CloseModalButton";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
+import { device } from "../constants/breakpoints";
 
 /* 
 // 에러핸들링 예정
@@ -26,6 +26,31 @@ const errors = {
 
 const Container = styled.div`
   position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
+const SignUpForm = styled.form`
+  margin-top: 7px;
+`;
+
+const SignUpInput = styled(Input)`
+  width: 100%;
+  margin: 26px 0 1px 0;
+`;
+
+const SignUpSubmit = styled(Input)`
+  width: 440px !important;
+  height: 52px !important;
+  border-radius: 30px !important;
+  position: absolute;
+  bottom: 35px;
+  left: 0;
+  margin: 0 60px;
+
+  @media ${device.tablet}, ${device.mobile} {
+    width: 340px !important;
+  }
 `;
 
 const CreateAccount = () => {
@@ -63,7 +88,7 @@ const CreateAccount = () => {
       await updateProfile(credentials.user, {
         displayName: name,
       });
-      navigateTo("/", true);
+      navigateTo("/login", true);
     } catch (e) {
       if (e instanceof FirebaseError) {
         setError(e.message);
@@ -77,10 +102,10 @@ const CreateAccount = () => {
     <Container>
       <Wrapper>
         <Title>
-          Join <TbBrandPeanut />
+          <Logo /> 계정 생성
         </Title>
-        <Form onSubmit={onSubmit}>
-          <Input
+        <SignUpForm onSubmit={onSubmit}>
+          <SignUpInput
             onChange={onChange}
             name="name"
             value={name}
@@ -88,7 +113,7 @@ const CreateAccount = () => {
             type="text"
             required
           />
-          <Input
+          <SignUpInput
             onChange={onChange}
             name="email"
             value={email}
@@ -96,7 +121,7 @@ const CreateAccount = () => {
             type="email"
             required
           />
-          <Input
+          <SignUpInput
             onChange={onChange}
             name="password"
             value={password}
@@ -104,11 +129,11 @@ const CreateAccount = () => {
             type="password"
             required
           />
-          <Input
+          <SignUpSubmit
             type="submit"
-            value={isLoading ? "Loading..." : "Create Account"}
+            value={isLoading ? "Loading..." : "가입하기"}
           />
-        </Form>
+        </SignUpForm>
         {error !== "" ? <Error>{error}</Error> : null}
         <Switcher>
           이미 계정이 있으신가요? <Link to="/login">로그인</Link>

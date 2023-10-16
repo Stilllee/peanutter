@@ -1,20 +1,26 @@
+import { TbBrandPeanut } from "react-icons/tb";
 import { styled } from "styled-components";
 
 export const Wrapper = styled.div`
-  background-color: red;
+  min-width: 340px;
+  min-height: 280px;
+  width: 100%;
   height: 100%;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  position: relative;
+  padding: 40px 60px 0 60px;
 `;
+
 export const Title = styled.h1`
-  background-color: green;
   display: flex;
   align-items: center;
   font-size: 31px;
   font-weight: 700;
 `;
+
+export const Logo = styled(TbBrandPeanut)`
+  margin-right: 10px;
+`;
+
 export const Form = styled.form`
   margin-top: 50px;
   margin-bottom: 10px;
@@ -55,13 +61,17 @@ export const Input = styled.input`
   }
 `;
 export const Error = styled.span`
+  display: inline-block;
+  margin-top: 15px;
   font-weight: 600;
   color: tomato;
 `;
 
-export const Switcher = styled.span`
-  margin-top: 20px;
+export const Switcher = styled.p`
+  position: absolute;
+  bottom: 0;
   a {
+    font-weight: 700;
     color: ${({ theme }) => theme.hoverYellow};
     text-decoration: none;
     &:hover {

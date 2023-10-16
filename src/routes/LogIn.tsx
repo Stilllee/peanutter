@@ -3,22 +3,17 @@ import { auth } from "../firebase";
 import { Link } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import styled from "styled-components";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import {
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import {
-  Form,
+  Logo,
   Input,
   Switcher,
   Title,
-  Wrapper,
   Error,
 } from "../components/auth-components";
-import { TbBrandPeanut } from "react-icons/tb";
-import Button from "../components/LandingPage/Button";
 import CloseModalButton from "../components/common/Modal/CloseModalButton";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
+import { device } from "../constants/breakpoints";
 
 /* 
 에러메세지 추후 구현예정
@@ -29,10 +24,52 @@ const errors = {
 */
 
 const Container = styled.div`
-  position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
-const ResetPwBtn = styled(Button)``;
+const Wrapper = styled.div`
+  min-width: 340px;
+  min-height: 280px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 40px 60px 0 60px;
+`;
+
+const LoginForm = styled.form`
+  margin-top: 7px;
+
+  & > a {
+    font-size: 13px;
+    font-weight: 700;
+    margin-left: 8px;
+    color: ${({ theme }) => theme.hoverYellow};
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const LoginInput = styled(Input)`
+  width: 100%;
+  margin: 26px 0 1px 0;
+`;
+
+const LoginSubmit = styled(Input)`
+  width: 440px !important;
+  height: 52px !important;
+  border-radius: 30px !important;
+  position: absolute;
+  bottom: 35px;
+  left: 0;
+  margin: 0 60px;
+
+  @media ${device.tablet}, ${device.mobile} {
+    width: 340px !important;
+  }
+`;
 
 const LogIn = () => {
   const [isLoading, setLoading] = useState(false);
@@ -70,44 +107,39 @@ const LogIn = () => {
     }
   };
 
-  const onResetPw = async () => {
-    try {
-      await sendPasswordResetEmail(auth, email);
-      console.log("변경 메일 발송 완료");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Container>
       <Wrapper>
         <Title>
-          Log into <TbBrandPeanut />
+          <Logo />
+          로그인
         </Title>
-        <Form onSubmit={onSubmit}>
-          <Input
+        <LoginForm onSubmit={onSubmit}>
+          <LoginInput
             onChange={onChange}
             name="email"
             value={email}
-            placeholder="Email"
+            placeholder="이메일"
             type="email"
             required
           />
-          <Input
+          <LoginInput
             onChange={onChange}
             name="password"
             value={password}
-            placeholder="Password"
+            placeholder="비밀번호"
             type="password"
             required
           />
-          <Input type="submit" value={isLoading ? "Loading..." : "Log in"} />
-        </Form>
+          <LoginSubmit
+            type="submit"
+            value={isLoading ? "Loading..." : "로그인하기"}
+          />
+          <Link to={"/password_reset"}>비밀번호찾기</Link>
+        </LoginForm>
         {error !== "" ? <Error>{error}</Error> : null}
-        <ResetPwBtn onClick={onResetPw}>비밀번호를 잊으셨나요?</ResetPwBtn>
         <Switcher>
-          계정이 없으신가요? <Link to="/create-account">가입하기</Link>
+          계정이 없으신가요? <Link to="/create_account">가입하기</Link>
         </Switcher>
         <CloseModalButton />
       </Wrapper>
