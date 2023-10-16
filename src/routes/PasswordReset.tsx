@@ -6,6 +6,7 @@ import CloseModalButton from "../components/common/Modal/CloseModalButton";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../firebase";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
+import { device } from "../constants/breakpoints";
 
 const Container = styled.div`
   width: 100%;
@@ -15,6 +16,8 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
+  min-width: 340px;
+  min-height: 280px;
   width: 100%;
   height: 100%;
   position: relative;
@@ -26,7 +29,9 @@ const Logo = styled(TbBrandPeanut)`
 `;
 
 const Text = styled.p`
+  min-width: 340px;
   font-size: 15px;
+  line-height: 20px;
   margin: 8px 0 33px 0;
   color: ${({ theme }) => theme.darkGray};
 `;
@@ -36,13 +41,17 @@ const EmailInput = styled(Input)`
 `;
 
 const ResetPwSubmit = styled(Input)`
-  width: 440px;
+  width: 440px !important;
   height: 52px !important;
   border-radius: 30px !important;
   position: absolute;
   bottom: 0;
   left: 0;
   margin: 0 60px;
+
+  @media ${device.tablet}, ${device.mobile} {
+    width: 340px !important;
+  }
 `;
 
 interface FirebaseError {
