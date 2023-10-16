@@ -22,6 +22,10 @@ const Wrapper = styled.div`
   height: 100%;
   position: relative;
   padding: 40px 60px 0 60px;
+
+  @media ${device.mobile} {
+    padding: 60px 10px 0 10px;
+  }
 `;
 
 const Logo = styled(TbBrandPeanut)`
@@ -36,22 +40,25 @@ const Text = styled.p`
   color: ${({ theme }) => theme.darkGray};
 `;
 
+const Form = styled.form`
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media ${device.tablet} {
+    height: 70%;
+  }
+`;
+
 const EmailInput = styled(Input)`
   width: 100%;
 `;
 
 const ResetPwSubmit = styled(Input)`
-  width: 440px !important;
+  width: 100%;
   height: 52px !important;
   border-radius: 30px !important;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  margin: 0 60px;
-
-  @media ${device.tablet}, ${device.mobile} {
-    width: 340px !important;
-  }
 `;
 
 interface FirebaseError {
@@ -93,7 +100,7 @@ const PasswordReset = () => {
           계정 찾기
         </Title>
         <Text>비밀번호를 변경하려면 계정에 연결된 이메일을 입력해 주세요.</Text>
-        <form onSubmit={onResetPw}>
+        <Form onSubmit={onResetPw}>
           <EmailInput
             onChange={onChange}
             name="email"
@@ -106,7 +113,7 @@ const PasswordReset = () => {
             type="submit"
             value={"비밀번호 재설정 이메일 보내기"}
           />
-        </form>
+        </Form>
         <CloseModalButton />
       </Wrapper>
     </Container>

@@ -1,5 +1,6 @@
 import { TbBrandPeanut } from "react-icons/tb";
 import { styled } from "styled-components";
+import { device } from "../constants/breakpoints";
 
 export const Wrapper = styled.div`
   min-width: 340px;
@@ -8,6 +9,10 @@ export const Wrapper = styled.div`
   height: 100%;
   position: relative;
   padding: 40px 60px 0 60px;
+
+  @media ${device.mobile} {
+    padding: 60px 10px 0 10px;
+  }
 `;
 
 export const Title = styled.h1`

@@ -35,12 +35,24 @@ const Wrapper = styled.div`
   height: 100%;
   position: relative;
   padding: 40px 60px 0 60px;
+
+  @media ${device.mobile} {
+    padding: 60px 10px 0 10px;
+  }
 `;
 
 const LoginForm = styled.form`
   margin-top: 7px;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-  & > a {
+  @media ${device.tablet} {
+    height: 70%;
+  }
+
+  a {
     font-size: 13px;
     font-weight: 700;
     margin-left: 8px;
@@ -58,17 +70,9 @@ const LoginInput = styled(Input)`
 `;
 
 const LoginSubmit = styled(Input)`
-  width: 440px !important;
+  width: 100%;
   height: 52px !important;
   border-radius: 30px !important;
-  position: absolute;
-  bottom: 35px;
-  left: 0;
-  margin: 0 60px;
-
-  @media ${device.tablet}, ${device.mobile} {
-    width: 340px !important;
-  }
 `;
 
 const LogIn = () => {
@@ -115,27 +119,29 @@ const LogIn = () => {
           로그인
         </Title>
         <LoginForm onSubmit={onSubmit}>
-          <LoginInput
-            onChange={onChange}
-            name="email"
-            value={email}
-            placeholder="이메일"
-            type="email"
-            required
-          />
-          <LoginInput
-            onChange={onChange}
-            name="password"
-            value={password}
-            placeholder="비밀번호"
-            type="password"
-            required
-          />
+          <div>
+            <LoginInput
+              onChange={onChange}
+              name="email"
+              value={email}
+              placeholder="이메일"
+              type="email"
+              required
+            />
+            <LoginInput
+              onChange={onChange}
+              name="password"
+              value={password}
+              placeholder="비밀번호"
+              type="password"
+              required
+            />
+            <Link to={"/password_reset"}>비밀번호찾기</Link>
+          </div>
           <LoginSubmit
             type="submit"
             value={isLoading ? "Loading..." : "로그인하기"}
           />
-          <Link to={"/password_reset"}>비밀번호찾기</Link>
         </LoginForm>
         {error !== "" ? <Error>{error}</Error> : null}
         <Switcher>

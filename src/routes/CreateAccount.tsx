@@ -32,6 +32,14 @@ const Container = styled.div`
 
 const SignUpForm = styled.form`
   margin-top: 7px;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media ${device.tablet} {
+    height: 70%;
+  }
 `;
 
 const SignUpInput = styled(Input)`
@@ -40,17 +48,9 @@ const SignUpInput = styled(Input)`
 `;
 
 const SignUpSubmit = styled(Input)`
-  width: 440px !important;
+  width: 100%;
   height: 52px !important;
   border-radius: 30px !important;
-  position: absolute;
-  bottom: 35px;
-  left: 0;
-  margin: 0 60px;
-
-  @media ${device.tablet}, ${device.mobile} {
-    width: 340px !important;
-  }
 `;
 
 const CreateAccount = () => {
@@ -105,30 +105,32 @@ const CreateAccount = () => {
           <Logo /> 계정 생성
         </Title>
         <SignUpForm onSubmit={onSubmit}>
-          <SignUpInput
-            onChange={onChange}
-            name="name"
-            value={name}
-            placeholder="Name"
-            type="text"
-            required
-          />
-          <SignUpInput
-            onChange={onChange}
-            name="email"
-            value={email}
-            placeholder="Email"
-            type="email"
-            required
-          />
-          <SignUpInput
-            onChange={onChange}
-            name="password"
-            value={password}
-            placeholder="Password"
-            type="password"
-            required
-          />
+          <div>
+            <SignUpInput
+              onChange={onChange}
+              name="name"
+              value={name}
+              placeholder="Name"
+              type="text"
+              required
+            />
+            <SignUpInput
+              onChange={onChange}
+              name="email"
+              value={email}
+              placeholder="Email"
+              type="email"
+              required
+            />
+            <SignUpInput
+              onChange={onChange}
+              name="password"
+              value={password}
+              placeholder="Password"
+              type="password"
+              required
+            />
+          </div>
           <SignUpSubmit
             type="submit"
             value={isLoading ? "Loading..." : "가입하기"}
