@@ -27,32 +27,31 @@ export const Logo = styled(TbBrandPeanut)`
 `;
 
 export const Form = styled.form`
-  margin-top: 50px;
-  margin-bottom: 10px;
+  height: 80%;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  gap: 10px;
-  width: 100%;
+  justify-content: space-between;
+
+  @media ${device.tablet} {
+    height: 70%;
+  }
 `;
 export const Input = styled.input`
   padding: 10px 20px;
   border-radius: 4px;
   border: 1px solid ${({ theme }) => theme.lineGray};
-  width: 300px;
   height: 56px;
-
   font-size: 16px;
   &:focus {
     outline: 2px solid ${({ theme }) => theme.yellow};
     border-color: ${({ theme }) => theme.yellow};
   }
   &[type="submit"] {
-    border-radius: 20px;
-    height: 40px;
+    cursor: pointer;
+    border-radius: 30px;
+    height: 52px;
     font-weight: 700;
     color: white;
-    cursor: pointer;
     background-color: ${({ theme }) => theme.brown};
     transition: all 0.3s ease;
     &:hover {

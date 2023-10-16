@@ -1,6 +1,11 @@
 import styled from "styled-components";
-import { TbBrandPeanut } from "react-icons/tb";
-import { Input, Title } from "../components/auth-components";
+import {
+  Wrapper,
+  Logo,
+  Input,
+  Title,
+  Form,
+} from "../components/auth-components";
 import React, { useState } from "react";
 import CloseModalButton from "../components/common/Modal/CloseModalButton";
 import { sendPasswordResetEmail } from "firebase/auth";
@@ -15,23 +20,6 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Wrapper = styled.div`
-  min-width: 340px;
-  min-height: 280px;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  padding: 40px 60px 0 60px;
-
-  @media ${device.mobile} {
-    padding: 60px 10px 0 10px;
-  }
-`;
-
-const Logo = styled(TbBrandPeanut)`
-  margin: 0 10px;
-`;
-
 const Text = styled.p`
   min-width: 340px;
   font-size: 15px;
@@ -40,25 +28,12 @@ const Text = styled.p`
   color: ${({ theme }) => theme.darkGray};
 `;
 
-const Form = styled.form`
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  @media ${device.tablet} {
-    height: 70%;
-  }
-`;
-
 const EmailInput = styled(Input)`
   width: 100%;
 `;
 
 const ResetPwSubmit = styled(Input)`
   width: 100%;
-  height: 52px !important;
-  border-radius: 30px !important;
 `;
 
 interface FirebaseError {
@@ -96,7 +71,7 @@ const PasswordReset = () => {
     <Container>
       <Wrapper>
         <Title>
-          내 <Logo />
+          <Logo />
           계정 찾기
         </Title>
         <Text>비밀번호를 변경하려면 계정에 연결된 이메일을 입력해 주세요.</Text>

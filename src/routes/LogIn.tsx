@@ -6,10 +6,12 @@ import styled from "styled-components";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {
   Logo,
+  Wrapper,
   Input,
   Switcher,
   Title,
   Error,
+  Form,
 } from "../components/auth-components";
 import CloseModalButton from "../components/common/Modal/CloseModalButton";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
@@ -28,30 +30,8 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const Wrapper = styled.div`
-  min-width: 340px;
-  min-height: 280px;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  padding: 40px 60px 0 60px;
-
-  @media ${device.mobile} {
-    padding: 60px 10px 0 10px;
-  }
-`;
-
-const LoginForm = styled.form`
+const LoginForm = styled(Form)`
   margin-top: 7px;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  @media ${device.tablet} {
-    height: 70%;
-  }
-
   a {
     font-size: 13px;
     font-weight: 700;
@@ -71,8 +51,6 @@ const LoginInput = styled(Input)`
 
 const LoginSubmit = styled(Input)`
   width: 100%;
-  height: 52px !important;
-  border-radius: 30px !important;
 `;
 
 const LogIn = () => {

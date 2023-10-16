@@ -11,6 +11,7 @@ import {
   Wrapper,
   Error,
   Logo,
+  Form,
 } from "../components/auth-components";
 import CloseModalButton from "../components/common/Modal/CloseModalButton";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
@@ -30,16 +31,8 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const SignUpForm = styled.form`
+const SignUpForm = styled(Form)`
   margin-top: 7px;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  @media ${device.tablet} {
-    height: 70%;
-  }
 `;
 
 const SignUpInput = styled(Input)`
@@ -49,8 +42,6 @@ const SignUpInput = styled(Input)`
 
 const SignUpSubmit = styled(Input)`
   width: 100%;
-  height: 52px !important;
-  border-radius: 30px !important;
 `;
 
 const CreateAccount = () => {
