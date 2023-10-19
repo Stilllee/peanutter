@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import Button from "./Button";
+import Button from "../common/Button";
 import {
   GithubAuthProvider,
   GoogleAuthProvider,

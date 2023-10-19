@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "../common/Button";
 import { device } from "../../constants/breakpoints";
 import Modal from "../common/Modal/Modal";
 import LogIn from "../../routes/LogIn";
