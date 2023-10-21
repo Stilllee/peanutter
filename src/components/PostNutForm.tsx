@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { Input } from "./auth-components";
 import React, { useRef, useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
-import { auth, db } from "../firebase";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { auth, db, storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Form = styled.form`
   color: ${({ theme }) => theme.brown};
@@ -94,7 +95,13 @@ const PostNutForm = () => {
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (files && files.length === 1) {
-      setFile(files[0]);
+      const selectedFile = files[0];
+
+      if (selectedFile.size > 1 * 1024 * 1024) {
+        alert("파일이 너무 큽니다. 1MB 이내로 줄여주세요");
+        return;
+      }
+      setFile(selectedFile);
     }
   };
 
@@ -104,12 +111,25 @@ const PostNutForm = () => {
     if (!user || isLoading || nut === "" || nut.length > 140) return;
     try {
       setLoading(true);
-      await addDoc(collection(db, "nuts"), {
+      const doc = await addDoc(collection(db, "nuts"), {
         nut,
         createdAt: Date.now(),
         username: user.displayName || "익명의 사용자",
         userid: user.uid,
       });
+      if (file) {
+        const locationRef = ref(
+          storage,
+          `nuts/${user.uid}-${user.displayName}/${doc.id}`
+        );
+        const result = await uploadBytes(locationRef, file);
+        const url = await getDownloadURL(result.ref);
+        await updateDoc(doc, {
+          photo: url,
+        });
+        setNut("");
+        setFile(null);
+      }
     } catch (e) {
       console.log(e);
     } finally {
