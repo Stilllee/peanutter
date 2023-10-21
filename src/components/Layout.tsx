@@ -87,7 +87,6 @@ const UploadBtn = styled(Button)`
 const Auth = styled.div`
   cursor: pointer;
   width: 100%;
-  background-color: cornflowerblue;
   position: absolute;
   bottom: 0;
   left: 0;
