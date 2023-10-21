@@ -7,7 +7,7 @@ import { auth, db } from "../firebase";
 
 const Form = styled.form`
   color: ${({ theme }) => theme.brown};
-  width: 510px;
+  width: 500px;
   display: flex;
   flex-direction: column;
 `;
@@ -23,7 +23,8 @@ const Textarea = styled.textarea`
   font-size: 20px;
   font-weight: 400;
   line-height: 24px;
-  padding: 12px 0;
+  padding: 12px 5px;
+
   outline: none;
   border: 0;
   border-bottom: 1px solid ${({ theme }) => theme.lineGray};
@@ -34,7 +35,7 @@ const UploadBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 12px 0;
+  margin: 12px 5px;
 `;
 
 const AttachFileBtn = styled.label`
@@ -119,6 +120,7 @@ const PostNutForm = () => {
   return (
     <Form onSubmit={onSubmit}>
       <Textarea
+        required
         maxLength={140}
         onChange={onChange}
         value={nut}
