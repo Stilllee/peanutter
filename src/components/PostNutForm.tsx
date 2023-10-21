@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { Input } from "./auth-components";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "../firebase";
 
 const Form = styled.form`
   color: ${({ theme }) => theme.brown};
@@ -95,8 +97,27 @@ const PostNutForm = () => {
     }
   };
 
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const user = auth.currentUser;
+    if (!user || isLoading || nut === "" || nut.length > 140) return;
+    try {
+      setLoading(true);
+      await addDoc(collection(db, "nuts"), {
+        nut,
+        createdAt: Date.now(),
+        username: user.displayName || "익명의 사용자",
+        userid: user.uid,
+      });
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <Textarea
         maxLength={140}
         onChange={onChange}
