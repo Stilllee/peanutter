@@ -6,13 +6,19 @@ import { addDoc, collection, updateDoc } from "firebase/firestore";
 import { auth, db, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
+const Wrapper = styled.div`
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.lightGray};
+  display: flex;
+  justify-content: center;
+`;
+
 const Form = styled.form`
   color: ${({ theme }) => theme.brown};
-  width: 100%;
+  width: 514px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  border: 1px solid ${({ theme }) => theme.lightGray};
+  padding: 20px 0;
 `;
 
 const Textarea = styled.textarea`
@@ -140,35 +146,41 @@ const PostNutForm = () => {
   };
 
   return (
-    <Form onSubmit={onSubmit}>
-      <Textarea
-        required
-        maxLength={140}
-        onChange={onChange}
-        value={nut}
-        ref={textareaRef}
-        onInput={handleInput}
-        placeholder="무슨 일이 일어나고 있나요?"
-      />
-      <UploadBox>
-        <AttachFileBtn title="사진 추가" aria-label="사진 추가" htmlFor="file">
-          <HiOutlinePhotograph />
-        </AttachFileBtn>
-        <AttachFileInput
-          onChange={onFileChange}
-          type="file"
-          id="file"
-          accept="image/*"
+    <Wrapper>
+      <Form onSubmit={onSubmit}>
+        <Textarea
+          required
+          maxLength={140}
+          onChange={onChange}
+          value={nut}
+          ref={textareaRef}
+          onInput={handleInput}
+          placeholder="무슨 일이 일어나고 있나요?"
         />
-        <SubmitBtn
-          style={{ opacity: hasText ? 1 : 0.5 }}
-          disabled={!hasText}
-          className="upload"
-          type="submit"
-          value={isLoading ? "게시 중..." : "게시하기"}
-        />
-      </UploadBox>
-    </Form>
+        <UploadBox>
+          <AttachFileBtn
+            title="사진 추가"
+            aria-label="사진 추가"
+            htmlFor="file"
+          >
+            <HiOutlinePhotograph />
+          </AttachFileBtn>
+          <AttachFileInput
+            onChange={onFileChange}
+            type="file"
+            id="file"
+            accept="image/*"
+          />
+          <SubmitBtn
+            style={{ opacity: hasText ? 1 : 0.5 }}
+            disabled={!hasText}
+            className="upload"
+            type="submit"
+            value={isLoading ? "게시 중..." : "게시하기"}
+          />
+        </UploadBox>
+      </Form>
+    </Wrapper>
   );
 };
 
