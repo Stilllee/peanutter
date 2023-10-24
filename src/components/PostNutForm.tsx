@@ -8,9 +8,11 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Form = styled.form`
   color: ${({ theme }) => theme.brown};
-  width: 500px;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  border: 1px solid ${({ theme }) => theme.lightGray};
 `;
 
 const Textarea = styled.textarea`
