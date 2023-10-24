@@ -124,6 +124,7 @@ const PostNutForm = () => {
         createdAt: Date.now(),
         username: user.displayName || "익명의 사용자",
         userid: user.uid,
+        email: user.email,
       });
       if (file) {
         const locationRef = ref(storage, `nuts/${user.uid}/${doc.id}`);
@@ -139,6 +140,9 @@ const PostNutForm = () => {
       setNut("");
       setFile(null);
       setLoading(false);
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "52px";
+      }
     }
   };
 
