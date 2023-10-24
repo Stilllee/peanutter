@@ -29,7 +29,11 @@ const Nut = ({ username, photo, nut }: INut) => {
         <Usename>{username}</Usename>
         <Payload>{nut}</Payload>
       </Column>
-      <Column>{photo ? <Photo src={photo} /> : null}</Column>
+      {photo ? (
+        <Column>
+          <Photo src={photo} />
+        </Column>
+      ) : null}
     </Wrapper>
   );
 };

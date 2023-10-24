@@ -1,8 +1,16 @@
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { db } from "../firebase";
 import Nut from "./Nut";
+import { Unsubscribe } from "firebase/auth";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -20,27 +28,33 @@ export interface INut {
 const Timeline = () => {
   const [nuts, setNut] = useState<INut[]>([]);
 
-  const fetchNuts = async () => {
-    const nutsQuery = query(
-      collection(db, "nuts"),
-      orderBy("createdAt", "desc")
-    );
-    const snapshot = await getDocs(nutsQuery);
-    const nuts = snapshot.docs.map((doc) => {
-      const { nut, createdAt, userId, username, photo } = doc.data();
-      return {
-        nut,
-        createdAt,
-        userId,
-        username,
-        photo,
-        id: doc.id,
-      };
-    });
-    setNut(nuts);
-  };
   useEffect(() => {
+    let unsubscribe: Unsubscribe | null = null;
+    const fetchNuts = async () => {
+      const nutsQuery = query(
+        collection(db, "nuts"),
+        orderBy("createdAt", "desc"),
+        limit(8)
+      );
+      unsubscribe = await onSnapshot(nutsQuery, (snapshot) => {
+        const nuts = snapshot.docs.map((doc) => {
+          const { nut, createdAt, userId, username, photo } = doc.data();
+          return {
+            nut,
+            createdAt,
+            userId,
+            username,
+            photo,
+            id: doc.id,
+          };
+        });
+        setNut(nuts);
+      });
+    };
     fetchNuts();
+    return () => {
+      unsubscribe && unsubscribe();
+    };
   }, []);
 
   return (
