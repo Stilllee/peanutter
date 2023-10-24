@@ -5,6 +5,7 @@ import { INut } from "./Timeline";
 import { auth, db, storage } from "../firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
+import { forwardRef } from "react";
 
 const Wrapper = styled.div`
   position: relative;
@@ -17,6 +18,7 @@ const Content = styled.div`
   width: 325px;
   position: absolute;
   right: 0;
+  top: -10px;
   background-color: white;
   border-radius: 15px;
   box-shadow: rgba(101, 119, 134, 0.2) 0px 0px 15px,
@@ -36,42 +38,44 @@ const Item = styled.div`
   }
 `;
 
-const MoreBox = ({ userid, id, photo }: INut) => {
-  const user = auth.currentUser;
+const MoreBox = forwardRef<HTMLDivElement, INut>(
+  ({ userid, id, photo }, forwardedRef) => {
+    const user = auth.currentUser;
 
-  const onDelete = async () => {
-    const ok = confirm("넛을 삭제할까요?");
-    if (!ok || user?.uid !== userid) return;
-    try {
-      await deleteDoc(doc(db, "nuts", id));
-      if (photo) {
-        const photoRef = ref(storage, `nuts/${user.uid}/${id}`);
-        await deleteObject(photoRef);
+    const onDelete = async () => {
+      const ok = confirm("넛을 삭제할까요?");
+      if (!ok || user?.uid !== userid) return;
+      try {
+        await deleteDoc(doc(db, "nuts", id));
+        if (photo) {
+          const photoRef = ref(storage, `nuts/${user.uid}/${id}`);
+          await deleteObject(photoRef);
+        }
+      } catch (e) {
+        console.log(e);
+      } finally {
+        //
       }
-    } catch (e) {
-      console.log(e);
-    } finally {
-      //
-    }
-  };
+    };
 
-  return (
-    <Wrapper>
-      <Content>
-        {user?.uid === userid ? (
-          <Item onClick={onDelete}>
-            <PiTrash />
-            삭제하기
-          </Item>
-        ) : (
-          <Item>
-            <RiFlag2Line />
-            게시 신고하기
-          </Item>
-        )}
-      </Content>
-    </Wrapper>
-  );
-};
+    return (
+      <Wrapper ref={forwardedRef}>
+        <Content>
+          {user?.uid === userid ? (
+            <Item onClick={onDelete}>
+              <PiTrash />
+              삭제하기
+            </Item>
+          ) : (
+            <Item>
+              <RiFlag2Line />
+              게시 신고하기
+            </Item>
+          )}
+        </Content>
+      </Wrapper>
+    );
+  }
+);
 
 export default MoreBox;

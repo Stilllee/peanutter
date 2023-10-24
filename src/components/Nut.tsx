@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { INut } from "./Timeline";
 import { PiDotsThreeBold } from "react-icons/pi";
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MoreBox from "./MoreBox";
 
 const Wrapper = styled.div`
@@ -34,7 +34,7 @@ const Photo = styled.img`
   border: 1px solid ${({ theme }) => theme.lineGray};
 `;
 
-const MoreBtn = styled.div`
+const MoreBtn = styled.div<MoreBtnProps>`
   cursor: pointer;
   font-weight: 700;
   width: 35px;
@@ -44,27 +44,55 @@ const MoreBtn = styled.div`
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
+  visibility: ${(props) => (props.isHidden ? "hidden" : "visible")};
   &:hover {
     background-color: ${({ theme }) => theme.lightGray};
   }
 `;
 
+type MoreBtnProps = {
+  isHidden?: boolean;
+};
+
 const Nut = ({ username, photo, nut, userid, id }: INut) => {
-  const [isAuthBoxVisible, setAuthBoxVisible] = useState(false);
-  const handleClickDot = () => {
-    setAuthBoxVisible(!isAuthBoxVisible);
+  const [isMoreBoxVisible, setMoreBoxVisible] = useState(false);
+
+  const moreBoxRef = useRef(null);
+
+  const handleClickDot = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setMoreBoxVisible(!isMoreBoxVisible);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        moreBoxRef.current &&
+        !(moreBoxRef.current as HTMLElement).contains(e.target as Node)
+      ) {
+        setMoreBoxVisible(false);
+      }
+    };
+
+    if (isMoreBoxVisible) {
+      document.addEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isMoreBoxVisible]);
 
   return (
     <Wrapper>
       <Column>
         <UserBox>
           <Usename>{username}</Usename>
-          <MoreBtn onClick={handleClickDot}>
+          <MoreBtn onClick={handleClickDot} isHidden={isMoreBoxVisible}>
             <PiDotsThreeBold />
           </MoreBtn>
-          {isAuthBoxVisible && (
-            <MoreBox userid={userid} id={id} photo={photo} />
+          {isMoreBoxVisible && (
+            <MoreBox userid={userid} id={id} photo={photo} ref={moreBoxRef} />
           )}
         </UserBox>
         <Payload>{nut}</Payload>

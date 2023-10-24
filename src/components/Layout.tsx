@@ -15,7 +15,7 @@ import { GoHome, GoHomeFill } from "react-icons/go";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { TbBrandPeanut } from "react-icons/tb";
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AuthBox from "./AuthBox";
 import Button from "./common/Button";
 
@@ -102,9 +102,31 @@ const AuthItem = styled(MenuItem)`
 const Layout = () => {
   const [isAuthBoxVisible, setAuthBoxVisible] = useState(false);
 
-  const handleClickDot = () => {
+  const authBoxRef = useRef(null);
+
+  const handleClickDot = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setAuthBoxVisible(!isAuthBoxVisible);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        authBoxRef.current &&
+        !(authBoxRef.current as HTMLElement).contains(e.target as Node)
+      ) {
+        setAuthBoxVisible(false);
+      }
+    };
+
+    if (isAuthBoxVisible) {
+      document.addEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isAuthBoxVisible]);
 
   return (
     <Wrapper>
@@ -165,7 +187,7 @@ const Layout = () => {
           </MenuItem>
         </MenuLink>
         <UploadBtn>게시하기</UploadBtn>
-        {isAuthBoxVisible && <AuthBox />}
+        {isAuthBoxVisible && <AuthBox ref={authBoxRef} />}
         <Auth onClick={handleClickDot}>
           <AuthItem>
             <div>

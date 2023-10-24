@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { auth } from "../firebase";
 import { useModal } from "../hooks/useCustomModal";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
+import { forwardRef } from "react";
 
 const AuthWrapper = styled.div`
   color: ${({ theme }) => theme.brown};
@@ -47,7 +48,7 @@ const AuthItem = styled.div`
   }
 `;
 
-const AuthBox = () => {
+const AuthBox = forwardRef<HTMLDivElement>((props, forwardedRef) => {
   const { openModal } = useModal();
   const { navigateTo } = useCustomNavigate();
 
@@ -61,13 +62,13 @@ const AuthBox = () => {
   };
 
   return (
-    <AuthWrapper>
+    <AuthWrapper ref={forwardedRef}>
       <AuthBoxContent>
         <AuthItem>기존 계정 추가</AuthItem>
         <AuthItem onClick={onLogout}>닉네임 계정에서 로그아웃</AuthItem>
       </AuthBoxContent>
     </AuthWrapper>
   );
-};
+});
 
 export default AuthBox;
