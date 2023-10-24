@@ -22,6 +22,7 @@ export interface INut {
   userid: string;
   username?: string;
   createdAt?: number;
+  email: string;
 }
 
 const Timeline = () => {
@@ -37,7 +38,7 @@ const Timeline = () => {
       );
       unsubscribe = await onSnapshot(nutsQuery, (snapshot) => {
         const nuts = snapshot.docs.map((doc) => {
-          const { nut, createdAt, userid, username, photo } = doc.data();
+          const { nut, createdAt, userid, username, photo, email } = doc.data();
           return {
             nut,
             createdAt,
@@ -45,6 +46,7 @@ const Timeline = () => {
             username,
             photo,
             id: doc.id,
+            email,
           };
         });
         setNut(nuts);

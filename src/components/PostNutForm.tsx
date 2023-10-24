@@ -33,7 +33,6 @@ const Textarea = styled.textarea`
   font-weight: 400;
   line-height: 24px;
   padding: 12px 5px;
-
   outline: none;
   border: 0;
   border-bottom: 1px solid ${({ theme }) => theme.lineGray};

@@ -20,18 +20,26 @@ const UserBox = styled.div`
   align-items: center;
 `;
 
-const Usename = styled.span`
+const Username = styled.span`
+  margin-right: 10px;
   font-weight: 600;
+  font-size: 18px;
+  color: ${({ theme }) => theme.brown};
+`;
+const Email = styled.span`
   font-size: 15px;
+  color: ${({ theme }) => theme.darkGray};
 `;
 const Payload = styled.p`
   margin: 10px 0;
-  font-size: 18px;
+  white-space: pre-line;
+  line-height: 20px;
 `;
 const Photo = styled.img`
   width: 514px;
   border-radius: 16px;
   border: 1px solid ${({ theme }) => theme.lineGray};
+  margin: 14px 0;
 `;
 
 const MoreBtn = styled.div<MoreBtnProps>`
@@ -54,7 +62,7 @@ type MoreBtnProps = {
   isHidden?: boolean;
 };
 
-const Nut = ({ username, photo, nut, userid, id }: INut) => {
+const Nut = ({ username, photo, nut, userid, id, email }: INut) => {
   const [isMoreBoxVisible, setMoreBoxVisible] = useState(false);
 
   const moreBoxRef = useRef(null);
@@ -87,12 +95,21 @@ const Nut = ({ username, photo, nut, userid, id }: INut) => {
     <Wrapper>
       <Column>
         <UserBox>
-          <Usename>{username}</Usename>
+          <div>
+            <Username>{username}</Username>
+            <Email>{email}</Email>
+          </div>
           <MoreBtn onClick={handleClickDot} isHidden={isMoreBoxVisible}>
             <PiDotsThreeBold />
           </MoreBtn>
           {isMoreBoxVisible && (
-            <MoreBox userid={userid} id={id} photo={photo} ref={moreBoxRef} />
+            <MoreBox
+              email={email}
+              userid={userid}
+              id={id}
+              photo={photo}
+              ref={moreBoxRef}
+            />
           )}
         </UserBox>
         <Payload>{nut}</Payload>
