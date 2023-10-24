@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { Input } from "./auth-components";
 import React, { useRef, useState } from "react";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, updateDoc } from "firebase/firestore";
 import { auth, db, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
