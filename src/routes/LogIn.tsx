@@ -15,7 +15,6 @@ import {
 import CloseModalButton from "../components/common/Modal/CloseModalButton";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
 import { useModal } from "../hooks/useCustomModal";
-import { RiLoader4Fill } from "react-icons/ri";
 
 /* 
 에러메세지 추후 구현예정
