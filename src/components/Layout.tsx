@@ -86,17 +86,42 @@ const UploadBtn = styled(Button)`
 
 const Auth = styled.div`
   cursor: pointer;
-  width: 100%;
+  width: 254px;
   position: absolute;
   bottom: 0;
   left: 0;
   font-size: 15px;
+  margin: 8px;
 `;
 
 const AuthItem = styled(MenuItem)`
   width: 100%;
+  height: 65px;
+`;
+
+const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+const ProfileImg = styled.img`
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 12px;
+`;
+
+const Name = styled.span`
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.brown};
+`;
+
+const Email = styled.span`
+  color: ${({ theme }) => theme.darkGray};
 `;
 
 const Layout = () => {
@@ -190,10 +215,13 @@ const Layout = () => {
         {isAuthBoxVisible && <AuthBox ref={authBoxRef} />}
         <Auth onClick={handleClickDot}>
           <AuthItem>
-            <div>
-              <div>프사</div>
-              <div>닉네임</div>
-            </div>
+            <Container>
+              <ProfileImg src="profile.webp" />
+              <div>
+                <Name>닉네임</Name>
+                <Email>이메일</Email>
+              </div>
+            </Container>
             <PiDotsThreeBold />
           </AuthItem>
         </Auth>
