@@ -6,6 +6,11 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 
 const Wrapper = styled.div``;
+const ProfileBox = styled.div`
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.lightGray};
+  padding: 20px;
+`;
 const CameraIcon = styled(TbCameraPlus)`
   position: absolute;
   width: 120px;
@@ -46,7 +51,19 @@ const AvatarImg = styled.img`
 const AvatarInput = styled.input`
   display: none;
 `;
-const Name = styled.span``;
+const Name = styled.span`
+  display: block;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.brown};
+`;
+const Email = styled.span`
+  display: block;
+  margin-top: 6px;
+  font-size: 15px;
+  color: ${({ theme }) => theme.darkGray};
+`;
 
 const Profile = () => {
   const user = auth.currentUser;
@@ -69,17 +86,20 @@ const Profile = () => {
 
   return (
     <Wrapper>
-      <AvatarUpload htmlFor="avatar">
-        <AvatarImg src={avatar ?? "profile.webp"} />
-        <CameraIcon />
-      </AvatarUpload>
-      <AvatarInput
-        onChange={onAvatarChange}
-        id="avatar"
-        type="file"
-        accept="image/*"
-      />
-      <Name>{user?.displayName ?? "익명의 사용자"}</Name>
+      <ProfileBox>
+        <AvatarUpload htmlFor="avatar">
+          <AvatarImg src={avatar ?? "profile.webp"} />
+          <CameraIcon />
+        </AvatarUpload>
+        <AvatarInput
+          onChange={onAvatarChange}
+          id="avatar"
+          type="file"
+          accept="image/*"
+        />
+        <Name>{user?.displayName ?? "익명의 사용자"}</Name>
+        <Email>{user?.email}</Email>
+      </ProfileBox>
     </Wrapper>
   );
 };
