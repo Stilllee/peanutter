@@ -132,12 +132,12 @@ const PostNutForm = () => {
         await updateDoc(doc, {
           photo: url,
         });
-        setNut("");
-        setFile(null);
       }
     } catch (e) {
       console.log(e);
     } finally {
+      setNut("");
+      setFile(null);
       setLoading(false);
     }
   };
