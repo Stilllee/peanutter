@@ -40,7 +40,7 @@ const MoreBox = ({ userid, id, photo }: INut) => {
   const user = auth.currentUser;
 
   const onDelete = async () => {
-    const ok = confirm("Nut을 삭제할까요?");
+    const ok = confirm("넛을 삭제할까요?");
     if (!ok || user?.uid !== userid) return;
     try {
       await deleteDoc(doc(db, "nuts", id));
