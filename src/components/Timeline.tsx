@@ -18,10 +18,10 @@ const Wrapper = styled.div`
 export interface INut {
   id: string;
   photo?: string;
-  nut: string;
-  userId: string;
-  username: string;
-  createdAt: number;
+  nut?: string;
+  userid: string;
+  username?: string;
+  createdAt?: number;
 }
 
 const Timeline = () => {
@@ -37,11 +37,11 @@ const Timeline = () => {
       );
       unsubscribe = await onSnapshot(nutsQuery, (snapshot) => {
         const nuts = snapshot.docs.map((doc) => {
-          const { nut, createdAt, userId, username, photo } = doc.data();
+          const { nut, createdAt, userid, username, photo } = doc.data();
           return {
             nut,
             createdAt,
-            userId,
+            userid,
             username,
             photo,
             id: doc.id,
