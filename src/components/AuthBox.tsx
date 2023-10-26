@@ -3,6 +3,7 @@ import { auth } from "../firebase";
 import { useModal } from "../hooks/useCustomModal";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
 import { forwardRef } from "react";
+import { device } from "../constants/breakpoints";
 
 const AuthWrapper = styled.div`
   color: ${({ theme }) => theme.brown};
@@ -37,6 +38,9 @@ const AuthBoxContent = styled.div`
     filter: drop-shadow(0px 3px 3px rgba(101, 119, 134, 0.2))
       drop-shadow(0px 3px 1px rgba(101, 119, 134, 0.15));
     z-index: 2;
+    @media ${device.mobile}, ${device.tablet} {
+      left: 14.5%;
+    }
   }
 `;
 

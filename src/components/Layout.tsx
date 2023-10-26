@@ -14,10 +14,11 @@ import { BiBell, BiSolidBell } from "react-icons/bi";
 import { GoHome, GoHomeFill } from "react-icons/go";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
-import { TbBrandPeanut } from "react-icons/tb";
+import { TbBrandPeanut, TbPencilPlus } from "react-icons/tb";
 import React, { useEffect, useRef, useState } from "react";
 import AuthBox from "./AuthBox";
 import Button from "./common/Button";
+import { device } from "../constants/breakpoints";
 
 const Wrapper = styled.div`
   display: grid;
@@ -44,6 +45,14 @@ const Menu = styled.div`
   a {
     text-decoration: none;
     color: inherit;
+  }
+  @media ${device.mobile}, ${device.tablet} {
+    width: 89px;
+    align-items: center;
+    justify-self: end;
+    & span {
+      display: none;
+    }
   }
 `;
 
@@ -82,6 +91,19 @@ const UploadBtn = styled(Button)`
     background-color: ${({ theme }) => theme.hoverYellow};
     border-color: ${({ theme }) => theme.hoverYellow};
   }
+  @media ${device.mobile}, ${device.tablet} {
+    width: 52px;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const UploadIcon = styled(TbPencilPlus)`
+  @media ${device.desktop} {
+    display: none;
+  }
 `;
 
 const Auth = styled.div`
@@ -92,6 +114,11 @@ const Auth = styled.div`
   left: 0;
   font-size: 15px;
   margin: 8px;
+
+  @media ${device.mobile}, ${device.tablet} {
+    width: 65px;
+    left: 4px;
+  }
 `;
 
 const AuthItem = styled(MenuItem)`
@@ -103,6 +130,12 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+`;
+
+const MoreIcon = styled(PiDotsThreeBold)`
+  @media ${device.mobile}, ${device.tablet} {
+    display: none;
+  }
 `;
 
 const ProfileImg = styled.img`
@@ -211,7 +244,10 @@ const Layout = () => {
             <MenuTitle>더 보기</MenuTitle>
           </MenuItem>
         </MenuLink>
-        <UploadBtn>게시하기</UploadBtn>
+        <UploadBtn>
+          <span>게시하기</span>
+          <UploadIcon />
+        </UploadBtn>
         {isAuthBoxVisible && <AuthBox ref={authBoxRef} />}
         <Auth onClick={handleClickDot}>
           <AuthItem>
@@ -222,7 +258,7 @@ const Layout = () => {
                 <Email>이메일</Email>
               </div>
             </Container>
-            <PiDotsThreeBold />
+            <MoreIcon />
           </AuthItem>
         </Auth>
       </Menu>
