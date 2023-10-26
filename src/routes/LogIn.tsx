@@ -12,7 +12,6 @@ import {
   Error,
   Form,
 } from "../components/auth-components";
-import CloseModalButton from "../components/common/Modal/CloseModalButton";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
 import { useModal } from "../hooks/useCustomModal";
 
@@ -59,7 +58,7 @@ const LogIn = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { openModal, closeModal } = useModal();
+  const { openModal } = useModal();
 
   const { navigateTo } = useCustomNavigate();
 
@@ -128,7 +127,6 @@ const LogIn = () => {
           계정이 없으신가요?{" "}
           <a onClick={() => openModal("createAccount")}>가입하기</a>
         </Switcher>
-        <CloseModalButton onClose={closeModal} />
       </Wrapper>
     </Container>
   );

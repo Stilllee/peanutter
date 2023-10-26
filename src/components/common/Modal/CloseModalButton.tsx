@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 
 export const CloseBtn = styled(MdClose)`
+  z-index: 9;
   cursor: pointer;
   position: absolute;
   width: 34px;

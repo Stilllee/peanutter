@@ -12,7 +12,6 @@ import {
   Logo,
   Form,
 } from "../components/auth-components";
-import CloseModalButton from "../components/common/Modal/CloseModalButton";
 import { useModal } from "../hooks/useCustomModal";
 
 /* 
@@ -49,7 +48,7 @@ const CreateAccount = () => {
   const [password, setPassowrd] = useState("");
   const [error, setError] = useState("");
 
-  const { openModal, closeModal } = useModal();
+  const { openModal } = useModal();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -130,7 +129,6 @@ const CreateAccount = () => {
           이미 계정이 있으신가요?{" "}
           <a onClick={() => openModal("logIn")}>로그인</a>
         </Switcher>
-        <CloseModalButton onClose={closeModal} />
       </Wrapper>
     </Container>
   );

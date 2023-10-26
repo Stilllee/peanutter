@@ -43,7 +43,7 @@ interface FirebaseError {
 const PasswordReset = () => {
   const [email, setEmail] = useState("");
 
-  const { openModal, closeModal } = useModal();
+  const { openModal } = useModal();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -88,7 +88,6 @@ const PasswordReset = () => {
             value={"비밀번호 재설정 이메일 보내기"}
           />
         </Form>
-        <CloseModalButton onClose={closeModal} />
       </Wrapper>
     </Container>
   );

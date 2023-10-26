@@ -1,5 +1,12 @@
 import styled from "styled-components";
 import { device } from "../../../constants/breakpoints";
+import CloseModalButton from "./CloseModalButton";
+import { useModal } from "../../../hooks/useCustomModal";
+
+interface ContainerProps {
+  width?: string;
+  height?: string;
+}
 
 const Overlay = styled.div`
   z-index: 999;
@@ -13,16 +20,17 @@ const Overlay = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Container = styled.div`
+const Container = styled.div<ContainerProps>`
+  position: relative;
   background-color: white;
   padding: 20px;
   border-radius: 16px;
-  width: 600px;
-  height: 650px;
+  width: ${(props) => props.width || "600px"};
+  height: ${(props) => props.width || "650px"};
 
   @media ${device.tablet} {
-    width: 500px;
-    height: 550px;
+    width: ${(props) => props.width || "500px"};
+    height: ${(props) => props.width || "550px"};
   }
   @media ${device.mobile} {
     width: 100%;
@@ -31,14 +39,30 @@ const Container = styled.div`
   }
 `;
 
+const BtnWrapper = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+`;
+
 interface ModalProps {
   children: React.ReactNode;
+  width?: string;
+  height?: string;
 }
 
-const Modal = ({ children }: ModalProps) => {
+const Modal = ({ children, width, height }: ModalProps) => {
+  const { closeModal } = useModal();
   return (
     <Overlay>
-      <Container>{children}</Container>
+      <Container width={width} height={height}>
+        {
+          <BtnWrapper>
+            <CloseModalButton onClose={closeModal} />
+          </BtnWrapper>
+        }
+        {children}
+      </Container>
     </Overlay>
   );
 };
