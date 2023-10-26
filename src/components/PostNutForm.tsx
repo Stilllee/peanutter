@@ -18,7 +18,7 @@ const Form = styled.form`
   width: 514px;
   display: flex;
   flex-direction: column;
-  padding: 20px 0;
+  padding-top: 40px;
 `;
 
 const Textarea = styled.textarea`
@@ -80,7 +80,11 @@ const SubmitBtn = styled(Input)`
   }
 `;
 
-const PostNutForm = () => {
+interface PostNutFormProps {
+  onSubmitSuccess?: () => void;
+}
+
+const PostNutForm = ({ onSubmitSuccess }: PostNutFormProps) => {
   const [isLoading, setLoading] = useState(false);
   const [nut, setNut] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -141,6 +145,9 @@ const PostNutForm = () => {
       setLoading(false);
       if (textareaRef.current) {
         textareaRef.current.style.height = "52px";
+      }
+      if (onSubmitSuccess) {
+        onSubmitSuccess();
       }
     }
   };

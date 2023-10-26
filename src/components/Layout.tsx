@@ -19,6 +19,9 @@ import React, { useEffect, useRef, useState } from "react";
 import AuthBox from "./AuthBox";
 import Button from "./common/Button";
 import { device } from "../constants/breakpoints";
+import { useModal } from "../hooks/useCustomModal";
+import Modal from "./common/Modal/Modal";
+import PostNutForm from "./PostNutForm";
 
 const Wrapper = styled.div`
   display: grid;
@@ -160,6 +163,8 @@ const Email = styled.span`
 const Layout = () => {
   const [isAuthBoxVisible, setAuthBoxVisible] = useState(false);
 
+  const { currentModal, openModal, closeModal } = useModal();
+
   const authBoxRef = useRef(null);
 
   const handleClickDot = (e: React.MouseEvent) => {
@@ -244,10 +249,15 @@ const Layout = () => {
             <MenuTitle>더 보기</MenuTitle>
           </MenuItem>
         </MenuLink>
-        <UploadBtn>
+        <UploadBtn onClick={() => openModal("upload")}>
           <span>게시하기</span>
           <UploadIcon />
         </UploadBtn>
+        {currentModal === "upload" && (
+          <Modal width="auto" height="auto">
+            <PostNutForm onSubmitSuccess={closeModal} />
+          </Modal>
+        )}
         {isAuthBoxVisible && <AuthBox ref={authBoxRef} />}
         <Auth onClick={handleClickDot}>
           <AuthItem>
