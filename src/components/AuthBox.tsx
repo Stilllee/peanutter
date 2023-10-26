@@ -11,9 +11,9 @@ const AuthWrapper = styled.div`
 `;
 
 const AuthBoxContent = styled.div`
-  width: 100%;
+  width: 254px;
   position: absolute;
-  left: 0;
+  left: 8px;
   bottom: 70px;
   background-color: white;
   padding: 12px 0;
