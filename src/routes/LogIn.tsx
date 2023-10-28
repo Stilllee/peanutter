@@ -37,6 +37,7 @@ const LoginForm = styled(Form)`
     margin-left: 8px;
     color: ${({ theme }) => theme.hoverYellow};
     text-decoration: none;
+    padding: 0 2px;
     &:hover {
       text-decoration: underline;
     }
@@ -115,7 +116,13 @@ const LogIn = () => {
               type="password"
               required
             />
-            <a onClick={() => openModal("passwordReset")}>비밀번호찾기</a>
+            <a
+              tabIndex={0}
+              onClick={openModal("passwordReset")}
+              onKeyDown={openModal("passwordReset")}
+            >
+              비밀번호찾기
+            </a>
           </div>
           <LoginSubmit
             type="submit"
@@ -125,7 +132,13 @@ const LogIn = () => {
         {error !== "" ? <Error>{error}</Error> : null}
         <Switcher>
           계정이 없으신가요?{" "}
-          <a onClick={() => openModal("createAccount")}>가입하기</a>
+          <a
+            tabIndex={0}
+            onClick={openModal("createAccount")}
+            onKeyDown={openModal("createAccount")}
+          >
+            가입하기
+          </a>
         </Switcher>
       </Wrapper>
     </Container>

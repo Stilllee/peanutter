@@ -63,7 +63,7 @@ const LocalSignBox = () => {
     <>
       <CreateAccountBox>
         <CreateAccountBtn
-          onClick={() => openModal("createAccount")}
+          onClick={openModal("createAccount")}
           aria-label="새 계정 만들기"
         >
           계정 만들기
@@ -78,7 +78,7 @@ const LocalSignBox = () => {
       <AlreadyHaveAccount aria-label="이미 계정을 가지고 계신 경우">
         이미 피너터에 가입하셨나요?
       </AlreadyHaveAccount>
-      <LoginBtn onClick={() => openModal("logIn")} aria-label="로그인">
+      <LoginBtn onClick={openModal("logIn")} aria-label="로그인">
         로그인
       </LoginBtn>
       {currentModal === "createAccount" && (

@@ -79,6 +79,7 @@ export const Switcher = styled.p`
     font-weight: 700;
     color: ${({ theme }) => theme.hoverYellow};
     text-decoration: none;
+    padding: 0 3px;
     &:hover {
       text-decoration: underline;
     }

@@ -127,7 +127,13 @@ const CreateAccount = () => {
         {error !== "" ? <Error>{error}</Error> : null}
         <Switcher>
           이미 계정이 있으신가요?{" "}
-          <a onClick={() => openModal("logIn")}>로그인</a>
+          <a
+            tabIndex={0}
+            onClick={openModal("logIn")}
+            onKeyDown={openModal("logIn")}
+          >
+            로그인
+          </a>
         </Switcher>
       </Wrapper>
     </Container>

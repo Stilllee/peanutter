@@ -5,7 +5,13 @@ import React from "react";
 export const useModal = () => {
   const [currentModal, setCurrentModal] = useRecoilState(modalState);
 
-  const openModal = (modalType: ModalType) => setCurrentModal(modalType);
+  const openModal = (modalType: ModalType) => {
+    return (e: React.MouseEvent | React.KeyboardEvent) => {
+      if ("key" in e && e.key !== "Enter" && e.type === "keydown") return;
+      setCurrentModal(modalType);
+    };
+  };
+
   const closeModal = (e: React.MouseEvent | React.KeyboardEvent) => {
     if ("key" in e && e.key !== "Enter") return;
     setCurrentModal(null);
