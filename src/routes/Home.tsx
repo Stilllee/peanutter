@@ -10,10 +10,17 @@ const Wrapper = styled.div`
   overflow-y: scroll;
 `;
 
+const PostNutFormWrapper = styled.div`
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.lightGray};
+`;
+
 const Home = () => {
   return (
     <Wrapper>
-      <PostNutForm />
+      <PostNutFormWrapper>
+        <PostNutForm />
+      </PostNutFormWrapper>
       <Timeline />
     </Wrapper>
   );

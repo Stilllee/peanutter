@@ -256,7 +256,7 @@ const Layout = () => {
             <MenuTitle>더 보기</MenuTitle>
           </MenuItem>
         </MenuLink>
-        <UploadBtn onClick={() => openModal("upload")}>
+        <UploadBtn onClick={openModal("upload")}>
           <span>게시하기</span>
           <UploadIcon />
         </UploadBtn>

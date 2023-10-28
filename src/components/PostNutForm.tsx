@@ -7,8 +7,6 @@ import { auth, db, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Wrapper = styled.div`
-  width: 100%;
-  border: 1px solid ${({ theme }) => theme.lightGray};
   display: flex;
   justify-content: center;
 `;
@@ -81,7 +79,7 @@ const SubmitBtn = styled(Input)`
 `;
 
 interface PostNutFormProps {
-  onSubmitSuccess?: () => void;
+  onSubmitSuccess?: (e: React.MouseEvent | React.KeyboardEvent) => void;
 }
 
 const PostNutForm = ({ onSubmitSuccess }: PostNutFormProps) => {
