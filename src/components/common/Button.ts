@@ -9,7 +9,7 @@ const Button = styled.button`
   background-color: white;
   font-size: 15px;
   font-weight: 700;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
   &:focus {
     background-color: ${({ theme }) => theme.lightGray};
     outline: 2px solid ${({ theme }) => theme.lineGray};
