@@ -53,9 +53,9 @@ const AttachFileBtn = styled.label`
   align-items: center;
   justify-content: center;
   padding: 8px;
+  border-radius: 50%;
   &:hover {
     background-color: rgba(247, 198, 37, 0.2);
-    border-radius: 50%;
   }
 `;
 
@@ -169,6 +169,7 @@ const PostNutForm = ({ onSubmitSuccess }: PostNutFormProps) => {
             title="사진 추가"
             aria-label="사진 추가"
             htmlFor="file"
+            tabIndex={0}
           >
             <HiOutlinePhotograph />
           </AttachFileBtn>
