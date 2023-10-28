@@ -12,7 +12,7 @@ import { PiDotsThreeCircle, PiDotsThreeBold } from "react-icons/pi";
 import { HiOutlineMail, HiMail } from "react-icons/hi";
 import { BiBell, BiSolidBell } from "react-icons/bi";
 import { GoHome, GoHomeFill } from "react-icons/go";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { TbBrandPeanut, TbPencilPlus } from "react-icons/tb";
 import React, { useEffect, useRef, useState } from "react";
@@ -172,6 +172,8 @@ const Layout = () => {
 
   const authBoxRef = useRef(null);
 
+  const location = useLocation();
+
   const handleOpenAuthBox = (e: React.MouseEvent | React.KeyboardEvent) => {
     if ("key" in e && e.key !== "Enter") return;
 
@@ -204,7 +206,7 @@ const Layout = () => {
         <Logo />
         <MenuLink to="/home" aria-label="홈(안 읽은 새 게시물)">
           <MenuItem>
-            <GoHome />
+            {location.pathname === "/home" ? <GoHomeFill /> : <GoHome />}
             <MenuTitle>홈</MenuTitle>
           </MenuItem>
         </MenuLink>
@@ -246,7 +248,11 @@ const Layout = () => {
         </MenuLink>
         <MenuLink to="/profile" aria-label="프로필">
           <MenuItem>
-            <RiUser3Line />
+            {location.pathname === "/profile" ? (
+              <RiUser3Fill />
+            ) : (
+              <RiUser3Line />
+            )}
             <MenuTitle>프로필</MenuTitle>
           </MenuItem>
         </MenuLink>
