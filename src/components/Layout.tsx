@@ -59,11 +59,6 @@ const Menu = styled.div`
   }
 `;
 
-const MenuLink = styled(Link)`
-  cursor: pointer;
-  font-size: 25px;
-`;
-
 const MenuItem = styled.div`
   display: inline-flex;
   align-items: center;
@@ -71,7 +66,14 @@ const MenuItem = styled.div`
   border-radius: 50px;
   padding: 12px;
   transition: background-color 0.3s ease;
-  &:hover {
+`;
+
+const MenuLink = styled(Link)`
+  cursor: pointer;
+  font-size: 25px;
+  border-radius: 50px;
+  outline-color: ${({ theme }) => theme.brown};
+  &:hover ${MenuItem} {
     background-color: ${({ theme }) => theme.lightGray};
   }
 `;
@@ -93,6 +95,9 @@ const UploadBtn = styled(Button)`
   &:hover {
     background-color: ${({ theme }) => theme.hoverYellow};
     border-color: ${({ theme }) => theme.hoverYellow};
+  }
+  &:focus {
+    background-color: ${({ theme }) => theme.hoverYellow};
   }
   @media ${device.mobile}, ${device.tablet} {
     width: 52px;
@@ -167,7 +172,9 @@ const Layout = () => {
 
   const authBoxRef = useRef(null);
 
-  const handleClickDot = (e: React.MouseEvent) => {
+  const handleOpenAuthBox = (e: React.MouseEvent | React.KeyboardEvent) => {
+    if ("key" in e && e.key !== "Enter") return;
+
     e.stopPropagation();
     setAuthBoxVisible(!isAuthBoxVisible);
   };
@@ -259,8 +266,8 @@ const Layout = () => {
           </Modal>
         )}
         {isAuthBoxVisible && <AuthBox ref={authBoxRef} />}
-        <Auth onClick={handleClickDot}>
-          <AuthItem>
+        <Auth onClick={handleOpenAuthBox}>
+          <AuthItem tabIndex={0} onKeyDown={handleOpenAuthBox}>
             <Container>
               <ProfileImg src="profile.webp" />
               <div>

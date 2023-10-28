@@ -53,14 +53,13 @@ interface ModalProps {
 
 const Modal = ({ children, width, height }: ModalProps) => {
   const { closeModal } = useModal();
+
   return (
     <Overlay>
       <Container width={width} height={height}>
-        {
-          <BtnWrapper>
-            <CloseModalButton onClose={closeModal} />
-          </BtnWrapper>
-        }
+        <BtnWrapper>
+          <CloseModalButton onClose={closeModal} />
+        </BtnWrapper>
         {children}
       </Container>
     </Overlay>

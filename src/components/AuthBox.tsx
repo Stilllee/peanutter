@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { auth } from "../firebase";
 import { useModal } from "../hooks/useCustomModal";
 import { useCustomNavigate } from "../hooks/useCustomNavigate";
-import { forwardRef } from "react";
+import { forwardRef, useEffect, useRef } from "react";
 import { device } from "../constants/breakpoints";
 
 const AuthWrapper = styled.div`
@@ -56,7 +56,10 @@ const AuthBox = forwardRef<HTMLDivElement>((props, forwardedRef) => {
   const { openModal } = useModal();
   const { navigateTo } = useCustomNavigate();
 
-  const onLogout = async () => {
+  const firstItemRef = useRef(null);
+
+  const onLogout = async (e: React.MouseEvent | React.KeyboardEvent) => {
+    if ("key" in e && e.key !== "Enter") return;
     const ok = confirm("PeaNutter에서 로그아웃할까요?");
     if (ok) {
       openModal(null);
@@ -65,11 +68,21 @@ const AuthBox = forwardRef<HTMLDivElement>((props, forwardedRef) => {
     }
   };
 
+  useEffect(() => {
+    if (firstItemRef.current) {
+      (firstItemRef.current as HTMLDivElement).focus();
+    }
+  }, []);
+
   return (
     <AuthWrapper ref={forwardedRef}>
       <AuthBoxContent>
-        <AuthItem>기존 계정 추가</AuthItem>
-        <AuthItem onClick={onLogout}>닉네임 계정에서 로그아웃</AuthItem>
+        <AuthItem ref={firstItemRef} tabIndex={0}>
+          기존 계정 추가
+        </AuthItem>
+        <AuthItem tabIndex={0} onClick={onLogout} onKeyDown={onLogout}>
+          닉네임 계정에서 로그아웃
+        </AuthItem>
       </AuthBoxContent>
     </AuthWrapper>
   );
