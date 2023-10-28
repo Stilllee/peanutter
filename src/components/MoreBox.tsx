@@ -5,7 +5,7 @@ import { INut } from "./Timeline";
 import { auth, db, storage } from "../firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
 
 const Wrapper = styled.div`
   position: relative;
@@ -42,7 +42,9 @@ const MoreBox = forwardRef<HTMLDivElement, INut>(
   ({ userid, id, photo }, forwardedRef) => {
     const user = auth.currentUser;
 
-    const onDelete = async () => {
+    const handleDelete = async (e: React.MouseEvent | React.KeyboardEvent) => {
+      if ("key" in e && e.key !== "Enter") return;
+
       const ok = confirm("넛을 삭제할까요?");
       if (!ok || user?.uid !== userid) return;
       try {
@@ -51,8 +53,8 @@ const MoreBox = forwardRef<HTMLDivElement, INut>(
           const photoRef = ref(storage, `nuts/${user.uid}/${id}`);
           await deleteObject(photoRef);
         }
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
       } finally {
         //
       }
@@ -62,12 +64,12 @@ const MoreBox = forwardRef<HTMLDivElement, INut>(
       <Wrapper ref={forwardedRef}>
         <Content>
           {user?.uid === userid ? (
-            <Item onClick={onDelete}>
+            <Item tabIndex={0} onClick={handleDelete} onKeyDown={handleDelete}>
               <PiTrash />
               삭제하기
             </Item>
           ) : (
-            <Item>
+            <Item tabIndex={0}>
               <RiFlag2Line />
               게시 신고하기
             </Item>

@@ -67,7 +67,8 @@ const Nut = ({ username, photo, nut, userid, id, email }: INut) => {
 
   const moreBoxRef = useRef(null);
 
-  const handleClickDot = (e: React.MouseEvent) => {
+  const handleOpenMore = (e: React.MouseEvent | React.KeyboardEvent) => {
+    if ("key" in e && e.key !== "Enter") return;
     e.stopPropagation();
     setMoreBoxVisible(!isMoreBoxVisible);
   };
@@ -99,7 +100,12 @@ const Nut = ({ username, photo, nut, userid, id, email }: INut) => {
             <Username>{username}</Username>
             <Email>{email}</Email>
           </div>
-          <MoreBtn onClick={handleClickDot} isHidden={isMoreBoxVisible}>
+          <MoreBtn
+            tabIndex={0}
+            onClick={handleOpenMore}
+            onKeyDown={handleOpenMore}
+            isHidden={isMoreBoxVisible}
+          >
             <PiDotsThreeBold />
           </MoreBtn>
           {isMoreBoxVisible && (
