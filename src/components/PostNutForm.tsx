@@ -79,7 +79,7 @@ const SubmitBtn = styled(Input)`
 `;
 
 interface PostNutFormProps {
-  onSubmitSuccess?: (e: React.MouseEvent | React.KeyboardEvent) => void;
+  onSubmitSuccess?: () => void;
 }
 
 const PostNutForm = ({ onSubmitSuccess }: PostNutFormProps) => {
@@ -135,8 +135,8 @@ const PostNutForm = ({ onSubmitSuccess }: PostNutFormProps) => {
           photo: url,
         });
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     } finally {
       setNut("");
       setFile(null);

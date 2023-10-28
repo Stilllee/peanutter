@@ -7,13 +7,13 @@ export const useModal = () => {
 
   const openModal = (modalType: ModalType) => {
     return (e: React.MouseEvent | React.KeyboardEvent) => {
-      if ("key" in e && e.key !== "Enter" && e.type === "keydown") return;
+      if ("key" in e && e.key !== "Enter") return;
       setCurrentModal(modalType);
     };
   };
 
-  const closeModal = (e: React.MouseEvent | React.KeyboardEvent) => {
-    if ("key" in e && e.key !== "Enter") return;
+  const closeModal = (e?: React.MouseEvent | React.KeyboardEvent) => {
+    if (e && "key" in e && e.key !== "Enter") return;
     setCurrentModal(null);
   };
 
