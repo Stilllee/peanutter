@@ -37,7 +37,7 @@ const Timeline = () => {
         limit(8)
       );
       unsubscribe = await onSnapshot(nutsQuery, (snapshot) => {
-        const nuts = snapshot.docs.map((doc) => {
+        const fetchedNuts = snapshot.docs.map((doc) => {
           const { nut, createdAt, userid, username, photo, email } = doc.data();
           return {
             nut,
@@ -49,7 +49,7 @@ const Timeline = () => {
             email,
           };
         });
-        setNut(nuts);
+        setNut(fetchedNuts);
       });
     };
     fetchNuts();
