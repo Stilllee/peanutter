@@ -8,6 +8,7 @@ import { Unsubscribe, updateProfile } from "firebase/auth";
 import {
   collection,
   doc,
+  getDocs,
   limit,
   onSnapshot,
   orderBy,
@@ -133,6 +134,7 @@ const Profile = () => {
   const [avatar, setAvatar] = useState(user?.photoURL);
   const [nuts, setNuts] = useState<INut[]>([]);
   const [isEdit, setIsEdit] = useState(false);
+  const [editedName, setEditedName] = useState<string>(user?.displayName ?? "");
 
   useEffect(() => {
     let unsubscribe: Unsubscribe | null = null;
@@ -184,6 +186,39 @@ const Profile = () => {
     setIsEdit(!isEdit);
   };
 
+  const handleNameInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditedName(e.target.value);
+  };
+
+  const updateProfileInfo = async () => {
+    if (!user) return;
+
+    const nutQuery = query(
+      collection(db, "nuts"),
+      where("userid", "==", user.uid)
+    );
+    const nutsSnapshot = await getDocs(nutQuery);
+
+    nutsSnapshot.forEach(async (doc) => {
+      try {
+        await updateDoc(doc.ref, {
+          username: user.displayName,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  };
+
+  const handleEditProfile = async () => {
+    if (!user) return;
+    await updateProfile(user, {
+      displayName: editedName,
+    });
+    setIsEdit(false);
+    await updateProfileInfo();
+  };
+
   return (
     <Wrapper>
       <PforileContainer>
@@ -203,8 +238,14 @@ const Profile = () => {
               {user?.displayName ?? "익명의 사용자"}
             </Name>
             <Form>
-              {isEdit && <NameInput type="text" />}
-              <EditIcon isEdit={isEdit}>
+              {isEdit && (
+                <NameInput
+                  onChange={handleNameInputChange}
+                  value={editedName}
+                  type="text"
+                />
+              )}
+              <EditIcon isEdit={isEdit} onClick={handleEditProfile}>
                 <AiOutlineEdit />
               </EditIcon>
             </Form>

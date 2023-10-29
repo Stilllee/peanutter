@@ -133,6 +133,7 @@ const PostNutForm = ({ onSubmitSuccess }: PostNutFormProps) => {
         userid: user.uid,
         email: user.email,
       });
+
       if (file) {
         const locationRef = ref(storage, `nuts/${user.uid}/${doc.id}`);
         const result = await uploadBytes(locationRef, file);
