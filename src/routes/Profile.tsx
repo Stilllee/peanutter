@@ -1,15 +1,38 @@
 import styled from "styled-components";
-import { auth, storage } from "../firebase";
-import React, { useState } from "react";
+import { auth, db, storage } from "../firebase";
+import React, { useEffect, useState } from "react";
 import { TbCameraPlus } from "react-icons/tb";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
+import { INut } from "../components/Timeline";
+import Nut from "../components/Nut";
 
-const Wrapper = styled.div``;
-const ProfileBox = styled.div`
+const Wrapper = styled.div`
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+`;
+
+const PforileContainer = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
   border: 1px solid ${({ theme }) => theme.lightGray};
-  padding: 20px;
+`;
+
+const ProfileBox = styled.div`
+  width: 514px;
+  padding: 20px 0;
 `;
 const CameraIcon = styled(TbCameraPlus)`
   position: absolute;
@@ -65,9 +88,42 @@ const Email = styled.span`
   color: ${({ theme }) => theme.darkGray};
 `;
 
+const Nuts = styled.div`
+  width: 100%;
+  height: 100px;
+`;
+
 const Profile = () => {
   const user = auth.currentUser;
   const [avatar, setAvatar] = useState(user?.photoURL);
+  const [nuts, setNuts] = useState<INut[]>([]);
+
+  const fetchNuts = async () => {
+    const nutQurey = query(
+      collection(db, "nuts"),
+      where("userid", "==", user?.uid),
+      orderBy("createdAt", "desc"),
+      limit(25)
+    );
+    const snapshot = await getDocs(nutQurey);
+    const nuts = snapshot.docs.map((doc) => {
+      const { nut, createdAt, userid, username, photo, email } = doc.data();
+      return {
+        nut,
+        createdAt,
+        userid,
+        username,
+        photo,
+        id: doc.id,
+        email,
+      };
+    });
+    setNuts(nuts);
+  };
+
+  useEffect(() => {
+    fetchNuts();
+  }, []);
 
   const onAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
@@ -86,20 +142,27 @@ const Profile = () => {
 
   return (
     <Wrapper>
-      <ProfileBox>
-        <AvatarUpload htmlFor="avatar">
-          <AvatarImg src={avatar ?? "profile.webp"} />
-          <CameraIcon />
-        </AvatarUpload>
-        <AvatarInput
-          onChange={onAvatarChange}
-          id="avatar"
-          type="file"
-          accept="image/*"
-        />
-        <Name>{user?.displayName ?? "익명의 사용자"}</Name>
-        <Email>{user?.email}</Email>
-      </ProfileBox>
+      <PforileContainer>
+        <ProfileBox>
+          <AvatarUpload htmlFor="avatar">
+            <AvatarImg src={avatar ?? "profile.webp"} />
+            <CameraIcon />
+          </AvatarUpload>
+          <AvatarInput
+            onChange={onAvatarChange}
+            id="avatar"
+            type="file"
+            accept="image/*"
+          />
+          <Name>{user?.displayName ?? "익명의 사용자"}</Name>
+          <Email>{user?.email}</Email>
+        </ProfileBox>
+      </PforileContainer>
+      <Nuts>
+        {nuts.map((nut) => (
+          <Nut key={nut.id} {...nut} />
+        ))}
+      </Nuts>
     </Wrapper>
   );
 };

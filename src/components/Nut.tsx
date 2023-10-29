@@ -11,10 +11,11 @@ const Wrapper = styled.div`
   padding: 20px;
   border: 1px solid ${({ theme }) => theme.lightGray};
 `;
-const Column = styled.div``;
+const Column = styled.div`
+  width: 514px;
+`;
 
 const UserBox = styled.div`
-  width: 514px;
   display: flex;
   justify-content: space-between;
   align-items: center;
