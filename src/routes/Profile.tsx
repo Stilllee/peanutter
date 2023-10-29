@@ -3,11 +3,12 @@ import { auth, db, storage } from "../firebase";
 import React, { useEffect, useState } from "react";
 import { TbCameraPlus } from "react-icons/tb";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { updateProfile } from "firebase/auth";
+import { Unsubscribe, updateProfile } from "firebase/auth";
 import {
   collection,
   getDocs,
   limit,
+  onSnapshot,
   orderBy,
   query,
   where,
@@ -98,31 +99,35 @@ const Profile = () => {
   const [avatar, setAvatar] = useState(user?.photoURL);
   const [nuts, setNuts] = useState<INut[]>([]);
 
-  const fetchNuts = async () => {
-    const nutQurey = query(
-      collection(db, "nuts"),
-      where("userid", "==", user?.uid),
-      orderBy("createdAt", "desc"),
-      limit(25)
-    );
-    const snapshot = await getDocs(nutQurey);
-    const nuts = snapshot.docs.map((doc) => {
-      const { nut, createdAt, userid, username, photo, email } = doc.data();
-      return {
-        nut,
-        createdAt,
-        userid,
-        username,
-        photo,
-        id: doc.id,
-        email,
-      };
-    });
-    setNuts(nuts);
-  };
-
   useEffect(() => {
+    let unsubscribe: Unsubscribe | null = null;
+    const fetchNuts = async () => {
+      const nutsQuery = query(
+        collection(db, "nuts"),
+        where("userid", "==", user?.uid),
+        orderBy("createdAt", "desc"),
+        limit(8)
+      );
+      unsubscribe = await onSnapshot(nutsQuery, (snapshot) => {
+        const fetchedNuts = snapshot.docs.map((doc) => {
+          const { nut, createdAt, userid, username, photo, email } = doc.data();
+          return {
+            nut,
+            createdAt,
+            userid,
+            username,
+            photo,
+            id: doc.id,
+            email,
+          };
+        });
+        setNuts(fetchedNuts);
+      });
+    };
     fetchNuts();
+    return () => {
+      unsubscribe && unsubscribe();
+    };
   }, []);
 
   const onAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
