@@ -123,6 +123,13 @@ const Auth = styled.div`
   left: 0;
   font-size: 15px;
   margin: 8px;
+  border-radius: 50%;
+  &:hover {
+    background-color: ${({ theme }) => theme.lightGray};
+  }
+  &:focus {
+    background-color: ${({ theme }) => theme.brown};
+  }
 
   @media ${device.mobile}, ${device.tablet} {
     width: 65px;
