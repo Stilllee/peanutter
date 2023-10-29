@@ -22,6 +22,7 @@ import { device } from "../constants/breakpoints";
 import { useModal } from "../hooks/useCustomModal";
 import Modal from "./common/Modal/Modal";
 import PostNutForm from "./PostNutForm";
+import { auth } from "../firebase";
 
 const Wrapper = styled.div`
   display: grid;
@@ -166,7 +167,9 @@ const Email = styled.span`
 `;
 
 const Layout = () => {
+  const user = auth.currentUser;
   const [isAuthBoxVisible, setAuthBoxVisible] = useState(false);
+  const [avatar, setAvatar] = useState(user?.photoURL);
 
   const { currentModal, openModal, closeModal } = useModal();
 
@@ -275,10 +278,10 @@ const Layout = () => {
         <Auth onClick={handleOpenAuthBox}>
           <AuthItem tabIndex={0} onKeyDown={handleOpenAuthBox}>
             <Container>
-              <ProfileImg src="profile.webp" />
+              <ProfileImg src={avatar ?? "profile.webp"} />
               <div>
-                <Name>닉네임</Name>
-                <Email>이메일</Email>
+                <Name>{user?.displayName ?? "익명의 사용자"}</Name>
+                <Email>{user?.email}</Email>
               </div>
             </Container>
             <MoreIcon />
