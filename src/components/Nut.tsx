@@ -43,7 +43,7 @@ const Photo = styled.img`
   margin: 14px 0;
 `;
 
-const MoreBtn = styled.div<MoreBtnProps>`
+const MoreBtn = styled.div`
   cursor: pointer;
   font-weight: 700;
   width: 35px;
@@ -53,15 +53,10 @@ const MoreBtn = styled.div<MoreBtnProps>`
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
-  visibility: ${(props) => (props.isHidden ? "hidden" : "visible")};
   &:hover {
     background-color: ${({ theme }) => theme.lightGray};
   }
 `;
-
-type MoreBtnProps = {
-  isHidden?: boolean;
-};
 
 const Nut = ({ username, photo, nut, userid, id, email }: INut) => {
   const [isMoreBoxVisible, setMoreBoxVisible] = useState(false);
@@ -105,7 +100,6 @@ const Nut = ({ username, photo, nut, userid, id, email }: INut) => {
             tabIndex={0}
             onClick={handleOpenMore}
             onKeyDown={handleOpenMore}
-            isHidden={isMoreBoxVisible}
           >
             <PiDotsThreeBold />
           </MoreBtn>
