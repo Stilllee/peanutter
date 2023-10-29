@@ -114,6 +114,12 @@ const PostNutForm = ({ onSubmitSuccess }: PostNutFormProps) => {
     }
   };
 
+  const onKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      document.getElementById("file")?.click();
+    }
+  };
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = auth.currentUser;
@@ -168,6 +174,7 @@ const PostNutForm = ({ onSubmitSuccess }: PostNutFormProps) => {
             aria-label="사진 추가"
             htmlFor="file"
             tabIndex={0}
+            onKeyPress={onKeyPress}
           >
             <HiOutlinePhotograph />
           </AttachFileBtn>
