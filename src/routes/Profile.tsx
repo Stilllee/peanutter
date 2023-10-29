@@ -2,15 +2,18 @@ import styled from "styled-components";
 import { auth, db, storage } from "../firebase";
 import React, { useEffect, useState } from "react";
 import { TbCameraPlus } from "react-icons/tb";
+import { AiOutlineEdit } from "react-icons/ai";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Unsubscribe, updateProfile } from "firebase/auth";
 import {
   collection,
-  getDocs,
+  doc,
   limit,
   onSnapshot,
   orderBy,
   query,
+  setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { INut } from "../components/Timeline";
@@ -75,16 +78,43 @@ const AvatarImg = styled.img`
 const AvatarInput = styled.input`
   display: none;
 `;
+const EditIcon = styled.div<IIsEdit>`
+  cursor: pointer;
+  font-size: 14px;
+  display: ${(props) => (props.isEdit ? "block" : "none")};
+  padding-top: 10px;
+`;
+const NameBox = styled.div`
+  height: 26px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  &:hover ${EditIcon} {
+    display: block;
+  }
+`;
 const Name = styled.span`
+  cursor: pointer;
   display: block;
-  margin-top: 20px;
   font-size: 20px;
   font-weight: 700;
   color: ${({ theme }) => theme.brown};
+  &:hover {
+    text-decoration: underline;
+  }
 `;
+
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+`;
+
+const NameInput = styled.input`
+  margin: 0 4px;
+`;
+
 const Email = styled.span`
   display: block;
-  margin-top: 6px;
   font-size: 15px;
   color: ${({ theme }) => theme.darkGray};
 `;
@@ -94,10 +124,15 @@ const Nuts = styled.div`
   height: 100px;
 `;
 
+interface IIsEdit {
+  isEdit: boolean;
+}
+
 const Profile = () => {
   const user = auth.currentUser;
   const [avatar, setAvatar] = useState(user?.photoURL);
   const [nuts, setNuts] = useState<INut[]>([]);
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     let unsubscribe: Unsubscribe | null = null;
@@ -145,6 +180,10 @@ const Profile = () => {
     }
   };
 
+  const onClickEdit = () => {
+    setIsEdit(!isEdit);
+  };
+
   return (
     <Wrapper>
       <PforileContainer>
@@ -159,7 +198,17 @@ const Profile = () => {
             type="file"
             accept="image/*"
           />
-          <Name>{user?.displayName ?? "익명의 사용자"}</Name>
+          <NameBox>
+            <Name onClick={onClickEdit}>
+              {user?.displayName ?? "익명의 사용자"}
+            </Name>
+            <Form>
+              {isEdit && <NameInput type="text" />}
+              <EditIcon isEdit={isEdit}>
+                <AiOutlineEdit />
+              </EditIcon>
+            </Form>
+          </NameBox>
           <Email>{user?.email}</Email>
         </ProfileBox>
       </PforileContainer>
