@@ -23,6 +23,7 @@ export interface INut {
   username?: string;
   createdAt?: number;
   email: string;
+  authorPhotoURL?: string | null;
 }
 
 const Timeline = () => {
@@ -38,7 +39,15 @@ const Timeline = () => {
       );
       unsubscribe = await onSnapshot(nutsQuery, (snapshot) => {
         const fetchedNuts = snapshot.docs.map((doc) => {
-          const { nut, createdAt, userid, username, photo, email } = doc.data();
+          const {
+            nut,
+            createdAt,
+            userid,
+            username,
+            photo,
+            email,
+            authorPhotoURL,
+          } = doc.data();
           return {
             nut,
             createdAt,
@@ -47,6 +56,7 @@ const Timeline = () => {
             photo,
             id: doc.id,
             email,
+            authorPhotoURL,
           };
         });
         setNut(fetchedNuts);

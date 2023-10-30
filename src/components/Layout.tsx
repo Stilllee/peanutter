@@ -154,7 +154,7 @@ const MoreIcon = styled(PiDotsThreeBold)`
   }
 `;
 
-const ProfileImg = styled.img`
+export const ProfileImg = styled.img`
   width: 40px;
   height: 40px;
   object-fit: cover;

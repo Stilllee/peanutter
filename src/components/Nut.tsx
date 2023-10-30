@@ -3,6 +3,8 @@ import { INut } from "./Timeline";
 import { PiDotsThreeBold } from "react-icons/pi";
 import React, { useEffect, useRef, useState } from "react";
 import MoreBox from "./MoreBox";
+import { ProfileImg } from "./Layout";
+import { auth } from "../firebase";
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,9 +17,14 @@ const Column = styled.div`
   width: 514px;
 `;
 
-const UserBox = styled.div`
+const Top = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+`;
+
+const UserBox = styled.div`
+  display: flex;
   align-items: center;
 `;
 
@@ -58,7 +65,15 @@ const MoreBtn = styled.div`
   }
 `;
 
-const Nut = ({ username, photo, nut, userid, id, email }: INut) => {
+const Nut = ({
+  username,
+  photo,
+  nut,
+  userid,
+  id,
+  email,
+  authorPhotoURL,
+}: INut) => {
   const [isMoreBoxVisible, setMoreBoxVisible] = useState(false);
 
   const moreBoxRef = useRef(null);
@@ -91,11 +106,14 @@ const Nut = ({ username, photo, nut, userid, id, email }: INut) => {
   return (
     <Wrapper>
       <Column>
-        <UserBox>
-          <div>
-            <Username>{username}</Username>
-            <Email>{email}</Email>
-          </div>
+        <Top>
+          <UserBox>
+            <ProfileImg src={authorPhotoURL ?? "profile.webp"} />
+            <div>
+              <Username>{username}</Username>
+              <Email>{email}</Email>
+            </div>
+          </UserBox>
           <MoreBtn
             tabIndex={0}
             onClick={handleOpenMore}
@@ -112,7 +130,7 @@ const Nut = ({ username, photo, nut, userid, id, email }: INut) => {
               ref={moreBoxRef}
             />
           )}
-        </UserBox>
+        </Top>
         <Payload>{nut}</Payload>
       </Column>
       {photo ? (

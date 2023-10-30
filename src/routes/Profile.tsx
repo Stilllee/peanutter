@@ -255,7 +255,7 @@ const Profile = () => {
       </PforileContainer>
       <Nuts>
         {nuts.map((nut) => (
-          <Nut key={nut.id} {...nut} />
+          <Nut key={nut.id} {...nut} authorPhotoURL={avatar} />
         ))}
       </Nuts>
     </Wrapper>
