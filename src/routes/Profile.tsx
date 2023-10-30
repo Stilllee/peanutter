@@ -241,7 +241,7 @@ const Profile = () => {
               {isEdit && (
                 <NameInput
                   onChange={handleNameInputChange}
-                  value={editedName}
+                  placeholder={editedName}
                   type="text"
                 />
               )}
