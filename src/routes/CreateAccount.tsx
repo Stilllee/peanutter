@@ -14,13 +14,10 @@ import {
 } from "../components/auth-components";
 import { useModal } from "../hooks/useCustomModal";
 
-/* 
-// 에러핸들링 예정
-
-const errors = {
+/* const errors = {
   "auth/email-already-in-use": "이미 사용중인 이메일입니다.",
-}; 
-*/
+  "auth/weak-password": "비밀번호는 6자리 이상이어야 합니다.",
+}; */
 
 const Container = styled.div`
   position: relative;
@@ -48,7 +45,7 @@ const CreateAccount = () => {
   const [password, setPassowrd] = useState("");
   const [error, setError] = useState("");
 
-  const { openModal } = useModal();
+  const { openModal, openModalDirectly } = useModal();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -76,7 +73,7 @@ const CreateAccount = () => {
       await updateProfile(credentials.user, {
         displayName: name,
       });
-      openModal("logIn");
+      openModalDirectly("logIn");
     } catch (e) {
       if (e instanceof FirebaseError) {
         setError(e.message);
