@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { FirebaseError } from "firebase/app";
 import {
   Input,
@@ -13,6 +13,7 @@ import {
   Form,
 } from "../components/auth-components";
 import { useModal } from "../hooks/useCustomModal";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 /* const errors = {
   "auth/email-already-in-use": "이미 사용중인 이메일입니다.",
@@ -73,6 +74,14 @@ const CreateAccount = () => {
       await updateProfile(credentials.user, {
         displayName: name,
       });
+
+      const userRef = doc(collection(db, "users"), credentials.user.uid);
+      await setDoc(userRef, {
+        name: name,
+        email: email,
+        profilePicture: credentials.user.photoURL || "",
+      });
+
       openModalDirectly("logIn");
     } catch (e) {
       if (e instanceof FirebaseError) {
