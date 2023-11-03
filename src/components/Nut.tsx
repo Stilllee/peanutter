@@ -4,7 +4,6 @@ import { PiDotsThreeBold } from "react-icons/pi";
 import React, { useEffect, useRef, useState } from "react";
 import MoreBox from "./MoreBox";
 import { ProfileImg } from "./Layout";
-import { auth } from "../firebase";
 
 const Wrapper = styled.div`
   display: flex;

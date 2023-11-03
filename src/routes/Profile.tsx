@@ -16,6 +16,7 @@ import {
   setDoc,
   updateDoc,
   where,
+  writeBatch,
 } from "firebase/firestore";
 import { INut } from "../components/Timeline";
 import Nut from "../components/Nut";
@@ -179,6 +180,7 @@ const Profile = () => {
       await updateProfile(user, {
         photoURL: avatarUrl,
       });
+      await updateProfileInfo();
     }
   };
 
@@ -199,15 +201,15 @@ const Profile = () => {
     );
     const nutsSnapshot = await getDocs(nutQuery);
 
-    nutsSnapshot.forEach(async (doc) => {
-      try {
-        await updateDoc(doc.ref, {
-          username: user.displayName,
-        });
-      } catch (error) {
-        console.log(error);
-      }
+    const batch = writeBatch(db);
+
+    nutsSnapshot.forEach((doc) => {
+      batch.update(doc.ref, {
+        username: user.displayName,
+        authorPhotoURL: avatar,
+      });
     });
+    await batch.commit();
   };
 
   const handleEditProfile = async () => {
