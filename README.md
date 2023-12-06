@@ -43,7 +43,14 @@ Peanuts는 땅콩을 가리키는 단어로, '별 볼 일 없는 것들'이라�
 반응형 레이아웃을 통해 사용자는 모바일, 태블릿, 데스크탑 등 다양한 화면에서 원활한 사용자 경험을 얻을 수 있습니다.
 <br>
 
-### 2. 게시물 관리
+### 2. 모달
+![image](https://github.com/Stilllee/nwitter/assets/108785772/8ca17eea-1ed1-4c19-b452-dd00bf00e169)
+모달창을 활용한 인터렉티브한 사용자 인터페이스를 제공합니다.
+- 게시물 업로드, 로그인, 회원가입, 비밀번호찾기 등의 기능이 모달창을 통해 진행됩니다.
+
+<br>
+
+### 3. 게시물 관리
 ![게시글 업로드](https://github.com/Stilllee/nwitter/assets/108785772/b901bc5c-8926-4938-b064-6d3155dc0fff)
 타임라인에 실시간으로 게시물 추가 및 삭제가 반영됩니다.
 <br>
@@ -62,7 +69,15 @@ Peanuts는 땅콩을 가리키는 단어로, '별 볼 일 없는 것들'이라�
 - 타임라인에서는 모든 게시물이 보여지며, 타인의 게시물은 삭제할 수 없고 접속한 유저의 게시물만 삭제할 수 있습니다.
 <br>
  
-### 3. 계정 관리
+### 4. 계정생성 및 로그인
+![소셜로그인](https://github.com/Stilllee/nwitter/assets/108785772/01d62c40-38a7-4e78-90a1-03f32208551a)
+*Google*과 *Github*계정을 통한 소셜로그인이 가능합니다.
+<br>
+
+![가입, 로그인](https://github.com/Stilllee/nwitter/assets/108785772/c73a6c7e-9107-4ac1-b63e-ee06661fc89f)
+firebase를 통해 가입 및 로그인 기능을 구현했습니다.
+<br>
+
 ![protected routes](https://github.com/Stilllee/nwitter/assets/108785772/a534e440-f45c-4ee2-a4dc-01506a35c31a)
 'Protected Routes' 방식으로 로그인되지 않은 사용자의 접근을 랜딩페이지로 제한헙나다.
 - 로그인되지 않은 유저는 가입 및 로그인에 관련된 기능만을 이용할 수 있습니다.
@@ -70,3 +85,6 @@ Peanuts는 땅콩을 가리키는 단어로, '별 볼 일 없는 것들'이라�
 
 ![로그아웃](https://github.com/Stilllee/nwitter/assets/108785772/5c354343-0e86-437e-bd85-3104d66ba66b)
 - 유저 로그아웃시에는 랜딩페이지로 넘어갑니다.
+<br>
+
+
