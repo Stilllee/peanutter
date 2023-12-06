@@ -50,26 +50,7 @@ Peanuts는 땅콩을 가리키는 단어로, '별 볼 일 없는 것들'이라�
 
 <br>
 
-### 3. 게시물 관리
-![게시글 업로드](https://github.com/Stilllee/nwitter/assets/108785772/b901bc5c-8926-4938-b064-6d3155dc0fff)
-타임라인에 실시간으로 게시물 추가 및 삭제가 반영됩니다.
-<br>
-
-![게시글 업로드2](https://github.com/Stilllee/nwitter/assets/108785772/934a52fa-5a50-49ea-86d8-438e47fada0c)
-업로드는 타임라인과 사이드메뉴에서 모두 가능합니다.
-- 사이드메뉴에서 게시하기를 누르면 모달창이 활성화 되며, 타임라인에 있는 업로드 기능과 동일하게 동작합니다.
-<br>
-
-![프로필 페이지](https://github.com/Stilllee/nwitter/assets/108785772/e511c3af-ff95-4973-aab3-7f9c22a09cf3)
-게시글 작성자의 구분이 가능합니다.
-- 프로필 페이지에서 접속한 유저가 작성한 게시글만 따로 볼 수 있습니다.
-<br>
-
-![게시글 삭제](https://github.com/Stilllee/nwitter/assets/108785772/93f460c6-4c7c-4dbf-979c-875df7e40c40)
-- 타임라인에서는 모든 게시물이 보여지며, 타인의 게시물은 삭제할 수 없고 접속한 유저의 게시물만 삭제할 수 있습니다.
-<br>
- 
-### 4. 계정생성 및 로그인
+### 3. 계정생성 및 로그인
 ![소셜로그인](https://github.com/Stilllee/nwitter/assets/108785772/01d62c40-38a7-4e78-90a1-03f32208551a)
 *Google*과 *Github*계정을 통한 소셜로그인이 가능합니다.
 <br>
@@ -87,4 +68,20 @@ firebase를 통해 가입 및 로그인 기능을 구현했습니다.
 - 유저 로그아웃시에는 랜딩페이지로 넘어갑니다.
 <br>
 
+### 4. 게시물 관리
+![게시글 업로드](https://github.com/Stilllee/nwitter/assets/108785772/b901bc5c-8926-4938-b064-6d3155dc0fff)
+타임라인에 실시간으로 게시물 추가 및 삭제가 반영됩니다.
+<br>
 
+![게시글 업로드2](https://github.com/Stilllee/nwitter/assets/108785772/934a52fa-5a50-49ea-86d8-438e47fada0c)
+업로드는 타임라인과 사이드메뉴에서 모두 가능합니다.
+- 사이드메뉴에서 게시하기를 누르면 모달창이 활성화 되며, 타임라인에 있는 업로드 기능과 동일하게 동작합니다.
+<br>
+
+![프로필 페이지](https://github.com/Stilllee/nwitter/assets/108785772/e511c3af-ff95-4973-aab3-7f9c22a09cf3)
+게시글 작성자의 구분이 가능합니다.
+- 프로필 페이지에서 접속한 유저가 작성한 게시글만 따로 볼 수 있습니다.
+<br>
+
+![게시글 삭제](https://github.com/Stilllee/nwitter/assets/108785772/93f460c6-4c7c-4dbf-979c-875df7e40c40)
+- 타임라인에서는 모든 게시물이 보여지며, 타인의 게시물은 삭제할 수 없고 접속한 유저의 게시물만 삭제할 수 있습니다.
