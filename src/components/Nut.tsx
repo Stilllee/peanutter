@@ -3,7 +3,7 @@ import { INut } from "./Timeline";
 import { PiDotsThreeBold } from "react-icons/pi";
 import React, { useEffect, useRef, useState } from "react";
 import MoreBox from "./MoreBox";
-import { ProfileImg } from "./Layout";
+import { ProfileImg } from "./Menu";
 
 const Wrapper = styled.div`
   display: flex;
