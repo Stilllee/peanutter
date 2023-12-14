@@ -3,7 +3,6 @@ import { Input } from "./auth-components";
 import { RiSearchLine } from "react-icons/ri";
 
 const Wrapper = styled.div`
-  background-color: tomato;
   width: 350px;
   display: flex;
   flex-direction: column;
