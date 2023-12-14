@@ -123,7 +123,7 @@ const Auth = styled.div`
   left: 0;
   font-size: 15px;
   margin: 8px;
-  border-radius: 50%;
+  border-radius: 50px;
   &:hover {
     background-color: ${({ theme }) => theme.lightGray};
   }
