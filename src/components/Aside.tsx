@@ -46,6 +46,7 @@ const Box = styled.div`
 const Title = styled.div`
   font-size: 20px;
   font-weight: bold;
+  color: ${({ theme }) => theme.brown};
 `;
 
 const SubmitBtn = styled(Input)`
@@ -71,11 +72,13 @@ const Item = styled.div`
 
 const Trend = styled.p`
   font-size: 14px;
+  color: ${({ theme }) => theme.darkGray};
 `;
 
 const SubTitle = styled.p`
   font-weight: bold;
   margin-top: 2px;
+  color: ${({ theme }) => theme.brown};
 `;
 
 const Text = styled.p`
