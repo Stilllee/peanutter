@@ -7,14 +7,11 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Unsubscribe, updateProfile } from "firebase/auth";
 import {
   collection,
-  doc,
   getDocs,
   limit,
   onSnapshot,
   orderBy,
   query,
-  setDoc,
-  updateDoc,
   where,
   writeBatch,
 } from "firebase/firestore";

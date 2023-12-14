@@ -7,7 +7,6 @@ import {
   Form,
 } from "../components/auth-components";
 import React, { useState } from "react";
-import CloseModalButton from "../components/common/Modal/CloseModalButton";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../firebase";
 import { useModal } from "../hooks/useCustomModal";

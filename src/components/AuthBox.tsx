@@ -52,7 +52,7 @@ const AuthItem = styled.div`
   }
 `;
 
-const AuthBox = forwardRef<HTMLDivElement>((props, forwardedRef) => {
+const AuthBox = forwardRef<HTMLDivElement>((_props, forwardedRef) => {
   const { openModal } = useModal();
   const { navigateTo } = useCustomNavigate();
 
