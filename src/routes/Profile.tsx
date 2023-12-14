@@ -27,6 +27,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const PforileContainer = styled.div`
