@@ -56,6 +56,8 @@ const AuthBox = forwardRef<HTMLDivElement>((props, forwardedRef) => {
   const { openModal } = useModal();
   const { navigateTo } = useCustomNavigate();
 
+  const user = auth.currentUser;
+
   const firstItemRef = useRef(null);
 
   const onLogout = async (e: React.MouseEvent | React.KeyboardEvent) => {
@@ -81,7 +83,7 @@ const AuthBox = forwardRef<HTMLDivElement>((props, forwardedRef) => {
           기존 계정 추가
         </AuthItem>
         <AuthItem tabIndex={0} onClick={onLogout} onKeyDown={onLogout}>
-          닉네임 계정에서 로그아웃
+          {user?.displayName ?? "익명의 사용자"}에서 로그아웃
         </AuthItem>
       </AuthBoxContent>
     </AuthWrapper>
