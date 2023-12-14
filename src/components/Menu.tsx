@@ -2,15 +2,12 @@ import {
   RiUser3Line,
   RiUser3Fill,
   RiSearchLine,
-  RiSearchFill,
   RiFileListLine,
-  RiFileListFill,
   RiBookmarkLine,
-  RiBookmarkFill,
 } from "react-icons/ri";
 import { PiDotsThreeCircle, PiDotsThreeBold } from "react-icons/pi";
-import { HiOutlineMail, HiMail } from "react-icons/hi";
-import { BiBell, BiSolidBell } from "react-icons/bi";
+import { HiOutlineMail } from "react-icons/hi";
+import { BiBell } from "react-icons/bi";
 import { GoHome, GoHomeFill } from "react-icons/go";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -167,7 +164,7 @@ const Email = styled.span`
 const Menu = () => {
   const user = auth.currentUser;
   const [isAuthBoxVisible, setAuthBoxVisible] = useState(false);
-  const [avatar, setAvatar] = useState(user?.photoURL);
+  const [avatar] = useState(user?.photoURL);
 
   const { currentModal, openModal, closeModal } = useModal();
 
