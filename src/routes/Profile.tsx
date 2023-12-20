@@ -17,6 +17,8 @@ import {
 } from "firebase/firestore";
 import { INut } from "../components/Timeline";
 import Nut from "../components/Nut";
+import { useRecoilState } from "recoil";
+import { userAvatarState } from "../state/userState";
 
 const Wrapper = styled.div`
   width: 600px;
@@ -133,12 +135,15 @@ interface IIsEdit {
 
 const Profile = () => {
   const user = auth.currentUser;
-  const [avatar, setAvatar] = useState(user?.photoURL);
+  // const [avatar, setAvatar] = useState(user?.photoURL);
+  const [avatar, setAvatar] = useRecoilState(userAvatarState);
   const [nuts, setNuts] = useState<INut[]>([]);
   const [isEdit, setIsEdit] = useState(false);
   const [editedName, setEditedName] = useState<string>(user?.displayName ?? "");
 
   useEffect(() => {
+    setAvatar(user?.photoURL ?? "");
+
     let unsubscribe: Unsubscribe | null = null;
     const fetchNuts = async () => {
       const nutsQuery = query(
@@ -167,21 +172,25 @@ const Profile = () => {
     return () => {
       unsubscribe && unsubscribe();
     };
-  }, []);
+  }, [user, setAvatar]);
 
   const onAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
-    if (!user) return;
-    if (files && files.length === 1) {
-      const file = files[0];
-      const locationRef = ref(storage, `avatars/${user?.uid}`);
+    if (!user || !files || files.length === 0) return;
+
+    const file = files[0];
+    const locationRef = ref(storage, `avatars/${user?.uid}`);
+    try {
       const result = await uploadBytes(locationRef, file);
       const avatarUrl = await getDownloadURL(result.ref);
+
       setAvatar(avatarUrl);
       await updateProfile(user, {
         photoURL: avatarUrl,
       });
       await updateProfileInfo();
+    } catch (error) {
+      console.error("Error uploading file: ", error);
     }
   };
 

@@ -71,7 +71,7 @@ const Timeline = () => {
   return (
     <Wrapper>
       {nuts.map((nut) => (
-        <Nut key={nut.id} {...nut} authorPhotoURL={avatar}></Nut>
+        <Nut key={nut.id} {...nut}></Nut>
       ))}
     </Wrapper>
   );
