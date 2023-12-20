@@ -35,7 +35,7 @@ const Timeline = () => {
       const nutsQuery = query(
         collection(db, "nuts"),
         orderBy("createdAt", "desc"),
-        limit(8)
+        limit(25)
       );
       unsubscribe = await onSnapshot(nutsQuery, (snapshot) => {
         const fetchedNuts = snapshot.docs.map((doc) => {
@@ -71,7 +71,7 @@ const Timeline = () => {
   return (
     <Wrapper>
       {nuts.map((nut) => (
-        <Nut key={nut.id} {...nut}></Nut>
+        <Nut key={nut.id} {...nut} authorPhotoURL={avatar}></Nut>
       ))}
     </Wrapper>
   );
