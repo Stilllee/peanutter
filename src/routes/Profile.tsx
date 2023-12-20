@@ -135,7 +135,6 @@ interface IIsEdit {
 
 const Profile = () => {
   const user = auth.currentUser;
-  // const [avatar, setAvatar] = useState(user?.photoURL);
   const [avatar, setAvatar] = useRecoilState(userAvatarState);
   const [nuts, setNuts] = useState<INut[]>([]);
   const [isEdit, setIsEdit] = useState(false);
