@@ -7,7 +7,7 @@
 
 <br>
 
-![image](https://github.com/Stilllee/nwitter/assets/108785772/89db38e6-4d9e-4d65-914e-248d7a99ffd8)
+![image](https://github.com/Stilllee/peanutter/assets/108785772/5ede8126-920d-4155-a728-441ac97ff95e)
 <br>
 
 좋아하는 만화 *Peanuts*를 테마로 한 소셜미디어 **PeaNutter**를 소개합니다.
