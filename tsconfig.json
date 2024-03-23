@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -18,7 +19,14 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* paths */
+    "paths": {
+      "pages/*": ["pages/*"],
+      "components/*": ["components/*"],
+      "firebaseApp/*": ["firebaseApp/*"],
+    } 
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
