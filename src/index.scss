@@ -38,16 +38,29 @@ $large: 1281px;
 }
 
 // 색상
-$bg: #292826;
+$brown: #292826;
 $white: #e7e9ea;
 $border: #464441;
 $primary: #f9d142;
-$activePrimary: #f7c625;
 $grayText: #71767b;
 $red: #de373d;
 
 $font: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
   Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+// Toast
+.Toastify__toast {
+  background-color: $primary;
+  font-weight: 500;
+  &-body {
+    background-color: transparent;
+    & > div {
+      background-color: transparent;
+      color: $brown;
+      text-align: center;
+    }
+  }
+}
 
 // 전체 레이아웃
 body {
@@ -61,7 +74,7 @@ body {
 *::before,
 *::after {
   box-sizing: border-box;
-  background-color: $bg;
+  background-color: $brown;
   color: $white;
 }
 
@@ -212,7 +225,7 @@ body {
     @extend .button;
     padding: 0.5rem 1rem;
     background-color: $primary;
-    color: $bg;
+    color: $brown;
 
     &:hover,
     &:focus {
