@@ -121,10 +121,21 @@ body {
       border: none;
       display: flex;
       justify-content: center;
-      align-items: center;
       font-size: 28px;
       padding: 12px 0;
       cursor: pointer;
+
+      .menu-btn {
+        display: flex;
+        align-items: center;
+        border-radius: 50%;
+        padding: 8px;
+        &:hover,
+        &:focus {
+          filter: brightness(1.3);
+          transition: all 0.2s ease-in-out;
+        }
+      }
     }
   }
 }
@@ -303,6 +314,7 @@ body {
           &:hover,
           &:focus {
             background-color: $border;
+            transition: all 0.2s ease-in-out;
           }
         }
 
@@ -310,6 +322,7 @@ body {
           &:hover,
           &:focus {
             background-color: $red;
+            transition: all 0.2s ease-in-out;
           }
         }
 
@@ -324,9 +337,10 @@ body {
           &:hover,
           &:focus {
             color: $primary;
-
-            svg {
+            transition: all 0.2s ease-in-out;
+            & > svg {
               fill: $primary;
+              transition: all 0.2s ease-in-out;
             }
           }
         }
@@ -334,9 +348,10 @@ body {
           &:hover,
           &:focus {
             color: $red;
-
-            svg {
+            transition: all 0.2s ease-in-out;
+            & > svg {
               fill: $red;
+              transition: all 0.2s ease-in-out;
             }
           }
         }

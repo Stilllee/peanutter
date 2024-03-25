@@ -9,13 +9,19 @@ export default function Menu() {
     <div className="menu">
       <div className="menu__grid">
         <button type="button" onClick={() => nav("/")}>
-          <GoHome />
+          <div className="menu-btn">
+            <GoHome />
+          </div>
         </button>
         <button type="button" onClick={() => nav("/search")}>
-          <RiSearchLine />
+          <div className="menu-btn">
+            <RiSearchLine />
+          </div>
         </button>
         <button type="button" onClick={() => nav("/notifications")}>
-          <BiBell />
+          <div className="menu-btn">
+            <BiBell />
+          </div>
         </button>
       </div>
     </div>
