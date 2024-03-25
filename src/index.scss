@@ -331,3 +331,85 @@ body {
     }
   }
 }
+
+// Landing 레이아웃
+.landing {
+  padding: 36px;
+  .logo {
+    // @include mobile
+    font-size: 4rem;
+  }
+  .auth-form {
+    &__title {
+      font-weight: 700;
+      // @include mobile
+      font-size: 2.75rem;
+    }
+
+    &__subtitle {
+      font-weight: 700;
+      // @include mobile
+      font-size: 1.5rem;
+    }
+
+    &__sign-area {
+      button {
+        @extend .button;
+        background-color: white;
+        color: black;
+        width: 300px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        font-size: 15px;
+        font-weight: 700;
+
+        &:hover,
+        &:focus {
+          filter: brightness(0.8);
+          transition: all 0.2s ease-in-out;
+        }
+      }
+
+      .social-login {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        button {
+          svg {
+            background-color: transparent;
+            fill: black;
+          }
+        }
+      }
+
+      .or-box {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+        margin: 8px 0;
+        &__line {
+          width: 138.5px;
+          height: 1px;
+          background-color: $border;
+        }
+      }
+
+      .local-sign {
+        .signup-btn {
+          background-color: $primary;
+          margin-bottom: 2.75rem;
+        }
+
+        p {
+          font-size: 17px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
