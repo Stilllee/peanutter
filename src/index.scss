@@ -1,0 +1,333 @@
+@import "../node_modules/pretendard/dist/web/static/pretendard.css";
+
+// 뷰포인트
+$mobile: 500px;
+$small: 690px;
+$medium: 1005px;
+$large: 1281px;
+
+// 미디어쿼리
+@mixin mobile {
+  @media (max-width: ($mobile - 1)) {
+  }
+  @content;
+}
+
+@mixin small {
+  @media (min-width: $mobile) and (max-width: ($small - 1)) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (min-width: $small) and (max-width: ($medium - 1)) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media (min-width: $medium) and (max-width: ($large - 1)) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $large) {
+    @content;
+  }
+}
+
+// 색상
+$bg: #292826;
+$white: #e7e9ea;
+$border: #464441;
+$primary: #f9d142;
+$activePrimary: #f7c625;
+$grayText: #71767b;
+$red: #de373d;
+
+$font: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+// 전체 레이아웃
+body {
+  margin: 0;
+  font-family: $font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  background-color: $bg;
+  color: $white;
+}
+
+.layout {
+  min-height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  border-left: $border 1px solid;
+  border-right: $border 1px solid;
+
+  // @include mobile
+  max-width: 500px;
+}
+
+.button {
+  padding: 0.2rem 0.8rem;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.25rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+// Menu 레이아웃
+.menu {
+  // @include mobile
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  border-top: 1px solid $border;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    button {
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      padding: 12px 0;
+      cursor: pointer;
+    }
+  }
+}
+
+// Home 레이아웃
+.home {
+  &__title {
+    padding: 16px;
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  &__tabs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &__tab {
+    text-align: center;
+    font-weight: 500;
+    padding: 16px;
+    cursor: pointer;
+
+    & span {
+      background-color: transparent;
+      padding: 12px 0;
+    }
+
+    &--active span {
+      font-weight: 700;
+      border-bottom: 4px solid $primary;
+    }
+
+    &:hover,
+    &:focus {
+      filter: brightness(1.3);
+      transition: all 0.2s ease-in-out;
+    }
+  }
+}
+
+.post-form {
+  & textarea {
+    font-family: $font;
+    display: block;
+    width: calc(100% - 32px);
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+    border: none;
+    resize: none;
+    outline: none;
+    font-size: 20px;
+    border-bottom: 1px solid $border;
+    min-height: 52px;
+    overflow: hidden;
+
+    &::placeholder {
+      font-family: $font;
+      color: $grayText;
+      font-size: 20px;
+    }
+  }
+
+  &__submit-area {
+    display: flex;
+    padding: 0.75rem 1rem;
+    justify-content: space-between;
+    border-bottom: 1px solid $border;
+
+    .post-form__file {
+      display: flex;
+      font-size: 20px;
+      padding: 0.5rem 0.5rem;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50%;
+
+      svg {
+        stroke: $primary;
+      }
+
+      &:hover,
+      &:focus {
+        filter: brightness(1.3);
+        transition: all 0.2s ease-in-out;
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+  }
+
+  &__submit-btn {
+    @extend .button;
+    padding: 0.5rem 1rem;
+    background-color: $primary;
+    color: $bg;
+
+    &:hover,
+    &:focus {
+      filter: brightness(0.8);
+      transition: all 0.2s ease-in-out;
+    }
+  }
+}
+
+// Post 레이아웃
+.post {
+  padding-bottom: 40px;
+
+  &__flex {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  &__email,
+  &__createdAt {
+    font-size: 12px;
+    color: $grayText;
+  }
+
+  &__box {
+    padding: 16px;
+    border-bottom: 1px solid $border;
+
+    a {
+      text-decoration: none;
+    }
+
+    &-profile {
+      text-decoration: none;
+
+      &-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+    }
+
+    &-content {
+      display: flex;
+      font-weight: 500;
+      padding: 16px 0;
+    }
+
+    &-footer {
+      background: #000;
+      font-size: 14px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+
+      .post__social-actions {
+        display: flex;
+      }
+
+      .post__admin-actions {
+        display: flex;
+        justify-content: end;
+      }
+
+      button {
+        @extend .button;
+        box-shadow: none;
+
+        &.post__edit {
+          & a {
+            background-color: transparent;
+          }
+
+          &:hover,
+          &:focus {
+            background-color: $border;
+          }
+        }
+
+        &.post__delete {
+          &:hover,
+          &:focus {
+            background-color: $red;
+          }
+        }
+
+        &.post__comments,
+        &.post__likes {
+          @extend .post__flex;
+        }
+
+        &.post__comments {
+          position: relative;
+          left: -0.8rem;
+          &:hover,
+          &:focus {
+            color: $primary;
+
+            svg {
+              fill: $primary;
+            }
+          }
+        }
+        &.post__likes {
+          &:hover,
+          &:focus {
+            color: $red;
+
+            svg {
+              fill: $red;
+            }
+          }
+        }
+      }
+    }
+  }
+}
