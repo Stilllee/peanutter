@@ -60,7 +60,6 @@ const posts: PostProps[] = [
 export default function Home() {
   return (
     <div className="home">
-      <div className="home__title">Home</div>
       <div className="home__tabs">
         <div className="home__tab home__tab--active">
           <span>For you</span>
