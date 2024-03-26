@@ -1,4 +1,6 @@
 import AuthContext from "context/AuthContext";
+import { getAuth, signOut } from "firebase/auth";
+import { app } from "firebaseApp";
 import { useContext } from "react";
 import { RiLoginBoxLine, RiLogoutBoxRLine } from "react-icons/ri";
 import { TbBrandPeanut } from "react-icons/tb";
@@ -38,7 +40,14 @@ export default function Header() {
           type="button"
           aria-label={user === null ? "Login" : "Logout"}
           title={user === null ? "Login" : "Logout"}
-          onClick={() => nav("/notifications")}
+          onClick={
+            user === null
+              ? () => nav("/login")
+              : async () => {
+                  const auth = getAuth(app);
+                  await signOut(auth);
+                }
+          }
         >
           <div className="menu-btn">
             {user === null ? <RiLoginBoxLine /> : <RiLogoutBoxRLine />}
