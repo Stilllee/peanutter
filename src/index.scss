@@ -418,7 +418,11 @@ body {
 
 // Landing 레이아웃
 .landing {
-  padding: 36px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   .logo {
     // @include mobile
     font-size: 4rem;
