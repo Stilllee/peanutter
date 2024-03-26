@@ -1,3 +1,4 @@
+import Header from "./Header";
 import Menu from "./Menu";
 
 interface LayoutProps {
@@ -8,6 +9,7 @@ interface LayoutProps {
 export default function Layout({ children, isAuthenticated }: LayoutProps) {
   return (
     <div className="layout">
+      {isAuthenticated && <Header />}
       {children}
       {isAuthenticated && <Menu />}
     </div>
