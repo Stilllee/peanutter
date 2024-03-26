@@ -39,7 +39,9 @@ function App() {
       {init ? (
         <Router isAuthenticated={isAuthenticated} />
       ) : (
-        <ClipLoader color="#f9d142" />
+        <div className="clip-loader">
+          <ClipLoader color="#f9d142" />
+        </div>
       )}
     </Layout>
   );
