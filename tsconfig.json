@@ -26,7 +26,8 @@
       "pages/*": ["pages/*"],
       "components/*": ["components/*"],
       "firebaseApp/*": ["firebaseApp/*"],
-    } 
+      "context/*": ["context/*"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
