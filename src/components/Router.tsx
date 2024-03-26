@@ -9,6 +9,7 @@ import Profile from "pages/profile/Profile";
 import ProfileEdit from "pages/profile/ProfileEdit";
 import Search from "pages/search/Search";
 import Login from "pages/users/Login";
+import ResetPassword from "pages/users/ResetPassword";
 import Signup from "pages/users/Signup";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -37,6 +38,7 @@ export default function Router({ isAuthenticated }: RouterProps) {
           <Route path="/" element={<Landing />} />
           <Route path="/users/login" element={<Login />} />
           <Route path="/users/signup" element={<Signup />} />
+          <Route path="/users/reset-password" element={<ResetPassword />} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </>
       )}
