@@ -12,7 +12,7 @@ export default function PostForm() {
         placeholder="What is happening?"
       />
       <div className="post-form__submit-area">
-        <label htmlFor="file-input" className="post-form__file">
+        <label htmlFor="file-input" title="Image" className="post-form__file">
           <HiOutlinePhotograph className="post-form__file-icon" />
         </label>
         <input
@@ -20,6 +20,7 @@ export default function PostForm() {
           name="file-input"
           id="file-input"
           accept="image/*"
+          aria-label="Image upload"
           onChange={handleFileUpload}
           className="hidden"
         />

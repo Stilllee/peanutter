@@ -29,11 +29,21 @@ export default function PostBox({ post }: PostBoxProps) {
       </Link>
       <div className="post__box-footer">
         <div className="post__social-actions">
-          <button type="button" className="post__comments">
+          <button
+            type="button"
+            title="Reply"
+            aria-label="Reply"
+            className="post__comments"
+          >
             <FaRegComment />
             {post?.comments?.length || 0}
           </button>
-          <button type="button" className="post__likes">
+          <button
+            type="button"
+            title="Like"
+            aria-label="Like"
+            className="post__likes"
+          >
             <FaRegHeart />
             {post?.likeCount || 0}
           </button>
