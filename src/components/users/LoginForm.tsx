@@ -1,3 +1,4 @@
+import { FirebaseError } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "firebaseApp";
 import React, { useState } from "react";
@@ -10,13 +11,16 @@ export default function LoginForm() {
   const [isHide, setIsHide] = useState<boolean>(true);
   const nav = useNavigate();
 
-  const onSubmit = async (e: any) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const auth = getAuth(app);
       await signInWithEmailAndPassword(auth, email, password);
       nav("/");
-    } catch (error: any) {}
+    } catch (error) {
+      const firebaseError = error as FirebaseError;
+      console.log(firebaseError.message);
+    }
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
