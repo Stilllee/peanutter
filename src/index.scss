@@ -330,6 +330,17 @@ body {
 
 // Post 레이아웃
 .post {
+  &__no-posts {
+    padding: 16px;
+
+    .post__text {
+      font-size: 14px;
+      border: 1px solid $border;
+      padding: 16px;
+      border-radius: 4px;
+    }
+  }
+
   padding-bottom: 68px;
 
   &__flex {
@@ -370,7 +381,6 @@ body {
     }
 
     &-footer {
-      background: #000;
       font-size: 14px;
       display: grid;
       grid-template-columns: 1fr 2fr;

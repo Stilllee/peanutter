@@ -1,4 +1,6 @@
+import AuthContext from "context/AuthContext";
 import { PostProps } from "pages/home/Home";
+import { useContext } from "react";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -7,6 +9,7 @@ interface PostBoxProps {
 }
 
 export default function PostBox({ post }: PostBoxProps) {
+  const { user } = useContext(AuthContext);
   const handleDelete = () => {};
   return (
     <div className="post__box" key={post?.id}>
@@ -49,14 +52,20 @@ export default function PostBox({ post }: PostBoxProps) {
           </button>
         </div>
         {/* post.uid === user.uid 일 때 */}
-        <div className="post__admin-actions">
-          <button type="button" className="post__edit">
-            <Link to={`/posts/edit/${post?.id}`}>Edit</Link>
-          </button>
-          <button type="button" className="post__delete" onClick={handleDelete}>
-            Delete
-          </button>
-        </div>
+        {user?.uid === post?.uid && (
+          <div className="post__admin-actions">
+            <button type="button" className="post__edit">
+              <Link to={`/posts/edit/${post?.id}`}>Edit</Link>
+            </button>
+            <button
+              type="button"
+              className="post__delete"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
