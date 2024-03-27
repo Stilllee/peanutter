@@ -117,14 +117,30 @@ body {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
+.transparent {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
 // Header 레이아웃
 .header {
+  @extend .transparent;
+  @extend .sticky;
   padding: 0 8px;
+  background-color: transparent;
   &__flex {
+    background-color: transparent;
     display: flex;
     justify-content: space-between;
     align-items: center;
     button {
+      background-color: transparent;
       border: none;
       display: flex;
       justify-content: center;
@@ -137,10 +153,15 @@ body {
       }
 
       .menu-btn {
+        background-color: transparent;
         display: flex;
         align-items: center;
         border-radius: 50%;
         padding: 8px;
+
+        svg {
+          background-color: transparent;
+        }
 
         &:hover,
         &:focus {
@@ -200,15 +221,20 @@ body {
 
 // Home 레이아웃
 .home {
+  &__top {
+    @extend .transparent;
+    @extend .sticky;
+  }
+
   &__tabs {
+    background-color: transparent;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    position: sticky;
-    top: 0;
   }
 
   &__tab {
+    background-color: transparent;
     text-align: center;
     font-weight: 500;
     padding: 16px;

@@ -1,5 +1,6 @@
 import PostForm from "components/posts/PostForm";
 import PostBox from "components/posts/PostBox";
+import Header from "components/Header";
 
 export interface PostProps {
   id: string;
@@ -55,17 +56,28 @@ const posts: PostProps[] = [
     createdAt: "2024-03-23",
     uid: "123456",
   },
+  {
+    id: "6",
+    username: "test6",
+    email: "test@email.com",
+    content: "6번 내용입니다.",
+    createdAt: "2024-03-23",
+    uid: "123456",
+  },
 ];
 
 export default function Home() {
   return (
     <div className="home">
-      <div className="home__tabs">
-        <div className="home__tab home__tab--active">
-          <span>For you</span>
-        </div>
-        <div className="home__tab">
-          <span>Following</span>
+      <div className="home__top">
+        <Header />
+        <div className="home__tabs">
+          <div className="home__tab home__tab--active">
+            <span>For you</span>
+          </div>
+          <div className="home__tab">
+            <span>Following</span>
+          </div>
         </div>
       </div>
       <PostForm />
