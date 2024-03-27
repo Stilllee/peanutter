@@ -24,7 +24,6 @@ export default function PostBox({ post }: PostBoxProps) {
               className="post__box-profile-img"
             />
             <div className="post__username">{post?.username}</div>
-            <div className="post__email">{post?.email}</div>
             <div className="post__createdAt">{post?.createdAt}</div>
           </div>
           <div className="post__box-content">{post?.content}</div>
@@ -51,7 +50,6 @@ export default function PostBox({ post }: PostBoxProps) {
             {post?.likeCount || 0}
           </button>
         </div>
-        {/* post.uid === user.uid 일 때 */}
         {user?.uid === post?.uid && (
           <div className="post__admin-actions">
             <button type="button" className="post__edit">
