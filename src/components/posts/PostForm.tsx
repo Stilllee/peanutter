@@ -1,15 +1,54 @@
+import AuthContext from "context/AuthContext";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "firebaseApp";
+import React, { useContext, useState } from "react";
 import { HiOutlinePhotograph } from "react-icons/hi";
+import { toast } from "react-toastify";
 
 export default function PostForm() {
+  const [content, setContent] = useState<string>("");
+  const { user } = useContext(AuthContext);
   const handleFileUpload = () => {};
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      await addDoc(collection(db, "posts"), {
+        content,
+        createdAt: new Date()?.toLocaleDateString("ko", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
+        username: user?.displayName,
+        uid: user?.uid,
+        email: user?.email,
+      });
+      setContent("");
+      toast("Your post was sent");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const {
+      target: { name, value },
+    } = e;
+
+    if (name === "content") {
+      setContent(value);
+    }
+  };
   return (
-    <form className="post-form">
+    <form className="post-form" onSubmit={onSubmit}>
       <textarea
         className="post-form__text"
         required
         name="content"
         id="content"
         placeholder="What is happening?"
+        value={content}
+        onChange={onChange}
       />
       <div className="post-form__submit-area">
         <label htmlFor="file-input" title="Image" className="post-form__file">
