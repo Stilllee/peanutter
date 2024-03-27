@@ -10,10 +10,9 @@ import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 
 export default function SocialLogin() {
-  const onClickSocailLogin = async (e) => {
-    const {
-      target: { name },
-    } = e;
+  const onClickSocailLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const button = e.target as HTMLButtonElement;
+    const name = button.name;
     let provider;
     const auth = getAuth(app);
 
