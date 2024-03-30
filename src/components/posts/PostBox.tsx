@@ -1,8 +1,11 @@
 import AuthContext from "context/AuthContext";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "firebaseApp";
 import { PostProps } from "pages/home/Home";
 import { useContext } from "react";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface PostBoxProps {
   post: PostProps;
@@ -10,7 +13,17 @@ interface PostBoxProps {
 
 export default function PostBox({ post }: PostBoxProps) {
   const { user } = useContext(AuthContext);
-  const handleDelete = () => {};
+  const nav = useNavigate();
+
+  const handleDelete = async () => {
+    const confirm = window.confirm("Delete post?");
+    if (confirm) {
+      await deleteDoc(doc(db, "posts", post.id));
+      toast("Your post was deleted");
+      nav("/", { replace: true });
+    }
+  };
+
   return (
     <div className="post__box" key={post?.id}>
       <Link to={`/posts/${post?.id}`}>
