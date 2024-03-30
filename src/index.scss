@@ -178,6 +178,17 @@ body {
     height: 30px;
     border-radius: 50%;
   }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    &-center {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+  }
 }
 
 // Menu 레이아웃

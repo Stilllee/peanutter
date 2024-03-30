@@ -1,10 +1,10 @@
 import PostForm from "components/posts/PostForm";
 import PostBox from "components/posts/PostBox";
-import Header from "components/Header";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "context/AuthContext";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "firebaseApp";
+import MobileHeader from "components/MobileHeader";
 
 export interface PostProps {
   id: string;
@@ -41,7 +41,7 @@ export default function Home() {
   return (
     <div className="home">
       <div className="home__top">
-        <Header />
+        <MobileHeader />
         <div className="home__tabs">
           <div className="home__tab home__tab--active">
             <span>For you</span>
