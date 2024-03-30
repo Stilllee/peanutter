@@ -16,7 +16,7 @@ export default function Header() {
           type="button"
           aria-label="Profile"
           title="Profile"
-          onClick={() => nav("/")}
+          onClick={() => nav("/profile")}
         >
           <div className="menu-btn">
             <img
@@ -30,7 +30,7 @@ export default function Header() {
           type="button"
           aria-label="Home"
           title="Home"
-          onClick={() => nav("/search")}
+          onClick={() => nav("/")}
         >
           <div className="menu-btn logo">
             <TbBrandPeanut />
