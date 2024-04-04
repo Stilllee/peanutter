@@ -1,14 +1,24 @@
 import AuthContext from "context/AuthContext";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "firebaseApp";
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { toast } from "react-toastify";
 
 export default function PostForm() {
   const [content, setContent] = useState<string>("");
   const { user } = useContext(AuthContext);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const handleInput = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "52px";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  };
+
   const handleFileUpload = () => {};
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -28,6 +38,10 @@ export default function PostForm() {
       toast("Your post was sent");
     } catch (error) {
       console.log(error);
+    } finally {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "52px";
+      }
     }
   };
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -48,6 +62,8 @@ export default function PostForm() {
         id="content"
         placeholder="What is happening?"
         value={content}
+        ref={textareaRef}
+        onInput={handleInput}
         onChange={onChange}
       />
       <div className="post-form__submit-area">

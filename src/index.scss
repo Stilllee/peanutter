@@ -400,6 +400,8 @@ body {
       display: flex;
       font-weight: 500;
       padding: 16px 0;
+      white-space: pre-line;
+      line-height: 20px;
     }
 
     &-footer {
