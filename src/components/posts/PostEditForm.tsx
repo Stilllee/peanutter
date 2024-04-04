@@ -10,7 +10,29 @@ export default function PostEditForm() {
   const params = useParams();
   const [post, setPost] = useState<PostProps | null>(null);
   const [content, setContent] = useState<string>("");
+  const [hashTag, setHashTag] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([]);
   const nav = useNavigate();
+
+  const removeTag = (tag: string) => {
+    setTags((prev) => prev?.filter((value) => value !== tag));
+  };
+
+  const onChangeHashTag = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHashTag(e.target.value?.trim());
+  };
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (e.key === " " && target.value.trim() !== "") {
+      if (tags?.includes(target.value?.trim())) {
+        toast("You already used this hashtag");
+      } else {
+        setTags((prev) => (prev?.length > 0 ? [...prev, hashTag] : [hashTag]));
+        setHashTag("");
+      }
+    }
+  };
 
   const handleFileUpload = () => {};
 
@@ -20,6 +42,7 @@ export default function PostEditForm() {
       const docSnap = await getDoc(docRef);
       setPost({ ...(docSnap?.data() as PostProps), id: docSnap?.id });
       setContent(docSnap?.data()?.content);
+      setTags(docSnap?.data()?.hashTags);
     }
   }, [params.id]);
 
@@ -31,6 +54,7 @@ export default function PostEditForm() {
         const postRef = doc(db, "posts", post?.id);
         await updateDoc(postRef, {
           content,
+          hashTags: tags,
         });
       }
       nav(`/posts/${post?.id}`);
@@ -58,7 +82,7 @@ export default function PostEditForm() {
   return (
     <form className="post-form" onSubmit={onSubmit}>
       <textarea
-        className="post-form__text"
+        className="post-form__textarea"
         required
         name="content"
         id="content"
@@ -66,6 +90,29 @@ export default function PostEditForm() {
         value={content}
         onChange={onChange}
       />
+      <div className="post-form__hashtags">
+        <span className="post-form__hashtags-outputs">
+          {tags?.map((tag, index) => (
+            <span
+              key={index}
+              className="post-form__hashtags-tag"
+              onClick={() => removeTag(tag)}
+            >
+              #{tag}
+            </span>
+          ))}
+        </span>
+        <input
+          className="post-form__input"
+          type="text"
+          name="hashtag"
+          id="hashtag"
+          placeholder="해시태그 + 스페이스바 입력"
+          onChange={onChangeHashTag}
+          onKeyUp={handleKeyUp}
+          value={hashTag}
+        />
+      </div>
       <div className="post-form__submit-area">
         <label htmlFor="file-input" title="Image" className="post-form__file">
           <HiOutlinePhotograph className="post-form__file-icon" />

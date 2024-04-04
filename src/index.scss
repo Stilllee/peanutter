@@ -282,7 +282,46 @@ body {
 }
 
 .post-form {
-  & textarea {
+  &__input {
+    font-family: $font;
+    padding: 8px;
+    border: none;
+    resize: none;
+    outline: none;
+    width: calc(100% - 32px);
+  }
+
+  &__hashtags {
+    padding-top: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+
+    &-outputs {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    &-tag {
+      font-size: 14px;
+      border: 1px solid $primary;
+      color: $primary;
+      border-radius: 10px;
+      padding: 2px 8px;
+      margin-right: 6px;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        color: $activePrimary;
+        border-color: $activePrimary;
+      }
+    }
+  }
+
+  &__textarea {
     font-family: $font;
     display: block;
     width: calc(100% - 32px);
@@ -369,6 +408,10 @@ body {
     display: flex;
     gap: 4px;
     align-items: center;
+  }
+
+  &__username {
+    margin-right: 4px;
   }
 
   &__email,
