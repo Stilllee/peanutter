@@ -29,11 +29,12 @@ function App() {
     <Layout isAuthenticated={isAuthenticated}>
       <ToastContainer
         position="bottom-center"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar
         pauseOnHover={false}
         limit={1}
         closeButton={false}
+        closeOnClick={true}
         theme="light"
       />
       {init ? <Router isAuthenticated={isAuthenticated} /> : <Loader />}
