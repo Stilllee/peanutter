@@ -1,5 +1,9 @@
 import { FirebaseError } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  updateProfile,
+} from "firebase/auth";
 import { app } from "firebaseApp";
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -17,7 +21,16 @@ export default function SignupForm() {
     e.preventDefault();
     try {
       const auth = getAuth(app);
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      if (userCredential.user) {
+        await updateProfile(userCredential.user, {
+          displayName: username,
+        });
+      }
       nav("/");
     } catch (error) {
       const firebaseError = error as FirebaseError;
