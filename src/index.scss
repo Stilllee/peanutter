@@ -711,3 +711,28 @@ body {
     }
   }
 }
+
+// Search
+.search {
+  &__input {
+    padding: 8px 16px;
+    margin: 3px 0;
+    border: none;
+    outline: none;
+    width: calc(100% - 64px);
+    position: absolute;
+    left: 10%;
+    top: 4px;
+    font-size: 1rem;
+    background-color: $border;
+    border-radius: 20px;
+
+    &::placeholder {
+      font-weight: 700;
+    }
+
+    &:focus {
+      border: 1px solid $primary;
+    }
+  }
+}
