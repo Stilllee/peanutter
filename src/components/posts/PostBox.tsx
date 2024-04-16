@@ -14,6 +14,10 @@ interface PostBoxProps {
 export default function PostBox({ post }: PostBoxProps) {
   const { user } = useContext(AuthContext);
   const nav = useNavigate();
+  const formattedDate = post.createdAt.toDate().toLocaleDateString("ko-KR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   const handleDelete = async () => {
     const confirm = window.confirm("Delete post?");
@@ -37,9 +41,20 @@ export default function PostBox({ post }: PostBoxProps) {
               className="post__box-profile-img"
             />
             <div className="post__username">{post?.username}</div>
-            <div className="post__createdAt">{post?.createdAt}</div>
+            <div className="post__createdAt">{formattedDate}</div>
           </div>
           <div className="post__box-content">{post?.content}</div>
+          {post?.imageUrl && (
+            <div className="post__image-div">
+              <img
+                src={post.imageUrl}
+                alt="post image"
+                className="post__image"
+                width={"100%"}
+                height={"auto"}
+              />
+            </div>
+          )}
           <div className="post-form__hashtags-outputs">
             {post?.hashTags?.map((tag, index) => (
               <span key={index} className="post-form__hashtags-tag">

@@ -5,19 +5,21 @@ import AuthContext from "context/AuthContext";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "firebaseApp";
 import MobileHeader from "components/MobileHeader";
+import firebase from "firebase/compat/app";
 
 export interface PostProps {
   id: string;
   username: string;
   email: string;
   content: string;
-  createdAt: string;
+  createdAt: firebase.firestore.Timestamp;
   uid: string;
   profileUrl?: string;
   likes?: string[];
   likeCount?: number;
   comments?: any;
   hashTags?: string[];
+  imageUrl?: string;
 }
 
 export default function Home() {

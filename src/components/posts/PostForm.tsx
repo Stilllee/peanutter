@@ -1,13 +1,18 @@
 import AuthContext from "context/AuthContext";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "firebaseApp";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { db, storage } from "firebaseApp";
 import React, { useContext, useRef, useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 
 export default function PostForm() {
   const [content, setContent] = useState<string>("");
   const [hashTag, setHashTag] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [imageFile, setImageFile] = useState<string | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const { user } = useContext(AuthContext);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -39,7 +44,31 @@ export default function PostForm() {
     }
   };
 
-  const handleFileUpload = () => {};
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { files },
+    } = e;
+
+    if (files && files.length > 0) {
+      const file = files[0];
+      const fileReader = new FileReader();
+      fileReader?.readAsDataURL(file);
+
+      fileReader.onloadend = (e: ProgressEvent<FileReader>) => {
+        const { result } = e.currentTarget as FileReader;
+        if (typeof result === "string") {
+          setImageFile(result);
+        } else {
+          setImageFile(null);
+          toast("Failed to upload image");
+        }
+      };
+    }
+  };
+
+  const handleDeleteImage = () => {
+    setImageFile(null);
+  };
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {
@@ -52,25 +81,35 @@ export default function PostForm() {
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsSubmitting(true);
+
+    const key = `${user?.uid}/${uuidv4()}`;
+    const storageRef = ref(storage, key);
+
     e.preventDefault();
 
     try {
+      let imageUrl = "";
+      if (imageFile) {
+        const data = await uploadString(storageRef, imageFile, "data_url");
+        imageUrl = await getDownloadURL(data.ref);
+      }
+
       await addDoc(collection(db, "posts"), {
         content,
-        createdAt: new Date()?.toLocaleDateString("ko", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        }),
+        createdAt: Timestamp.now(),
         username: user?.displayName || "Anonymous",
         uid: user?.uid,
         email: user?.email,
         hashTags: tags,
+        imageUrl,
       });
       setTags([]);
       setHashTag("");
       setContent("");
+      setImageFile(null);
       toast("Your post was sent");
+      setIsSubmitting(false);
     } catch (error) {
       console.log(error);
     } finally {
@@ -93,6 +132,23 @@ export default function PostForm() {
         onInput={handleInput}
         onChange={onChange}
       />
+      {imageFile && (
+        <div className="post-form__attachment">
+          <img
+            src={imageFile}
+            alt="attachment"
+            width={"100%"}
+            height={"auto"}
+          />
+          <button
+            className="post-form__clear-btn"
+            type="button"
+            onClick={handleDeleteImage}
+          >
+            <AiOutlineClose />
+          </button>
+        </div>
+      )}
       <div className="post-form__hashtags">
         <span className="post-form__hashtags-outputs">
           {tags?.map((tag, index) => (
@@ -117,19 +173,26 @@ export default function PostForm() {
         />
       </div>
       <div className="post-form__submit-area">
-        <label htmlFor="file-input" title="Image" className="post-form__file">
-          <HiOutlinePhotograph className="post-form__file-icon" />
-        </label>
+        <div className="post-form__image-area">
+          <label htmlFor="file-input" title="Image" className="post-form__file">
+            <HiOutlinePhotograph className="post-form__file-icon" />
+          </label>
+          <input
+            type="file"
+            name="file-input"
+            id="file-input"
+            accept="image/*"
+            aria-label="Image upload"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+        </div>
         <input
-          type="file"
-          name="file-input"
-          id="file-input"
-          accept="image/*"
-          aria-label="Image upload"
-          onChange={handleFileUpload}
-          className="hidden"
+          type="submit"
+          value={"Post"}
+          className="post-form__submit-btn"
+          disabled={isSubmitting}
         />
-        <input type="submit" value={"Post"} className="post-form__submit-btn" />
       </div>
     </form>
   );
