@@ -8,7 +8,13 @@ import {
 } from "firebase/storage";
 import { db, storage } from "firebaseApp";
 import { PostProps } from "pages/home/Home";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,7 +30,15 @@ export default function PostEditForm() {
   const [imageFile, setImageFile] = useState<string | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const { user } = useContext(AuthContext);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const nav = useNavigate();
+
+  const handleInput = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  };
 
   const removeTag = (tag: string) => {
     setTags((prev) => prev?.filter((value) => value !== tag));
@@ -76,6 +90,10 @@ export default function PostEditForm() {
       setContent(docSnap?.data()?.content);
       setTags(docSnap?.data()?.hashTags);
       setImageFile(docSnap?.data()?.imageUrl);
+
+      setTimeout(() => {
+        handleInput();
+      }, 0);
     }
   }, [params.id]);
 
@@ -145,6 +163,8 @@ export default function PostEditForm() {
         id="content"
         placeholder="What is happening?"
         value={content}
+        ref={textareaRef}
+        onInput={handleInput}
         onChange={onChange}
       />
       {imageFile && (
