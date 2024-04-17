@@ -6,6 +6,8 @@ import { RiLoginBoxLine, RiLogoutBoxRLine } from "react-icons/ri";
 import { TbBrandPeanut } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 
+const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
+
 export default function MobileHeader() {
   const { user } = useContext(AuthContext);
   const nav = useNavigate();
@@ -20,7 +22,7 @@ export default function MobileHeader() {
         >
           <div className="menu-btn">
             <img
-              src="/src/assets/profile.webp"
+              src={user?.photoURL || PROFILE_DEFAULT_URL}
               alt="user's profile"
               className="header__profile-img"
             />

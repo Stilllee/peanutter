@@ -4,7 +4,8 @@ import {
   getAuth,
   signInWithPopup,
 } from "firebase/auth";
-import { app } from "firebaseApp";
+import { doc, setDoc } from "firebase/firestore";
+import { app, db } from "firebaseApp";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
@@ -14,7 +15,6 @@ export default function SocialLogin() {
     const button = e.target as HTMLButtonElement;
     const name = button.name;
     let provider;
-    const auth = getAuth(app);
 
     if (name === "google") {
       provider = new GoogleAuthProvider();
@@ -24,18 +24,25 @@ export default function SocialLogin() {
       provider = new GithubAuthProvider();
     }
 
-    await signInWithPopup(
-      auth,
-      provider as GoogleAuthProvider | GithubAuthProvider
-    )
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error);
-        const errorMessage = error?.message;
-        toast(errorMessage);
+    const auth = getAuth(app);
+
+    try {
+      const result = await signInWithPopup(
+        auth,
+        provider as GoogleAuthProvider | GithubAuthProvider
+      );
+      const user = result.user;
+
+      const userRef = doc(db, "users", user.uid);
+      await setDoc(userRef, {
+        uid: user.uid,
+        displayName: user.displayName || "",
+        email: user.email,
+        photoURL: user.photoURL || "",
       });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="social-login">

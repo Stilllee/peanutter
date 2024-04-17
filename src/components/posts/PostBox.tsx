@@ -1,24 +1,45 @@
 import AuthContext from "context/AuthContext";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { db, storage } from "firebaseApp";
 import { PostProps } from "pages/home/Home";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 
 interface PostBoxProps {
   post: PostProps;
 }
 
 export default function PostBox({ post }: PostBoxProps) {
+  const [userInfo, setUserInfo] = useState({
+    displayName: "",
+    photoURL: "",
+  });
   const { user } = useContext(AuthContext);
   const nav = useNavigate();
   const formattedDate = post.createdAt.toDate().toLocaleDateString("ko-KR", {
     hour: "2-digit",
     minute: "2-digit",
   });
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const userRef = doc(db, "users", post.uid);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+        setUserInfo({
+          displayName: userData?.displayName,
+          photoURL: userData?.photoURL,
+        });
+      }
+    };
+    fetchUserInfo();
+  }, [post.uid]);
 
   const handleDelete = async () => {
     const confirm = window.confirm("Delete post?");
@@ -41,13 +62,11 @@ export default function PostBox({ post }: PostBoxProps) {
         <div className="post__box-profile">
           <div className="post__flex">
             <img
-              src={
-                post?.profileUrl ? post?.profileUrl : "/src/assets/profile.webp"
-              }
+              src={userInfo?.photoURL || PROFILE_DEFAULT_URL}
               alt={`${post?.username}'s profile`}
               className="post__box-profile-img"
             />
-            <div className="post__username">{post?.username}</div>
+            <div className="post__username">{userInfo.displayName}</div>
             <div className="post__createdAt">{formattedDate}</div>
           </div>
           <div className="post__box-content">{post?.content}</div>

@@ -4,7 +4,8 @@ import {
   getAuth,
   updateProfile,
 } from "firebase/auth";
-import { app } from "firebaseApp";
+import { doc, setDoc } from "firebase/firestore";
+import { app, db } from "firebaseApp";
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
@@ -29,6 +30,14 @@ export default function SignupForm() {
       if (userCredential.user) {
         await updateProfile(userCredential.user, {
           displayName: username,
+        });
+
+        const userRef = doc(db, "users", userCredential.user.uid);
+        await setDoc(userRef, {
+          uid: userCredential.user.uid,
+          displayName: username,
+          email,
+          photoURL: null,
         });
       }
       nav("/");
