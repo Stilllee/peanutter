@@ -1,6 +1,7 @@
 import AuthContext from "context/AuthContext";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "firebaseApp";
+import { deleteObject, ref } from "firebase/storage";
+import { db, storage } from "firebaseApp";
 import { PostProps } from "pages/home/Home";
 import { useContext } from "react";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
@@ -22,6 +23,12 @@ export default function PostBox({ post }: PostBoxProps) {
   const handleDelete = async () => {
     const confirm = window.confirm("Delete post?");
     if (confirm) {
+      const imageRef = ref(storage, post?.imageUrl);
+
+      if (post?.imageUrl) {
+        deleteObject(imageRef).catch((error) => console.log(error));
+      }
+
       await deleteDoc(doc(db, "posts", post.id));
       toast("Your post was deleted");
       nav("/", { replace: true });
