@@ -36,36 +36,33 @@ export default function ProfileEdit() {
 
     let newImageUrl = user?.photoURL;
 
-    try {
-      if (imageUrl && imageUrl !== user?.photoURL) {
-        const key = `${user?.uid}/${uuidv4()}`;
-        const storageRef = ref(storage, key);
+    if (imageUrl && imageUrl !== user?.photoURL) {
+      const key = `${user?.uid}/${uuidv4()}`;
+      const storageRef = ref(storage, key);
+      const uploadTask = await uploadString(storageRef, imageUrl, "data_url");
+      newImageUrl = await getDownloadURL(uploadTask.ref);
 
-        if (user?.photoURL) {
-          const imageRef = ref(storage, user.photoURL);
-          await deleteObject(imageRef).catch((error) => {
-            console.log(error);
-          });
-        }
-        const data = await uploadString(storageRef, imageUrl, "data_url");
-        newImageUrl = await getDownloadURL(data.ref);
+      if (
+        user?.photoURL &&
+        user.photoURL.startsWith("https://firebasestorage.googleapis.com")
+      ) {
+        const oldImageRef = ref(storage, user.photoURL);
+        await deleteObject(oldImageRef).catch(console.error);
       }
+    }
 
-      if (user) {
-        await updateProfile(user, {
-          displayName,
-          photoURL: newImageUrl,
-        });
+    if (user) {
+      await updateProfile(user, {
+        displayName,
+        photoURL: newImageUrl,
+      });
 
-        const userRef = doc(db, "users", user.uid);
-        await updateDoc(userRef, {
-          displayName,
-          photoURL: newImageUrl,
-        });
-        nav("/profile");
-      }
-    } catch (error) {
-      console.log(error);
+      const userRef = doc(db, "users", user.uid);
+      await updateDoc(userRef, {
+        displayName,
+        photoURL: newImageUrl,
+      });
+      nav("/profile");
     }
   };
 
