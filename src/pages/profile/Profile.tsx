@@ -17,25 +17,39 @@ import { useNavigate } from "react-router-dom";
 const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 
 export default function Profile() {
-  const [posts, setPosts] = useState<PostProps[]>([]);
+  const [activeTab, setActiveTab] = useState<TabType>("my");
+  const [myPosts, setMyPosts] = useState<PostProps[]>([]);
+  const [likePosts, setLikePosts] = useState<PostProps[]>([]);
   const { user } = useContext(AuthContext);
   const nav = useNavigate();
 
   useEffect(() => {
     if (user) {
       const postsRef = collection(db, "posts");
-      const postQuery = query(
+      const myPostQuery = query(
         postsRef,
         where("uid", "==", user.uid),
         orderBy("createdAt", "desc")
       );
+      const likePostQuery = query(
+        postsRef,
+        where("likes", "array-contains", user.uid),
+        orderBy("createdAt", "desc")
+      );
 
-      onSnapshot(postQuery, (snapshot) => {
+      onSnapshot(myPostQuery, (snapshot) => {
         const dataObj = snapshot.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
         }));
-        setPosts(dataObj as PostProps[]);
+        setMyPosts(dataObj as PostProps[]);
+      });
+      onSnapshot(likePostQuery, (snapshot) => {
+        const dataObj = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setLikePosts(dataObj as PostProps[]);
       });
     }
   }, [user]);
@@ -78,23 +92,44 @@ export default function Profile() {
           </div>
         </div>
         <div className="home__tabs">
-          <div className="home__tab home__tab--active">
+          <div
+            className={`home__tab ${activeTab === "my" && "home__tab--active"}`}
+            onClick={() => setActiveTab("my")}
+          >
             <span>My Nuts</span>
           </div>
-          <div className="home__tab">
+          <div
+            className={`home__tab ${
+              activeTab === "like" && "home__tab--active"
+            }`}
+            onClick={() => setActiveTab("like")}
+          >
             <span>Likes</span>
           </div>
         </div>
       </div>
-      <div className="post">
-        {posts?.length > 0 ? (
-          posts?.map((post) => <PostBox post={post} key={post?.id} />)
-        ) : (
-          <div className="post__no-posts">
-            <div className="post__text">No posts yet</div>
-          </div>
-        )}
-      </div>
+      {activeTab === "my" && (
+        <div className="post">
+          {myPosts?.length > 0 ? (
+            myPosts?.map((post) => <PostBox post={post} key={post?.id} />)
+          ) : (
+            <div className="post__no-posts">
+              <div className="post__text">No posts yet</div>
+            </div>
+          )}
+        </div>
+      )}
+      {activeTab === "like" && (
+        <div className="post">
+          {likePosts?.length > 0 ? (
+            likePosts?.map((post) => <PostBox post={post} key={post?.id} />)
+          ) : (
+            <div className="post__no-posts">
+              <div className="post__text">No posts yet</div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

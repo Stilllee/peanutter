@@ -1,10 +1,17 @@
 import AuthContext from "context/AuthContext";
-import { deleteDoc, doc, getDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  deleteDoc,
+  doc,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { db, storage } from "firebaseApp";
 import { PostProps } from "pages/home/Home";
 import { useContext, useEffect, useState } from "react";
-import { FaRegComment, FaRegHeart } from "react-icons/fa";
+import { FaRegComment, FaRegHeart, FaHeart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -40,6 +47,22 @@ export default function PostBox({ post }: PostBoxProps) {
     };
     fetchUserInfo();
   }, [post.uid]);
+
+  const toggleLike = async () => {
+    const postRef = doc(db, "posts", post.id);
+
+    if (user?.uid && post.likes?.includes(user.uid)) {
+      await updateDoc(postRef, {
+        likes: arrayRemove(user?.uid),
+        likeCount: post?.likeCount ? post?.likeCount - 1 : 0,
+      });
+    } else {
+      await updateDoc(postRef, {
+        likes: arrayUnion(user?.uid),
+        likeCount: post?.likeCount ? post?.likeCount + 1 : 1,
+      });
+    }
+  };
 
   const handleDelete = async () => {
     const confirm = window.confirm("Delete post?");
@@ -106,8 +129,13 @@ export default function PostBox({ post }: PostBoxProps) {
             title="Like"
             aria-label="Like"
             className="post__likes"
+            onClick={toggleLike}
           >
-            <FaRegHeart />
+            {user && post?.likes?.includes(user.uid) ? (
+              <FaHeart />
+            ) : (
+              <FaRegHeart />
+            )}
             {post?.likeCount || 0}
           </button>
         </div>
