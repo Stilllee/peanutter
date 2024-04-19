@@ -1,0 +1,72 @@
+// 색상
+$border: #464441;
+$grayText: #71767b;
+$red: #de373d;
+
+.comment {
+  border-bottom: 1px solid $border;
+  padding: 16px;
+  &__borderBox {
+    // padding: 16px;
+  }
+
+  &__imgBox {
+    // margin-bottom: 16px;
+  }
+
+  &__flexBox {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &__displayName {
+    margin-right: 4px;
+  }
+
+  &__createdAt {
+    font-size: 12px;
+    color: $grayText;
+  }
+
+  &__comment {
+    display: flex;
+    font-weight: 500;
+    padding: 16px 0;
+    white-space: pre-line;
+    line-height: 20px;
+  }
+
+  &__submitDiv {
+    // padding: 16px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: row-reverse;
+
+    button {
+      padding: 0.2rem 0.8rem;
+      border-radius: 999px;
+      font-size: 12px;
+      line-height: 1.25rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+      &:hover,
+      &:focus {
+        background-color: $red;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+}

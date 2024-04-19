@@ -6,6 +6,7 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "firebaseApp";
 import MobileHeader from "components/MobileHeader";
 import firebase from "firebase/compat/app";
+import { CommentProps } from "components/comments/CommentBox";
 
 export interface PostProps {
   id: string;
@@ -17,7 +18,7 @@ export interface PostProps {
   profileUrl?: string;
   likes?: string[];
   likeCount?: number;
-  comments?: string;
+  comments?: CommentProps[];
   hashTags?: string[];
   imageUrl?: string;
 }
