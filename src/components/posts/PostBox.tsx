@@ -1,3 +1,4 @@
+import FollowingBox from "components/following/FollowingBox";
 import AuthContext from "context/AuthContext";
 import {
   arrayRemove,
@@ -82,14 +83,17 @@ export default function PostBox({ post }: PostBoxProps) {
   return (
     <div className="post__box" key={post?.id}>
       <div className="post__box-profile">
-        <div className="post__flex">
-          <img
-            src={userInfo?.photoURL || PROFILE_DEFAULT_URL}
-            alt={`${post?.username}'s profile`}
-            className="post__box-profile-img"
-          />
-          <div className="post__username">{userInfo.displayName}</div>
-          <div className="post__createdAt">{formattedDate}</div>
+        <div className="post__flex--between">
+          <div className="post__flex">
+            <img
+              src={userInfo?.photoURL || PROFILE_DEFAULT_URL}
+              alt={`${post?.username}'s profile`}
+              className="post__box-profile-img"
+            />
+            <div className="post__username">{userInfo.displayName}</div>
+            <div className="post__createdAt">{formattedDate}</div>
+          </div>
+          <FollowingBox post={post} />
         </div>
         <Link to={`/posts/${post?.id}`}>
           <div className="post__box-content">{post?.content}</div>

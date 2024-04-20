@@ -445,6 +445,35 @@ body {
     display: flex;
     gap: 4px;
     align-items: center;
+    &--between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__follow-btn {
+    @extend .button;
+    height: 28px;
+    background-color: $white;
+    color: $brown;
+
+    &:hover {
+      opacity: 0.8;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  &__following-btn {
+    @extend .button;
+    border: 1px solid $border;
+    height: 28px;
+
+    &:hover {
+      background-color: $red;
+      border-color: $red;
+      transition: all 0.2s ease-in-out;
+    }
   }
 
   &__username {
