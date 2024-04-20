@@ -539,15 +539,7 @@ body {
         &.post__comments {
           position: relative;
           left: -0.8rem;
-          &:hover,
-          &:focus {
-            color: $primary;
-            transition: all 0.2s ease-in-out;
-            & > svg {
-              fill: $primary;
-              transition: all 0.2s ease-in-out;
-            }
-          }
+          cursor: default;
         }
         &.post__likes {
           &:hover {
