@@ -189,7 +189,7 @@ export default function PostEditForm() {
           {tags?.map((tag, index) => (
             <span
               key={index}
-              className="post-form__hashtags-tag"
+              className="post-form__hashtags-tag tag-remove"
               onClick={() => removeTag(tag)}
             >
               #{tag}

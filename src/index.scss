@@ -304,22 +304,22 @@ body {
       flex-wrap: wrap;
       gap: 8px;
       margin-bottom: 8px;
+
+      .tag-remove {
+        &:hover,
+        &:focus {
+          color: $activePrimary;
+          border-color: $activePrimary;
+        }
+      }
     }
 
     &-tag {
       font-size: 14px;
-      border: 1px solid $primary;
       color: $primary;
       border-radius: 10px;
-      padding: 2px 8px;
       margin-right: 6px;
       cursor: pointer;
-
-      &:hover,
-      &:focus {
-        color: $activePrimary;
-        border-color: $activePrimary;
-      }
     }
   }
 
