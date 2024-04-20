@@ -1,8 +1,15 @@
 import PostForm from "components/posts/PostForm";
 import PostBox from "components/posts/PostBox";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "context/AuthContext";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "firebaseApp";
 import MobileHeader from "components/MobileHeader";
 import firebase from "firebase/compat/app";
@@ -23,9 +30,32 @@ export interface PostProps {
   imageUrl?: string;
 }
 
+export interface UserProps {
+  id: string;
+}
+
+type TabType = "all" | "following";
+
 export default function Home() {
   const [posts, setPosts] = useState<PostProps[]>([]);
+  const [followingPosts, setFollowingPosts] = useState<PostProps[]>([]);
+  const [followingIds, setFollowingIds] = useState<string[]>([""]);
+  const [activeTab, setActiveTab] = useState<TabType>("all");
   const { user } = useContext(AuthContext);
+
+  const getFollowingIds = useCallback(async () => {
+    if (user?.uid) {
+      const ref = doc(db, "following", user.uid);
+      onSnapshot(ref, (doc) => {
+        setFollowingIds([]);
+        doc
+          ?.data()
+          ?.users?.map((user: UserProps) =>
+            setFollowingIds((prev) => (prev ? [...prev, user.id] : []))
+          );
+      });
+    }
+  }, [user?.uid]);
 
   useEffect(() => {
     if (user) {
@@ -39,32 +69,79 @@ export default function Home() {
         }));
         setPosts(dataObj as PostProps[]);
       });
+
+      if (followingIds.length > 0) {
+        const followingQuery = query(
+          postsRef,
+          where("uid", "in", followingIds),
+          orderBy("createdAt", "desc")
+        );
+
+        onSnapshot(followingQuery, (snapshot) => {
+          const dataObj = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+          setFollowingPosts(dataObj as PostProps[]);
+        });
+      } else {
+        setFollowingPosts([]);
+      }
     }
-  }, [user]);
+  }, [followingIds, user]);
+
+  useEffect(() => {
+    if (user?.uid) getFollowingIds();
+  }, [getFollowingIds, user?.uid]);
 
   return (
     <div className="home">
       <div className="home__top">
         <MobileHeader />
         <div className="home__tabs">
-          <div className="home__tab home__tab--active">
+          <div
+            className={`home__tab ${
+              activeTab === "all" && "home__tab--active"
+            }`}
+            onClick={() => setActiveTab("all")}
+          >
             <span>For you</span>
           </div>
-          <div className="home__tab">
+          <div
+            className={`home__tab ${
+              activeTab === "following" && "home__tab--active"
+            }`}
+            onClick={() => setActiveTab("following")}
+          >
             <span>Following</span>
           </div>
         </div>
       </div>
       <PostForm />
-      <div className="post">
-        {posts?.length > 0 ? (
-          posts?.map((post) => <PostBox post={post} key={post?.id} />)
-        ) : (
-          <div className="post__no-posts">
-            <div className="post__text">No posts yet</div>
-          </div>
-        )}
-      </div>
+      {activeTab === "all" && (
+        <div className="post">
+          {posts?.length > 0 ? (
+            posts?.map((post) => <PostBox post={post} key={post?.id} />)
+          ) : (
+            <div className="post__no-posts">
+              <div className="post__text">No posts yet</div>
+            </div>
+          )}
+        </div>
+      )}
+      {activeTab === "following" && (
+        <div className="post">
+          {followingPosts?.length > 0 ? (
+            followingPosts?.map((post) => (
+              <PostBox post={post} key={post?.id} />
+            ))
+          ) : (
+            <div className="post__no-posts">
+              <div className="post__text">No posts yet</div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

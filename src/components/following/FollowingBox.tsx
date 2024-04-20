@@ -8,15 +8,11 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "firebaseApp";
-import { PostProps } from "pages/home/Home";
+import { PostProps, UserProps } from "pages/home/Home";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 
 interface FollowingProps {
   post: PostProps;
-}
-
-interface UserProps {
-  id: string;
 }
 
 export default function FollowingBox({ post }: FollowingProps) {
@@ -93,7 +89,8 @@ export default function FollowingBox({ post }: FollowingProps) {
 
   return (
     <>
-      {user?.uid !== post.uid &&
+      {user &&
+        user?.uid !== post.uid &&
         (postFollowers.includes(user?.uid) ? (
           <button className="post__following-btn" onClick={onClickDeleteFollow}>
             Following

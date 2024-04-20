@@ -468,6 +468,7 @@ body {
     @extend .button;
     border: 1px solid $border;
     height: 28px;
+    line-height: 14px;
 
     &:hover {
       background-color: $red;

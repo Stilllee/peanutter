@@ -14,6 +14,8 @@ import { useContext, useEffect, useState } from "react";
 import { HiArrowLeft } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 
+type TabType = "my" | "like";
+
 const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 
 export default function Profile() {
