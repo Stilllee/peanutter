@@ -1,9 +1,10 @@
-import { useNavigate } from "react-router-dom";
-import { GoHome } from "react-icons/go";
-import { RiSearchLine } from "react-icons/ri";
-import { BiBell } from "react-icons/bi";
+import { useLocation, useNavigate } from "react-router-dom";
+import { GoHome, GoHomeFill } from "react-icons/go";
+import { RiSearchFill, RiSearchLine } from "react-icons/ri";
+import { BiBell, BiSolidBell } from "react-icons/bi";
 
 export default function Menu() {
+  const location = useLocation();
   const nav = useNavigate();
   return (
     <div className="menu footer">
@@ -15,7 +16,7 @@ export default function Menu() {
           onClick={() => nav("/")}
         >
           <div className="menu-btn">
-            <GoHome />
+            {location.pathname === "/" ? <GoHomeFill /> : <GoHome />}
           </div>
         </button>
         <button
@@ -25,7 +26,11 @@ export default function Menu() {
           onClick={() => nav("/search")}
         >
           <div className="menu-btn">
-            <RiSearchLine />
+            {location.pathname === "/search" ? (
+              <RiSearchFill />
+            ) : (
+              <RiSearchLine />
+            )}
           </div>
         </button>
         <button
@@ -35,7 +40,11 @@ export default function Menu() {
           onClick={() => nav("/notifications")}
         >
           <div className="menu-btn">
-            <BiBell />
+            {location.pathname === "/notifications" ? (
+              <BiSolidBell />
+            ) : (
+              <BiBell />
+            )}
           </div>
         </button>
       </div>
