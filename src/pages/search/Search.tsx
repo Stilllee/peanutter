@@ -11,8 +11,9 @@ import {
 import { db } from "firebaseApp";
 import { PostProps } from "pages/home/Home";
 import React, { useContext, useEffect, useState } from "react";
-import { HiArrowLeft } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+
+const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 
 export default function Search() {
   const [posts, setPosts] = useState<PostProps[]>([]);
@@ -50,12 +51,16 @@ export default function Search() {
         leftChild={
           <button
             type="button"
-            aria-label="Back"
-            title="Back"
-            onClick={() => nav("/")}
+            aria-label="Profile"
+            title="Profile"
+            onClick={() => nav("/profile")}
           >
             <div className="menu-btn">
-              <HiArrowLeft />
+              <img
+                src={user?.photoURL || PROFILE_DEFAULT_URL}
+                alt="user's profile"
+                className="header__profile-img"
+              />
             </div>
           </button>
         }

@@ -187,6 +187,7 @@ body {
   &__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    height: 60px;
 
     &-center {
       text-align: center;
@@ -783,13 +784,14 @@ body {
 .search {
   &__input {
     padding: 8px 16px;
-    margin: 3px 0;
     border: none;
     outline: none;
-    width: calc(100% - 64px);
+    width: 100%;
+    width: calc(100% - 160px);
     position: absolute;
-    left: 10%;
-    top: 4px;
+    right: 50%;
+    top: 50%;
+    transform: translate(50%, -50%);
     font-size: 1rem;
     background-color: $border;
     border-radius: 20px;
