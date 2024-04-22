@@ -38,7 +38,7 @@ export default function PostDetail() {
             type="button"
             aria-label="Back"
             title="Back"
-            onClick={() => nav("/")}
+            onClick={() => nav(-1)}
           >
             <div className="menu-btn">
               <HiArrowLeft />
