@@ -62,7 +62,7 @@ export default function ProfileEdit() {
         displayName,
         photoURL: newImageUrl,
       });
-      nav("/profile");
+      nav("/profile", { replace: true });
     }
   };
 
