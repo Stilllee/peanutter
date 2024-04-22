@@ -1,7 +1,10 @@
 import AuthContext from "context/AuthContext";
 import {
+  Timestamp,
+  addDoc,
   arrayRemove,
   arrayUnion,
+  collection,
   doc,
   onSnapshot,
   setDoc,
@@ -41,6 +44,14 @@ export default function FollowingBox({ post }: FollowingProps) {
           },
           { merge: true }
         );
+
+        await addDoc(collection(db, "notifications"), {
+          createdAt: Timestamp.now(),
+          uid: post.uid,
+          isRead: false,
+          url: "#",
+          content: `${user.displayName} started following you.`,
+        });
       }
     } catch (error) {
       console.log(error);
