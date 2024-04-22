@@ -109,7 +109,7 @@ export default function PostBox({ post }: PostBoxProps) {
             </div>
           )}
           <div className="post-form__hashtags-outputs">
-            {post?.hashTags?.map((tag, index) => (
+            {post?.hashTags?.sort().map((tag, index) => (
               <span key={index} className="post-form__hashtags-tag">
                 #{tag}
               </span>
