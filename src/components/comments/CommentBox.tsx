@@ -6,6 +6,7 @@ import { PostProps } from "pages/home/Home";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 import styles from "./CommentBox.module.scss";
+import useTranslation from "hooks/useTranslation";
 
 export interface CommentProps {
   comment: string;
@@ -24,6 +25,7 @@ const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 
 export default function CommentBox({ data, post }: CommentBoxProps) {
   const { user } = useContext(AuthContext);
+  const translate = useTranslation();
 
   const formattedDate = data.createdAt.toDate().toLocaleDateString("ko-KR", {
     hour: "2-digit",
@@ -37,7 +39,7 @@ export default function CommentBox({ data, post }: CommentBoxProps) {
         await updateDoc(postRef, {
           comments: arrayRemove(data),
         });
-        toast("Your reply was deleted");
+        toast(translate("TOAST_DELETE_REPLY"));
       } catch (error) {
         console.error;
       }
@@ -70,7 +72,7 @@ export default function CommentBox({ data, post }: CommentBoxProps) {
             className={styles.comment__deleteBtn}
             onClick={handleDeleteComment}
           >
-            Delete
+            {translate("BUTTON_DELETE")}
           </button>
         )}
       </div>

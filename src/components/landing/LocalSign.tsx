@@ -1,7 +1,10 @@
+import useTranslation from "hooks/useTranslation";
 import { useNavigate } from "react-router-dom";
 
 export default function LocalSign() {
   const nav = useNavigate();
+  const translate = useTranslation();
+
   return (
     <div className="local-sign">
       <button
@@ -9,11 +12,11 @@ export default function LocalSign() {
         type="button"
         onClick={() => nav("/users/signup")}
       >
-        Create an account
+        {translate("FORM_SIGNUP")}
       </button>
-      <p>Already have an account?</p>
+      <p>{translate("ALREADY_HAVE_ACCOUNT")}</p>
       <button type="button" onClick={() => nav("/users/login")}>
-        Sign in
+        {translate("FORM_SIGNIN")}
       </button>
     </div>
   );

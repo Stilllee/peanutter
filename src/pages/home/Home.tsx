@@ -14,6 +14,7 @@ import { db } from "firebaseApp";
 import MobileHeader from "components/MobileHeader";
 import firebase from "firebase/compat/app";
 import { CommentProps } from "components/comments/CommentBox";
+import useTranslation from "hooks/useTranslation";
 
 export interface PostProps {
   id: string;
@@ -42,6 +43,7 @@ export default function Home() {
   const [followingIds, setFollowingIds] = useState<string[]>([""]);
   const [activeTab, setActiveTab] = useState<TabType>("all");
   const { user } = useContext(AuthContext);
+  const translate = useTranslation();
 
   const getFollowingIds = useCallback(async () => {
     if (user?.uid) {
@@ -105,7 +107,7 @@ export default function Home() {
             }`}
             onClick={() => setActiveTab("all")}
           >
-            <span>For you</span>
+            <span>{translate("TAB_ALL")}</span>
           </div>
           <div
             className={`home__tab ${
@@ -113,7 +115,7 @@ export default function Home() {
             }`}
             onClick={() => setActiveTab("following")}
           >
-            <span>Following</span>
+            <span>{translate("TAB_FOLLOWING")}</span>
           </div>
         </div>
       </div>
@@ -124,7 +126,7 @@ export default function Home() {
             posts?.map((post) => <PostBox post={post} key={post?.id} />)
           ) : (
             <div className="post__no-posts">
-              <div className="post__text">No posts yet</div>
+              <div className="post__text">{translate("NO_POSTS")}</div>
             </div>
           )}
         </div>
@@ -137,7 +139,7 @@ export default function Home() {
             ))
           ) : (
             <div className="post__no-posts">
-              <div className="post__text">No posts yet</div>
+              <div className="post__text">{translate("NO_POSTS")}</div>
             </div>
           )}
         </div>

@@ -11,6 +11,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import { PostProps, UserProps } from "pages/home/Home";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 
@@ -19,8 +20,9 @@ interface FollowingProps {
 }
 
 export default function FollowingBox({ post }: FollowingProps) {
-  const { user } = useContext(AuthContext);
   const [postFollowers, setPostFollowers] = useState<string[]>([]);
+  const { user } = useContext(AuthContext);
+  const translate = useTranslation();
 
   const onClickFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -104,11 +106,11 @@ export default function FollowingBox({ post }: FollowingProps) {
         user?.uid !== post.uid &&
         (postFollowers.includes(user?.uid) ? (
           <button className="post__following-btn" onClick={onClickDeleteFollow}>
-            Following
+            {translate("BUTTON_FOLLOWING")}
           </button>
         ) : (
           <button className="post__follow-btn" onClick={onClickFollow}>
-            Follow
+            {translate("BUTTON_FOLLOW")}
           </button>
         ))}
     </>

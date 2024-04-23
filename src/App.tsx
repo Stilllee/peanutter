@@ -1,3 +1,4 @@
+import { RecoilRoot } from "recoil";
 import Layout from "components/Layout";
 import Loader from "components/Loader";
 import Router from "components/Router";
@@ -26,19 +27,21 @@ function App() {
   }, [auth]);
 
   return (
-    <Layout isAuthenticated={isAuthenticated}>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={3000}
-        hideProgressBar
-        pauseOnHover={false}
-        limit={1}
-        closeButton={false}
-        closeOnClick={true}
-        theme="light"
-      />
-      {init ? <Router isAuthenticated={isAuthenticated} /> : <Loader />}
-    </Layout>
+    <RecoilRoot>
+      <Layout isAuthenticated={isAuthenticated}>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={3000}
+          hideProgressBar
+          pauseOnHover={false}
+          limit={1}
+          closeButton={false}
+          closeOnClick={true}
+          theme="light"
+        />
+        {init ? <Router isAuthenticated={isAuthenticated} /> : <Loader />}
+      </Layout>
+    </RecoilRoot>
   );
 }
 

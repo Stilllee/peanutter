@@ -1,6 +1,7 @@
 import { FirebaseError } from "firebase/app";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { app } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -8,6 +9,7 @@ import { toast } from "react-toastify";
 export default function ResetPasswordForm() {
   const [email, setEmail] = useState<string>("");
   const nav = useNavigate();
+  const translate = useTranslation();
 
   const onResetPw = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,7 +17,7 @@ export default function ResetPasswordForm() {
       const auth = getAuth(app);
       await sendPasswordResetEmail(auth, email);
       nav("/");
-      toast("Email sent. Please check your inbox.");
+      toast(translate("TOAST_FIND_PASSWORD"));
     } catch (error) {
       const firebaseError = error as FirebaseError;
       console.log(firebaseError.message);

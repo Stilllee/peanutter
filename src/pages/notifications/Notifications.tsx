@@ -12,6 +12,7 @@ import { db } from "firebaseApp";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NotificationBox from "./NotificationBox";
+import useTranslation from "hooks/useTranslation";
 
 const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 
@@ -28,6 +29,7 @@ export default function Notifications() {
   const [notifications, setNotifications] = useState<NotificationsProps[]>([]);
   const { user } = useContext(AuthContext);
   const nav = useNavigate();
+  const translate = useTranslation();
 
   useEffect(() => {
     if (user) {
@@ -55,8 +57,8 @@ export default function Notifications() {
         leftChild={
           <button
             type="button"
-            aria-label="Profile"
-            title="Profile"
+            aria-label={translate("HEADER_PROFILE")}
+            title={translate("HEADER_PROFILE")}
             onClick={() => nav("/profile")}
           >
             <div className="menu-btn">
@@ -68,7 +70,7 @@ export default function Notifications() {
             </div>
           </button>
         }
-        centerChild={"Notifications"}
+        centerChild={translate("MENU_NOTIFICATION")}
       />
       <div className="post">
         {notifications.length > 0 ? (
@@ -77,7 +79,7 @@ export default function Notifications() {
           ))
         ) : (
           <div className="post__no-posts">
-            <div className="post__text">No notifications yet</div>
+            <div className="post__text">{translate("NO_NOTIFICATIONS")}</div>
           </div>
         )}
       </div>

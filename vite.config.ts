@@ -10,6 +10,9 @@ export default defineConfig({
       components: "/src/components",
       firebaseApp: "/src/firebaseApp",
       context: "/src/context",
+      atom: "/src/atom",
+      constants: "/src/constants",
+      hooks: "/src/hooks",
     },
   },
 });

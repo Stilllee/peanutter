@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { db, storage } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import { PostProps } from "pages/home/Home";
 import { useContext, useEffect, useState } from "react";
 import { FaRegComment, FaRegHeart, FaHeart } from "react-icons/fa";
@@ -33,6 +34,7 @@ export default function PostBox({ post }: PostBoxProps) {
     hour: "2-digit",
     minute: "2-digit",
   });
+  const translate = useTranslation();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -66,7 +68,7 @@ export default function PostBox({ post }: PostBoxProps) {
   };
 
   const handleDelete = async () => {
-    const confirm = window.confirm("Delete post?");
+    const confirm = window.confirm(translate("TOAST_DELETE_POST_ALERT"));
     if (confirm) {
       const imageRef = ref(storage, post?.imageUrl);
 
@@ -75,7 +77,7 @@ export default function PostBox({ post }: PostBoxProps) {
       }
 
       await deleteDoc(doc(db, "posts", post.id));
-      toast("Your post was deleted");
+      toast(translate("TOAST_DELETE_POST"));
       nav("/", { replace: true });
     }
   };
@@ -130,8 +132,8 @@ export default function PostBox({ post }: PostBoxProps) {
           </button>
           <button
             type="button"
-            title="Like"
-            aria-label="Like"
+            title={translate("TAB_LIKE")}
+            aria-label={translate("TAB_LIKE")}
             className="post__likes"
             onClick={toggleLike}
           >
@@ -146,14 +148,16 @@ export default function PostBox({ post }: PostBoxProps) {
         {user?.uid === post?.uid && (
           <div className="post__admin-actions">
             <button type="button" className="post__edit">
-              <Link to={`/posts/edit/${post?.id}`}>Edit</Link>
+              <Link to={`/posts/edit/${post?.id}`}>
+                {translate("BUTTON_EDIT")}
+              </Link>
             </button>
             <button
               type="button"
               className="post__delete"
               onClick={handleDelete}
             >
-              Delete
+              {translate("BUTTON_DELETE")}
             </button>
           </div>
         )}

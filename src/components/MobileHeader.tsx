@@ -1,6 +1,7 @@
 import AuthContext from "context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import { useContext } from "react";
 import { RiLoginBoxLine, RiLogoutBoxRLine } from "react-icons/ri";
 import { TbBrandPeanut } from "react-icons/tb";
@@ -11,13 +12,15 @@ const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 export default function MobileHeader() {
   const { user } = useContext(AuthContext);
   const nav = useNavigate();
+  const translate = useTranslation();
+
   return (
     <header className="header">
       <div className="header__flex">
         <button
           type="button"
-          aria-label="Profile"
-          title="Profile"
+          aria-label={translate("HEADER_PROFILE")}
+          title={translate("HEADER_PROFILE")}
           onClick={() => nav("/profile")}
         >
           <div className="menu-btn">
@@ -30,8 +33,8 @@ export default function MobileHeader() {
         </button>
         <button
           type="button"
-          aria-label="Home"
-          title="Home"
+          aria-label={translate("HEADER_LOGO")}
+          title={translate("HEADER_PEANUTTER")}
           onClick={() => nav("/")}
         >
           <div className="menu-btn logo">
@@ -40,8 +43,16 @@ export default function MobileHeader() {
         </button>
         <button
           type="button"
-          aria-label={user === null ? "Login" : "Logout"}
-          title={user === null ? "Login" : "Logout"}
+          aria-label={
+            user === null
+              ? translate("HEADER_LOGIN")
+              : translate("HEADER_LOGOUT")
+          }
+          title={
+            user === null
+              ? translate("HEADER_LOGIN")
+              : translate("HEADER_LOGOUT")
+          }
           onClick={
             user === null
               ? () => nav("/login")

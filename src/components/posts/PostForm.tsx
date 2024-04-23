@@ -2,6 +2,7 @@ import AuthContext from "context/AuthContext";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { db, storage } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import React, { useContext, useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { HiOutlinePhotograph } from "react-icons/hi";
@@ -16,6 +17,7 @@ export default function PostForm() {
   const [tags, setTags] = useState<string[]>([]);
   const { user } = useContext(AuthContext);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const translate = useTranslation();
 
   const handleInput = () => {
     if (textareaRef.current) {
@@ -36,7 +38,7 @@ export default function PostForm() {
     const target = e.target as HTMLInputElement;
     if (e.key === " " && target?.value.trim() !== "") {
       if (tags?.includes(target?.value.trim())) {
-        toast("You already used this hashtag");
+        toast(translate("TOAST_ALREADY_HASHTAG"));
       } else {
         setTags((prev) => (prev?.length > 0 ? [...prev, hashTag] : [hashTag]));
         setHashTag("");
@@ -60,7 +62,7 @@ export default function PostForm() {
           setImageFile(result);
         } else {
           setImageFile(null);
-          toast("Failed to upload image");
+          toast(translate("TOAST_FAILED_UPLOAD_IMAGE"));
         }
       };
     }
@@ -108,7 +110,7 @@ export default function PostForm() {
       setHashTag("");
       setContent("");
       setImageFile(null);
-      toast("Your post was sent");
+      toast(translate("TOAST_POST"));
       setIsSubmitting(false);
     } catch (error) {
       console.log(error);
@@ -126,7 +128,7 @@ export default function PostForm() {
         required
         name="content"
         id="content"
-        placeholder="What is happening?"
+        placeholder={translate("POST_PLACEHOLDER")}
         value={content}
         ref={textareaRef}
         onInput={handleInput}
@@ -166,7 +168,7 @@ export default function PostForm() {
           type="text"
           name="hashtag"
           id="hashtag"
-          placeholder="해시태그 + 스페이스바 입력"
+          placeholder={translate("POST_HASHTAG")}
           onChange={onChangeHashTag}
           onKeyUp={handleKeyUp}
           value={hashTag}
@@ -174,7 +176,11 @@ export default function PostForm() {
       </div>
       <div className="post-form__submit-area">
         <div className="post-form__image-area">
-          <label htmlFor="file-input" title="Image" className="post-form__file">
+          <label
+            htmlFor="file-input"
+            title={translate("POST_IMAGE")}
+            className="post-form__file"
+          >
             <HiOutlinePhotograph className="post-form__file-icon" />
           </label>
           <input
@@ -189,7 +195,7 @@ export default function PostForm() {
         </div>
         <input
           type="submit"
-          value={"Post"}
+          value={translate("BUTTON_POST")}
           className="post-form__submit-btn"
           disabled={isSubmitting}
         />

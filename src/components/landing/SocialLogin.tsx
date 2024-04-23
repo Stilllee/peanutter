@@ -6,11 +6,13 @@ import {
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { app, db } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { toast } from "react-toastify";
 
 export default function SocialLogin() {
+  const translate = useTranslation();
+
   const onClickSocailLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const button = e.target as HTMLButtonElement;
     const name = button.name;
@@ -48,11 +50,11 @@ export default function SocialLogin() {
     <div className="social-login">
       <button type="button" name="google" onClick={onClickSocailLogin}>
         <FcGoogle />
-        Sign up with Google
+        {translate("SIGNUP_WITH_GOOGLE")}
       </button>
       <button type="button" name="github" onClick={onClickSocailLogin}>
         <FaGithub />
-        Sign up with Github
+        {translate("SIGNUP_WITH_GITHUB")}
       </button>
     </div>
   );

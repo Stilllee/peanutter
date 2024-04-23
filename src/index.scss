@@ -111,11 +111,12 @@ body {
 }
 
 .button {
+  font-family: $font;
   padding: 0.2rem 0.8rem;
   border-radius: 999px;
   font-size: 12px;
   line-height: 1.25rem;
-  font-weight: 600;
+  font-weight: 700;
   border: none;
   cursor: pointer;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -193,6 +194,23 @@ body {
       text-align: center;
       font-size: 1rem;
       font-weight: 700;
+    }
+
+    &-right {
+      justify-self: end;
+      margin-right: 8px;
+
+      .lang-btn {
+        font-family: $font;
+        font-size: 16px;
+        padding: 0.5rem 0.75rem;
+        border-radius: 999px;
+
+        &:hover {
+          background-color: $border;
+          transition: all 0.2s ease-in-out;
+        }
+      }
     }
   }
 }
@@ -651,8 +669,16 @@ body {
         align-items: center;
         gap: 4px;
         margin: 8px 0;
+
+        span {
+          display: block;
+          font-size: 14px;
+          width: 30px;
+          text-align: center;
+        }
+
         &__line {
-          width: 138.5px;
+          width: 130.5px;
           height: 1px;
           background-color: $border;
         }

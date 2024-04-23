@@ -1,6 +1,7 @@
 import { FirebaseError } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,6 +11,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState<string>("");
   const [isHide, setIsHide] = useState<boolean>(true);
   const nav = useNavigate();
+  const translate = useTranslation();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,7 +55,7 @@ export default function LoginForm() {
 
   return (
     <form className="form" onSubmit={onSubmit}>
-      <h1 className="form__title">Sign in to PeaNutter</h1>
+      <h1 className="form__title">{translate("SIGNIN")}</h1>
       <div className="form__block">
         <input
           type="text"
@@ -66,7 +68,7 @@ export default function LoginForm() {
           onBlur={handleBlur}
         />
         <label htmlFor="email" className="placeholder">
-          Email Adress
+          {translate("FORM_EMAIL")}
         </label>
       </div>
       <div className="form__block">
@@ -81,24 +83,24 @@ export default function LoginForm() {
           onBlur={handleBlur}
         />
         <label htmlFor="password" className="placeholder">
-          Password
+          {translate("FORM_PASSWORD")}
         </label>
         <button type="button" className="toggle-hide" onClick={toggleHide}>
           {isHide ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
         </button>
       </div>
       <Link to="/users/reset-password" className="form__link">
-        Forgot password?
+        {translate("FORGOT_PASSWORD")}
       </Link>
       <div className="form__block">
         <button type="submit" className="form__btn-submit">
-          Sign in
+          {translate("FORM_SIGNIN")}
         </button>
       </div>
       <div className="form__block form__info">
-        Don't have an account?
+        {translate("DONT_HAVE_ACCOUNT_LINK")}
         <Link to="/users/signup" className="form__link">
-          Sign up
+          {translate("FORM_SIGNUP")}
         </Link>
       </div>
     </form>

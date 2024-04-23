@@ -26,7 +26,10 @@
       "pages/*": ["pages/*"],
       "components/*": ["components/*"],
       "firebaseApp/*": ["firebaseApp/*"],
-      "context/*": ["context/*"]
+      "context/*": ["context/*"],
+      "atom/*": ["atom/*"],
+      "constants/*": ["constants/*"],
+      "hooks/*": ["hooks/*"]
     }
   },
   "include": ["src"],

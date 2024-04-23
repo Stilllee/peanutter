@@ -8,6 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import { PostProps } from "pages/home/Home";
 import React, { useContext, useRef, useState } from "react";
 import { toast } from "react-toastify";
@@ -20,6 +21,7 @@ export default function CommentForm({ post }: CommentFormProps) {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [comment, setComment] = useState<string>("");
   const { user } = useContext(AuthContext);
+  const translate = useTranslation();
 
   const truncate = (str: string) => {
     return str.length > 10 ? str.substring(0, 10) + "..." : str;
@@ -73,7 +75,7 @@ export default function CommentForm({ post }: CommentFormProps) {
           });
         }
 
-        toast("Your reply was sent");
+        toast(translate("TOAST_SEND_REPLY"));
         setComment("");
       } catch (error) {
         console.log(error);
@@ -88,7 +90,7 @@ export default function CommentForm({ post }: CommentFormProps) {
         required
         name="comment"
         id="comment"
-        placeholder="Post your reply"
+        placeholder={translate("REPLY_PLACEHOLDER")}
         value={comment}
         ref={textareaRef}
         onInput={handleInput}
@@ -98,7 +100,7 @@ export default function CommentForm({ post }: CommentFormProps) {
         <div />
         <input
           type="submit"
-          value={"Reply"}
+          value={translate("BUTTON_REPLY")}
           className="post-form__submit-btn"
           disabled={!comment}
         />

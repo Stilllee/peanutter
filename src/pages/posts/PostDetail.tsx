@@ -9,10 +9,13 @@ import Header from "components/Header";
 import { HiArrowLeft } from "react-icons/hi";
 import CommentForm from "components/comments/CommentForm";
 import CommentBox, { CommentProps } from "components/comments/CommentBox";
+import useTranslation from "hooks/useTranslation";
 
 export default function PostDetail() {
   const params = useParams();
   const nav = useNavigate();
+  const translate = useTranslation();
+
   const [post, setPost] = useState<PostProps | null>(null);
 
   const getPost = useCallback(async () => {
@@ -36,8 +39,8 @@ export default function PostDetail() {
         leftChild={
           <button
             type="button"
-            aria-label="Back"
-            title="Back"
+            aria-label={translate("HEADER_BACK")}
+            title={translate("HEADER_BACK")}
             onClick={() => nav(-1)}
           >
             <div className="menu-btn">
@@ -45,7 +48,7 @@ export default function PostDetail() {
             </div>
           </button>
         }
-        centerChild={"Post"}
+        centerChild={translate("POST")}
       />
       {post ? (
         <>

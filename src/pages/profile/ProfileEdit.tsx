@@ -9,6 +9,7 @@ import {
   uploadString,
 } from "firebase/storage";
 import { db, storage } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import React, { useContext, useEffect, useState } from "react";
 import { HiArrowLeft } from "react-icons/hi";
 import { MdOutlineAddAPhoto } from "react-icons/md";
@@ -22,6 +23,7 @@ export default function ProfileEdit() {
   const [imageUrl, setImageUrl] = useState<string>("");
   const { user } = useContext(AuthContext);
   const nav = useNavigate();
+  const translate = useTranslation();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -100,8 +102,8 @@ export default function ProfileEdit() {
         leftChild={
           <button
             type="button"
-            aria-label="Back"
-            title="Back"
+            aria-label={translate("HEADER_BACK")}
+            title={translate("HEADER_BACK")}
             onClick={() => nav(-1)}
           >
             <div className="menu-btn">
@@ -109,7 +111,7 @@ export default function ProfileEdit() {
             </div>
           </button>
         }
-        centerChild={"Edit profile"}
+        centerChild={translate("BUTTON_EDIT_PROFILE")}
       />
       <form className="form profile-form" onSubmit={onSubmit}>
         <div className="post-form__submit-area">
@@ -145,11 +147,11 @@ export default function ProfileEdit() {
             onChange={onChange}
           />
           <label htmlFor="username" className="placeholder label--focused">
-            Username
+            {translate("FORM_USERNAME")}
           </label>
         </div>
         <button type="submit" className="form__btn-submit">
-          Save
+          {translate("BUTTON_SAVE")}
         </button>
       </form>
     </div>

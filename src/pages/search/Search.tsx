@@ -9,6 +9,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import { PostProps } from "pages/home/Home";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +21,7 @@ export default function Search() {
   const [tagQuery, setTagQuery] = useState<string>("");
   const { user } = useContext(AuthContext);
   const nav = useNavigate();
+  const translate = useTranslation();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTagQuery(e.target.value.trim());
@@ -51,8 +53,8 @@ export default function Search() {
         leftChild={
           <button
             type="button"
-            aria-label="Profile"
-            title="Profile"
+            aria-label={translate("HEADER_PROFILE")}
+            title={translate("HEADER_PROFILE")}
             onClick={() => nav("/profile")}
           >
             <div className="menu-btn">
@@ -67,7 +69,7 @@ export default function Search() {
         centerChild={
           <input
             type="text"
-            placeholder="Search by tag"
+            placeholder={translate("SEARCH_PLACEHOLDER")}
             onChange={onChange}
             className="search__input"
           />
@@ -78,7 +80,7 @@ export default function Search() {
           posts.map((post) => <PostBox post={post} key={post?.id} />)
         ) : (
           <div className="post__no-posts">
-            <div className="post__text">No posts yet</div>
+            <div className="post__text">{translate("NO_POSTS")}</div>
           </div>
         )}
       </div>

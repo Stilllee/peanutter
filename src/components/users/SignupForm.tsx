@@ -6,6 +6,7 @@ import {
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { app, db } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,6 +18,7 @@ export default function SignupForm() {
   const [password, setPassword] = useState<string>("");
   const [isHide, setIsHide] = useState<boolean>(true);
   const nav = useNavigate();
+  const translate = useTranslation();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -93,7 +95,7 @@ export default function SignupForm() {
 
   return (
     <form className="form" onSubmit={onSubmit}>
-      <h1 className="form__title">Create your accont</h1>
+      <h1 className="form__title">{translate("SIGNUP")}</h1>
       <div className="form__block">
         <input
           type="text"
@@ -107,7 +109,7 @@ export default function SignupForm() {
           onBlur={handleBlur}
         />
         <label htmlFor="username" className="placeholder">
-          Username
+          {translate("FORM_USERNAME")}
         </label>
       </div>
       <div className="form__block">
@@ -122,7 +124,7 @@ export default function SignupForm() {
           onBlur={handleBlur}
         />
         <label htmlFor="email" className="placeholder">
-          Email Adress
+          {translate("FORM_EMAIL")}
         </label>
       </div>
       <div className="form__block">
@@ -137,7 +139,7 @@ export default function SignupForm() {
           onBlur={handleBlur}
         />
         <label htmlFor="password" className="placeholder">
-          Password
+          {translate("FORM_PASSWORD")}
         </label>
         <button type="button" className="toggle-hide" onClick={toggleHide}>
           {isHide ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
@@ -154,13 +156,13 @@ export default function SignupForm() {
           className="form__btn-submit"
           disabled={error?.length > 0}
         >
-          Create an account
+          {translate("FORM_SIGNUP")}
         </button>
       </div>
       <div className="form__block form__info">
-        Already have an account?
+        {translate("ALREADY_HAVE_ACCOUNT_LINK")}
         <Link to="/users/login" className="form__link">
-          Sign in
+          {translate("FORM_SIGNIN")}
         </Link>
       </div>
     </form>
