@@ -30,7 +30,7 @@ export default function PostBox({ post }: PostBoxProps) {
   });
   const { user } = useContext(AuthContext);
   const nav = useNavigate();
-  const formattedDate = post.createdAt.toDate().toLocaleDateString("ko-KR", {
+  const formattedDate = post?.createdAt?.toDate()?.toLocaleDateString("ko-KR", {
     hour: "2-digit",
     minute: "2-digit",
   });
@@ -38,6 +38,8 @@ export default function PostBox({ post }: PostBoxProps) {
 
   useEffect(() => {
     const fetchUserInfo = async () => {
+      if (!post || !post.uid) return;
+
       const userRef = doc(db, "users", post.uid);
       const userSnap = await getDoc(userRef);
       if (userSnap.exists()) {
@@ -49,7 +51,7 @@ export default function PostBox({ post }: PostBoxProps) {
       }
     };
     fetchUserInfo();
-  }, [post.uid]);
+  }, [post]);
 
   const toggleLike = async () => {
     const postRef = doc(db, "posts", post.id);
