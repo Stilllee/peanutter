@@ -52,7 +52,10 @@ export default function FollowingBox({ post }: FollowingProps) {
           uid: post.uid,
           isRead: false,
           url: "#",
-          content: `${user.displayName} started following you.`,
+          content: {
+            en: `${user.displayName} started following you.`,
+            ko: `${user.displayName}님이 팔로우를 시작했습니다.`,
+          },
         });
       }
     } catch (error) {

@@ -21,7 +21,10 @@ export interface NotificationsProps {
   uid: string;
   url: string;
   isRead: boolean;
-  content: string;
+  content: {
+    en: string;
+    ko: string;
+  };
   createdAt: firebase.firestore.Timestamp;
 }
 

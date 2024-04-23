@@ -10,6 +10,7 @@ export default function NotificationBox({
   notification: NotificationsProps;
 }) {
   const nav = useNavigate();
+  const lang = localStorage.getItem("language");
 
   const onClickNotification = async (url: string) => {
     const ref = doc(db, "notifications", notification.id);
@@ -37,7 +38,7 @@ export default function NotificationBox({
           )}
         </div>
         <div className={styles.notification__content}>
-          {notification.content}
+          {lang === "en" ? notification.content.en : notification.content.ko}
         </div>
       </div>
     </div>
