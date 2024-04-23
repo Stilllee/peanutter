@@ -46,7 +46,7 @@ export default function ResetPasswordForm() {
 
   return (
     <form className="form" onSubmit={onResetPw}>
-      <h1 className="form__title">Find your account</h1>
+      <h1 className="form__title">{translate("FIND_PASSWORD")}</h1>
       <div className="form__block">
         <input
           type="text"
@@ -59,12 +59,12 @@ export default function ResetPasswordForm() {
           onBlur={handleBlur}
         />
         <label htmlFor="email" className="placeholder">
-          Email Adress
+          {translate("FORM_EMAIL")}
         </label>
       </div>
       <div className="form__block">
         <button type="submit" className="form__btn-submit">
-          Send Email
+          {translate("SEND_EMAIL")}
         </button>
       </div>
     </form>

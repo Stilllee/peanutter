@@ -205,6 +205,15 @@ const TRANSLATIONS = {
     en: "Already have an account?",
   },
 
+  // 비밀번호 찾기
+  FIND_PASSWORD: {
+    ko: "비밀번호 찾기",
+    en: "Find your password",
+  },
+  SEND_EMAIL: {
+    ko: "이메일 전송",
+    en: "Send email",
+  },
   // 토스트 메시지
   TOAST_DELETE_POST_ALERT: {
     ko: "게시물을 삭제하시겠습니까?",
@@ -241,6 +250,16 @@ const TRANSLATIONS = {
   TOAST_FIND_PASSWORD: {
     ko: "비밀번호 재설정 링크를 이메일로 보냈습니다",
     en: "Email sent. Please check your inbox.",
+  },
+
+  // 에러 메시지
+  ERROR_INVALID_EMAIL: {
+    ko: "유효한 이메일을 입력해주세요.",
+    en: "Please enter a valid email.",
+  },
+  ERROR_INVALID_PASSWORD: {
+    ko: "비밀번호는 8자 이상이어야 합니다. 더 긴 이름을 입력하세요.",
+    en: "Your password needs to be at least 8 characters. Please enter a longer one.",
   },
 };
 
