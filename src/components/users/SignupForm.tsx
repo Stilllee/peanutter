@@ -60,7 +60,7 @@ export default function SignupForm() {
       setEmail(value);
       const validRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
       if (!value?.match(validRegex)) {
-        setError("Please enter a valid email.");
+        setError(translate("ERROR_INVALID_EMAIL"));
       } else {
         setError("");
       }
@@ -69,9 +69,7 @@ export default function SignupForm() {
     if (name === "password") {
       setPassword(value);
       if (value?.length < 8) {
-        setError(
-          "Your password needs to be at least 8 characters. Please enter a longer one."
-        );
+        setError(translate("ERROR_INVALID_PASSWORD"));
       } else {
         setError("");
       }

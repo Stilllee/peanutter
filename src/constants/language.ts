@@ -258,7 +258,7 @@ const TRANSLATIONS = {
     en: "Please enter a valid email.",
   },
   ERROR_INVALID_PASSWORD: {
-    ko: "비밀번호는 8자 이상이어야 합니다. 더 긴 이름을 입력하세요.",
+    ko: "비밀번호는 8자 이상이어야 합니다.",
     en: "Your password needs to be at least 8 characters. Please enter a longer one.",
   },
 };
