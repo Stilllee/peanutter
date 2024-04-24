@@ -1,6 +1,6 @@
 interface NewHeaderProps {
   leftChild?: React.ReactNode;
-  centerChild: React.ReactNode;
+  centerChild?: React.ReactNode;
   rightChild?: React.ReactNode;
 }
 

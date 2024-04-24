@@ -799,6 +799,32 @@ body {
   }
 }
 
+// Signup, SignIn
+.form__btn-back {
+  margin: 8px;
+  button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+    padding: 10px;
+
+    &:hover {
+      background-color: $border;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .menu-btn {
+      background-color: transparent;
+      svg {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
 // Form 레이아웃
 .form {
   width: 100% !important;
