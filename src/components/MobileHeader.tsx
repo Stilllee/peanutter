@@ -15,7 +15,7 @@ export default function MobileHeader() {
   const translate = useTranslation();
 
   return (
-    <header className="header">
+    <header className="header mobile">
       <div className="header__flex">
         <button
           type="button"

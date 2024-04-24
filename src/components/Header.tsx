@@ -12,7 +12,7 @@ export default function Header({
   return (
     <header className="header">
       <div className="header__flex header__grid">
-        <div>{leftChild}</div>
+        <div className="header__grid-left">{leftChild}</div>
         <div className="header__grid-center">{centerChild}</div>
         <div className="header__grid-right">{rightChild}</div>
       </div>

@@ -95,40 +95,35 @@ export default function Profile() {
             </button>
           }
         />
-        <div className="profile">
-          <div className="profile__box">
-            <img
-              src={user?.photoURL || PROFILE_DEFAULT_URL}
-              alt={`${user?.displayName}'s profile`}
-              className="profile__image"
-            />
-            <button
-              className="profile__btn"
-              onClick={() => nav("/profile/edit")}
-            >
-              {translate("BUTTON_EDIT_PROFILE")}
-            </button>
-          </div>
-          <div className="profile__text">
-            <div className="profile__name">{user?.displayName}</div>
-            <div className="profile__email">{user?.email}</div>
-          </div>
+      </div>
+      <div className="profile">
+        <div className="profile__box">
+          <img
+            src={user?.photoURL || PROFILE_DEFAULT_URL}
+            alt={`${user?.displayName}'s profile`}
+            className="profile__image"
+          />
+          <button className="profile__btn" onClick={() => nav("/profile/edit")}>
+            {translate("BUTTON_EDIT_PROFILE")}
+          </button>
         </div>
-        <div className="home__tabs">
-          <div
-            className={`home__tab ${activeTab === "my" && "home__tab--active"}`}
-            onClick={() => setActiveTab("my")}
-          >
-            <span>{translate("TAB_MY")}</span>
-          </div>
-          <div
-            className={`home__tab ${
-              activeTab === "like" && "home__tab--active"
-            }`}
-            onClick={() => setActiveTab("like")}
-          >
-            <span>{translate("TAB_LIKE")}</span>
-          </div>
+        <div className="profile__text">
+          <div className="profile__name">{user?.displayName}</div>
+          <div className="profile__email">{user?.email}</div>
+        </div>
+      </div>
+      <div className="home__tabs">
+        <div
+          className={`home__tab ${activeTab === "my" && "home__tab--active"}`}
+          onClick={() => setActiveTab("my")}
+        >
+          <span>{translate("TAB_MY")}</span>
+        </div>
+        <div
+          className={`home__tab ${activeTab === "like" && "home__tab--active"}`}
+          onClick={() => setActiveTab("like")}
+        >
+          <span>{translate("TAB_LIKE")}</span>
         </div>
       </div>
       {activeTab === "my" && (

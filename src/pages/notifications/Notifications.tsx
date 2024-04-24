@@ -55,7 +55,7 @@ export default function Notifications() {
   }, [user]);
 
   return (
-    <>
+    <div className="notifications">
       <Header
         leftChild={
           <button
@@ -86,6 +86,6 @@ export default function Notifications() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }

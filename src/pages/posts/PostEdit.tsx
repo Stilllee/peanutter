@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function PostEdit() {
   const nav = useNavigate();
   return (
-    <>
+    <div>
       <Header
         leftChild={
           <button
@@ -23,6 +23,6 @@ export default function PostEdit() {
         centerChild={"Edit"}
       />
       <PostEditForm />
-    </>
+    </div>
   );
 }

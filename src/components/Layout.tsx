@@ -8,8 +8,8 @@ interface LayoutProps {
 export default function Layout({ children, isAuthenticated }: LayoutProps) {
   return (
     <div className="layout">
-      {children}
       {isAuthenticated && <Menu />}
+      {children}
     </div>
   );
 }

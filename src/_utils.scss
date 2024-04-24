@@ -1,0 +1,46 @@
+// 색상
+$brown: #292826;
+$white: #e7e9ea;
+$border: #464441;
+$primary: #f9d142;
+$activePrimary: rgb(219, 178, 31);
+$grayText: #71767b;
+$red: #de373d;
+
+// 폰트
+$font: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+// 뷰 포인트
+/* $mobile: 500px;
+$tablet: 690px;
+$desktopM: 1005px;
+$desktopL: 1281px; */
+$mobile: 360px;
+$tablet: 501px;
+$desktop: 1024px;
+
+// 미디어 쿼리
+@mixin xsMobile {
+  @media (max-width: ($mobile - 1)) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (min-width: $mobile) and (max-width: ($tablet - 1)) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $tablet) and (max-width: ($desktop - 1)) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
