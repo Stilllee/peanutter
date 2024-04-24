@@ -109,23 +109,31 @@ export default function PostEditForm() {
 
     try {
       if (post) {
-        if (post?.imageUrl) {
-          const imageRef = ref(storage, post?.imageUrl);
-          await deleteObject(imageRef).catch((error) => console.log(error));
-        }
+        if (imageFile !== post.imageUrl) {
+          if (post?.imageUrl) {
+            const imageRef = ref(storage, post?.imageUrl);
+            await deleteObject(imageRef).catch((error) => console.log(error));
+          }
 
-        let imageUrl = "";
-        if (imageFile) {
-          const data = await uploadString(storageRef, imageFile, "data_url");
-          imageUrl = await getDownloadURL(data.ref);
-        }
+          let imageUrl = "";
+          if (imageFile) {
+            const data = await uploadString(storageRef, imageFile, "data_url");
+            imageUrl = await getDownloadURL(data.ref);
+          }
 
-        const postRef = doc(db, "posts", post?.id);
-        await updateDoc(postRef, {
-          content,
-          hashTags: tags,
-          imageUrl,
-        });
+          const postRef = doc(db, "posts", post?.id);
+          await updateDoc(postRef, {
+            content,
+            hashTags: tags,
+            imageUrl,
+          });
+        } else {
+          const postRef = doc(db, "posts", post?.id);
+          await updateDoc(postRef, {
+            content,
+            hashTags: tags,
+          });
+        }
       }
       nav(`/posts/${post?.id}`);
       toast(translate("TOAST_EDIT_POST"));
