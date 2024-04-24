@@ -135,7 +135,7 @@ export default function PostEditForm() {
           });
         }
       }
-      nav(`/posts/${post?.id}`);
+      nav(`/posts/${post?.id}`, { replace: true });
       toast(translate("TOAST_EDIT_POST"));
       setImageFile(null);
       setIsSubmitting(false);
