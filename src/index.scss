@@ -12,10 +12,10 @@
 
 // Loding Spinner 스타일
 .clip-loader {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 // Toast 스타일
