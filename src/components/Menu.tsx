@@ -1,12 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import { GoHome, GoHomeFill } from "react-icons/go";
-import {
-  RiLoginBoxLine,
-  RiLogoutBoxRLine,
-  RiSearchFill,
-  RiSearchLine,
-} from "react-icons/ri";
+import { RiLogoutBoxRLine, RiSearchFill, RiSearchLine } from "react-icons/ri";
 import { BiBell, BiSolidBell } from "react-icons/bi";
 import useTranslation from "hooks/useTranslation";
 import { TbBrandPeanut } from "react-icons/tb";
@@ -100,31 +95,17 @@ export default function Menu() {
         <button
           className="menu__grid-tablet log-btn"
           type="button"
-          aria-label={
-            user === null
-              ? translate("HEADER_LOGIN")
-              : translate("HEADER_LOGOUT")
-          }
-          title={
-            user === null
-              ? translate("HEADER_LOGIN")
-              : translate("HEADER_LOGOUT")
-          }
-          onClick={
-            user === null
-              ? () => nav("/login")
-              : async () => {
-                  const auth = getAuth(app);
-                  await signOut(auth);
-                }
-          }
+          aria-label={translate("HEADER_LOGOUT")}
+          title={translate("HEADER_LOGOUT")}
+          onClick={async () => {
+            const auth = getAuth(app);
+            await signOut(auth);
+          }}
         >
           <div className="menu-btn">
-            {user === null ? <RiLoginBoxLine /> : <RiLogoutBoxRLine />}
+            <RiLogoutBoxRLine />
             <span className="menu__grid-text">
-              {user === null
-                ? translate("HEADER_LOGIN")
-                : translate("HEADER_LOGOUT")}
+              {translate("HEADER_LOGOUT")}
             </span>
           </div>
         </button>

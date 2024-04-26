@@ -3,7 +3,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { app } from "firebaseApp";
 import useTranslation from "hooks/useTranslation";
 import { useContext } from "react";
-import { RiLoginBoxLine, RiLogoutBoxRLine } from "react-icons/ri";
+import { RiLogoutBoxRLine } from "react-icons/ri";
 import { TbBrandPeanut } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 
@@ -43,27 +43,15 @@ export default function MobileHeader() {
         </button>
         <button
           type="button"
-          aria-label={
-            user === null
-              ? translate("HEADER_LOGIN")
-              : translate("HEADER_LOGOUT")
-          }
-          title={
-            user === null
-              ? translate("HEADER_LOGIN")
-              : translate("HEADER_LOGOUT")
-          }
-          onClick={
-            user === null
-              ? () => nav("/login")
-              : async () => {
-                  const auth = getAuth(app);
-                  await signOut(auth);
-                }
-          }
+          aria-label={translate("HEADER_LOGOUT")}
+          title={translate("HEADER_LOGOUT")}
+          onClick={async () => {
+            const auth = getAuth(app);
+            await signOut(auth);
+          }}
         >
           <div className="menu-btn">
-            {user === null ? <RiLoginBoxLine /> : <RiLogoutBoxRLine />}
+            <RiLogoutBoxRLine />
           </div>
         </button>
       </div>

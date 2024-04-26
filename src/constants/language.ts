@@ -26,10 +26,6 @@ const TRANSLATIONS = {
     ko: "피너터",
     en: "Peanutter",
   },
-  HEADER_LOGIN: {
-    ko: "로그인",
-    en: "Login",
-  },
   HEADER_LOGOUT: {
     ko: "로그아웃",
     en: "Logout",
