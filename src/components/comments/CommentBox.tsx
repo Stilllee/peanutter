@@ -52,9 +52,7 @@ export default function CommentBox({ data, post }: CommentBoxProps) {
         <div className={styles.comment__imgBox}>
           <div className={styles.comment__flexBox}>
             <img
-              src={
-                data.photoURL.length > 0 ? data.photoURL : PROFILE_DEFAULT_URL
-              }
+              src={data.photoURL ? data.photoURL : PROFILE_DEFAULT_URL}
               alt="profile"
             />
             <div className={styles.comment__displayName}>
