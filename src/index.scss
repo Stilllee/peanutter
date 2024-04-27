@@ -1,6 +1,22 @@
 @import "../node_modules/pretendard/dist/web/static/pretendard.css";
 @import "utils.scss";
 
+// 스크롤 바 스타일
+::-webkit-scrollbar {
+  width: 10px; // 스크롤바 너비
+  height: 10px; // 수평 스크롤바 높이
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $primary;
+  border-radius: 10px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $activePrimary;
+  }
+}
+
 // Label Placeholder Focus 스타일
 @mixin placeholderFocusStyle {
   color: $primary;
