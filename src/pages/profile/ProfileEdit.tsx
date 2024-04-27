@@ -1,4 +1,5 @@
 import Header from "components/Header";
+import PROFILE_DEFAULT_URL from "constants/defaultProfileImage";
 import AuthContext from "context/AuthContext";
 import { updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
@@ -15,8 +16,6 @@ import { HiArrowLeft } from "react-icons/hi";
 import { MdOutlineAddAPhoto } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-
-const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 
 export default function ProfileEdit() {
   const [displayName, setDisplayName] = useState<string>("");

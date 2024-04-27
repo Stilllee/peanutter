@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { toast } from "react-toastify";
 import styles from "./CommentBox.module.scss";
 import useTranslation from "hooks/useTranslation";
+import PROFILE_DEFAULT_URL from "constants/defaultProfileImage";
 
 export interface CommentProps {
   comment: string;
@@ -20,8 +21,6 @@ interface CommentBoxProps {
   data: CommentProps;
   post: PostProps;
 }
-
-const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 
 export default function CommentBox({ data, post }: CommentBoxProps) {
   const { user } = useContext(AuthContext);

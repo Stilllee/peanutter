@@ -16,10 +16,9 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { languageState } from "atom";
 import useTranslation from "hooks/useTranslation";
+import PROFILE_DEFAULT_URL from "constants/defaultProfileImage";
 
 type TabType = "my" | "like";
-
-const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState<TabType>("my");

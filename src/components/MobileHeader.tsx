@@ -1,3 +1,4 @@
+import PROFILE_DEFAULT_URL from "constants/defaultProfileImage";
 import AuthContext from "context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "firebaseApp";
@@ -6,8 +7,6 @@ import { useContext } from "react";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { TbBrandPeanut } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
-
-const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 
 export default function MobileHeader() {
   const { user } = useContext(AuthContext);

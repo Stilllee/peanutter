@@ -13,8 +13,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NotificationBox from "./NotificationBox";
 import useTranslation from "hooks/useTranslation";
-
-const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
+import PROFILE_DEFAULT_URL from "constants/defaultProfileImage";
 
 export interface NotificationsProps {
   id: string;

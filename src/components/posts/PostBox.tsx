@@ -1,4 +1,5 @@
 import FollowingBox from "components/following/FollowingBox";
+import PROFILE_DEFAULT_URL from "constants/defaultProfileImage";
 import AuthContext from "context/AuthContext";
 import {
   arrayRemove,
@@ -16,8 +17,6 @@ import { useContext, useEffect, useState } from "react";
 import { FaRegComment, FaRegHeart, FaHeart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
-const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 
 interface PostBoxProps {
   post: PostProps;

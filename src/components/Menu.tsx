@@ -8,8 +8,7 @@ import { TbBrandPeanut } from "react-icons/tb";
 import { useContext } from "react";
 import AuthContext from "context/AuthContext";
 import { app } from "firebaseApp";
-
-const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
+import PROFILE_DEFAULT_URL from "constants/defaultProfileImage";
 
 export default function Menu() {
   const { user } = useContext(AuthContext);

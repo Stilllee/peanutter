@@ -1,5 +1,6 @@
 import Header from "components/Header";
 import PostBox from "components/posts/PostBox";
+import PROFILE_DEFAULT_URL from "constants/defaultProfileImage";
 import AuthContext from "context/AuthContext";
 import {
   collection,
@@ -13,8 +14,6 @@ import useTranslation from "hooks/useTranslation";
 import { PostProps } from "pages/home/Home";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const PROFILE_DEFAULT_URL = "/src/assets/profile.webp";
 
 export default function Search() {
   const [posts, setPosts] = useState<PostProps[]>([]);
