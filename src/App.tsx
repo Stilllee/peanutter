@@ -7,6 +7,7 @@ import { app } from "firebaseApp";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const auth = getAuth(app);
@@ -14,6 +15,8 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
     !!auth?.currentUser
   );
+
+  const location = useLocation();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -25,6 +28,10 @@ function App() {
       setInit(true);
     });
   }, [auth]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <RecoilRoot>
