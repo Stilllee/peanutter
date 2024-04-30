@@ -90,7 +90,7 @@ const TRANSLATIONS = {
   },
   POST_PLACEHOLDER: {
     ko: "무슨 일이 일어나고 있나요?",
-    en: "What Is happening?",
+    en: "What is happening?",
   },
   POST_HASHTAG: {
     ko: "해시태그 + 스페이스바 입력",
