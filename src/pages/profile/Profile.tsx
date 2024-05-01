@@ -14,7 +14,7 @@ import { useContext, useEffect, useState } from "react";
 import { HiArrowLeft } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { languageState } from "atom";
+import { languageState } from "atom/index";
 import useTranslation from "hooks/useTranslation";
 import PROFILE_DEFAULT_URL from "constants/defaultProfileImage";
 
