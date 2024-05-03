@@ -26,6 +26,8 @@
 
 이 프로젝트는 과거에 개발한 소셜미디어 'PeaNutter'를 마이그레이션하고, 좋아요, 팔로우, 해시태그 및 검색, 다국어 처리 등의 새로운 기능을 추가한 프로젝트 입니다.
 
+마이그레이션 과정과 트러블 슈팅에 대한 내용은 [여기](https://woodstock.hashnode.dev/series/peanutter)에서 확인하실 수 있습니다.
+
 ### 프로젝트 개요
 
 - 주제 : PeaNutter의 마이그레이션 및 기능 확장
@@ -119,8 +121,6 @@ useEffect(() => {
 </details>
 
 #### 1-3 사용자 인터페이스
-
-![좋아요](https://i.imgur.com/XOFkUWO.gif)
 
 ![마음에 들어요](https://i.imgur.com/MZzsyUD.gif)
 
@@ -498,7 +498,7 @@ return (
 
 ### 4. 알림
 
-알림 페이지에서는 자신의 게시물에 대한 댓글, 팔로우 알림을 확인할 수 있습니다.
+알림 페이지에서는 자신의 게시물에 대한 답글, 팔로우 알림을 확인할 수 있습니다.
 
 #### 4-1 알림 시스템 구현
 
@@ -540,7 +540,7 @@ useEffect(() => {
 
 #### 4-2 알림 상호작용
 
-사용자가 알림을 클릭하면 알림은 '읽음'상태로 표시되며, 댓글 알림의 경우 해당 게시물로 이동합니다.
+사용자가 알림을 클릭하면 알림은 '읽음'상태로 표시되며, 답글 알림의 경우 해당 게시물로 이동합니다.
 
 <details>
 
@@ -740,9 +740,119 @@ export default function Profile() {
 
 ## 페이지별 상세 기능
 
+### 랜딩 페이지
+
+Firebase Auth로 사용자 인증을 구현하였습니다.
+
+| 소셜 로그인                                     | 회원가입                                     |
+| ----------------------------------------------- | -------------------------------------------- |
+| ![소셜 로그인](https://i.imgur.com/K5G8yGc.gif) | ![회원가입](https://i.imgur.com/SMMbjrv.gif) |
+
+| 로그인                                     | 비밀번호 찾기                                     |
+| ------------------------------------------ | ------------------------------------------------- |
+| ![로그인](https://i.imgur.com/vZ6T9He.gif) | ![비밀번호 찾기](https://i.imgur.com/R2owQI4.gif) |
+
+<br>
+
+### 홈 페이지
+
+게시글 목록 조회와 게시글 작성 기능을 제공하는 메인 페이지 입니다.
+
+![홈 - 게시글 작성](https://i.imgur.com/7k5um91.gif)
+
+- 전체 목록을 기본으로 보여주며, 상단의 탭을 통해 팔로우 중인 계정의 게시물만 별도로 조회할 수 있습니다.
+
+- 각 게시물을 통해 [좋아요](#1-좋아요)와 [팔로우](#2-팔로우) 기능을 사용할 수 있고, 게시물 클릭시 상세 페이지로 이동합니다.
+
+<br>
+
+### 게시글 상세 페이지
+
+게시글의 내용과 답글 기능을 제공하는 페이지입니다. 작성자에 한해 수정 또는 삭제 기능을 사용할 수 있습니다.
+
+| 수정                                            | 답글                                     | 삭제                                     |
+| ----------------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| ![게시글 수정](https://i.imgur.com/EaPPBT4.gif) | ![답글](https://i.imgur.com/2Ltvi6J.gif) | ![삭제](https://i.imgur.com/47RjJeG.gif) |
+
+<br>
+
+### 검색 페이지
+
+해시태그로 관련 게시물을 검색할 수 있는 페이지입니다.
+
+![검색](https://i.imgur.com/2FNTRcj.gif)
+
+<br>
+
+### 알림 페이지
+
+팔로우, 답글 등 사용자의 알림 목록을 조회할 수 있는 페이지입니다.
+
+![알림](https://i.imgur.com/H7hYL28.png)
+
+<br>
+
+### 프로필 페이지
+
+사용자와 관련된 정보를 조회하고 수정할 수 있는 페이지입니다.
+
+![프로필](https://i.imgur.com/p1f5YVc.gif)
+
+- 프로필 수정 버튼을 통해 사용자의 프로필 이미지와 닉네임을 수정할 수 있습니다.
+- 우측 상단의 [언어 변경](#5-다국어-처리) 버튼을 통해 언어를 변경할 수 있습니다.
+- 두 개의 탭을 통해 사용자가 작성한 게시물과 [좋아요](#1-좋아요)를 누른 게시물을 조회할 수 있습니다.
+
+<br>
+
 <br>
 
 ## 반응형 웹 디자인
+
+Sass를 사용하여 반응형 웹 디자인을 구현하였으며 미디어 쿼리로 모바일, 태블릿, 데스크탑 화면에 따라 레이아웃이 변경되도록 하였습니다.
+
+![로그인 전](https://i.imgur.com/OAFash6.gif)
+
+![로그인 후](https://i.imgur.com/ldxGKiJ.gif)
+
+<details>
+
+<summary>미디어 쿼리</summary>
+
+```scss
+// utils.scss
+
+// 뷰 포인트
+$mobile: 360px;
+$tablet: 501px;
+$desktop: 1024px;
+
+// 미디어 쿼리
+@mixin xsMobile {
+  @media (max-width: ($mobile - 1)) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (min-width: $mobile) and (max-width: ($tablet - 1)) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $tablet) and (max-width: ($desktop - 1)) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+```
+
+</details>
 
 <br>
 
@@ -787,7 +897,7 @@ npm run dev
 │   │   ├── Menu.tsx          # 메뉴 컴포넌트
 │   │   ├── MobileHeader.tsx  # 모바일 헤더 컴포넌트
 │   │   ├── Router.tsx        # 라우터 컴포넌트
-│   │   ├── comments          # 댓글 관련 컴포넌트
+│   │   ├── comments          # 답글 관련 컴포넌트
 │   │   │   ├── CommentBox.module.scss
 │   │   │   ├── CommentBox.tsx
 │   │   │   └── CommentForm.tsx
