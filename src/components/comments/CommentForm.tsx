@@ -73,7 +73,7 @@ export default function CommentForm({ post }: CommentFormProps) {
               en: `A comment was written on the post "${truncate(
                 post.content
               )}"`,
-              ko: `게시물 "${truncate(post.content)}"에 댓글이 작성되었습니다`,
+              ko: `게시물 "${truncate(post.content)}"에 답글이 작성되었습니다`,
             },
           });
         }
